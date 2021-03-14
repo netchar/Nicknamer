@@ -26,10 +26,12 @@ class NicknameModel(
 
             val continuations = endingContinuations[ending] ?: break
 
-            val nextContinuation = continuations.find { it.probability > random.nextDouble() }
-
-            if (nextContinuation != null) {
-                word += nextContinuation.char
+            val chance: Double = random.nextDouble()
+            for (continuation in continuations) {
+                if (chance < continuation.probability) {
+                    word += continuation.char
+                    break
+                }
             }
         }
         return Nickname(word.replace("$", ""))
