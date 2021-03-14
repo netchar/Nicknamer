@@ -4,25 +4,158 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.MainFragment">
+    android:padding="16dp"
+    tools:context=".presentation.main.MainFragment">
 
     <TextView
         android:id="@+id/main_tv_nickname"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/hello_first_fragment"
-        app:layout_constraintBottom_toTopOf="@id/main_btn_copy_to_clipboard"
+        android:gravity="center"
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/main_flow_gender"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/main_btn_copy_to_clipboard"
+    <RadioGroup
+        android:id="@+id/main_radio_grp_gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Copy to Clipboard"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteY="251dp">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/main_radio_btn_male"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:minWidth="100dp"
+            android:text="Male" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/main_radio_btn_female"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minWidth="100dp"
+            android:text="Female" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/main_tv_gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gender"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="333dp" />
+
+    <TextView
+        android:id="@+id/main_tv_alphabet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Alphabet"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+        tools:layout_editor_absoluteX="339dp"
+        tools:layout_editor_absoluteY="270dp" />
+
+    <RadioGroup
+        android:id="@+id/main_radio_grp_alphabet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="140dp"
+        tools:layout_editor_absoluteY="232dp">
+
+        <RadioButton
+            android:id="@+id/main_radio_btn_latin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:minWidth="100dp"
+            android:text="Latin" />
+
+        <RadioButton
+            android:id="@+id/main_radio_btn_cyrillic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minWidth="100dp"
+            android:text="Cyrillic" />
+    </RadioGroup>
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/main_slide_length"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:stepSize="1.0"
+        android:value="5.0"
+        android:valueFrom="3.0"
+        android:valueTo="15.0"
+        app:layout_constraintTop_toBottomOf="@+id/main_tv_min_length_title" />
+
+    <Button
+        android:id="@+id/main_btn_generate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Generate"
+        app:icon="@drawable/ic_random"
+        app:iconSize="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/main_tv_min_length_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Minumum Length"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="479dp" />
+
+    <androidx.constraintlayout.helper.widget.Flow
+        android:id="@+id/main_flow_gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical"
+        app:constraint_referenced_ids="main_tv_gender,main_radio_grp_gender"
+        app:flow_horizontalAlign="start"
+        app:layout_constraintBottom_toTopOf="@+id/main_flow_alphabet"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.helper.widget.Flow
+        android:id="@+id/main_flow_alphabet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical"
+        app:constraint_referenced_ids="main_tv_alphabet,main_radio_grp_alphabet"
+        app:flow_horizontalAlign="start"
+        app:layout_constraintBottom_toTopOf="@+id/main_flow_length"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.helper.widget.Flow
+        android:id="@+id/main_flow_length"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:orientation="vertical"
+        app:constraint_referenced_ids="main_tv_min_length_title,main_slide_length"
+        app:flow_horizontalAlign="start"
+        app:layout_constraintBottom_toTopOf="@+id/main_btn_generate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Long tap to copy to clipboard"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/main_tv_nickname" />
+        app:layout_constraintTop_toBottomOf="@+id/main_tv_nickname" />
 </androidx.constraintlayout.widget.ConstraintLayout>

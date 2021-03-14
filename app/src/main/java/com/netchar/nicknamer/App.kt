@@ -12,14 +12,14 @@ class App : Application() {
 
     private val provider = DependenciesProvider()
 
-    lateinit var nicknameGenerator: NicknameGeneratorService
+    lateinit var nicknameService: NicknameGeneratorService
 
     override fun onCreate() {
         super.onCreate()
         instance = this
         val source = provider.provideDataSource(this)
         val generator = provider.provideNicknameGeneratorService(source)
-        nicknameGenerator = generator
+        nicknameService = generator
     }
 }
 
