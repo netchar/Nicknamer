@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.netchar.nicknamer.App
 import com.netchar.nicknamer.R
-import com.netchar.nicknamer.domen.Config
+import com.netchar.nicknamer.domen.models.Config
 
 
 /**
@@ -36,8 +36,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
         view.setOnClickListener {
             lifecycleScope.launchWhenResumed {
-                val generatedNickname = generator.generate(Config((2..10).random(), Config.Gender.INDIFFERENT))
-                nickname.text = generatedNickname
+                val generatedNickname = generator.generateNickname(Config((5..10).random(), Config.Gender.MALE, Config.Alphabet.LATIN))
+                nickname.text = generatedNickname.value
             }
         }
     }

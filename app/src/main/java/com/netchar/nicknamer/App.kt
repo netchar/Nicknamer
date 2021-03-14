@@ -1,21 +1,25 @@
 package com.netchar.nicknamer
 
 import android.app.Application
-import com.netchar.nicknamer.domen.NicknameGenerator
+import com.netchar.nicknamer.domen.service.NicknameGeneratorService
 import com.netchar.nicknamer.presentation.di.DependenciesProvider
 
 class App : Application() {
     companion object {
-
+        lateinit var instance: App
+            private set
     }
 
-    val nicknameGenerator: NicknameGenerator by lazy {
-        val provider = DependenciesProvider()
-        provider.provideNicknameGenerator()
-    }
+    private val provider = DependenciesProvider()
+
+    lateinit var nicknameGenerator: NicknameGeneratorService
 
     override fun onCreate() {
         super.onCreate()
+        instance = this
+        val source = provider.provideDataSource(this)
+        val generator = provider.provideNicknameGeneratorService(source)
+        nicknameGenerator = generator
     }
 }
 
