@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.google.android.material.snackbar.Snackbar
 import com.netchar.nicknamer.R
 import com.netchar.nicknamer.databinding.FragmentMainBinding
 import com.netchar.nicknamer.presentation.copyToClipboard
@@ -51,7 +52,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private fun copyToClipboard() {
         val context = requireContext()
         context.copyToClipboard(binding.mainTvNickname.text)
-        Toast.makeText(context, "Copied to clipboard", Toast.LENGTH_LONG).show()
+        Snackbar.make(requireView(), "Copied to clipboard", Snackbar.LENGTH_SHORT).show()
     }
 }
 
