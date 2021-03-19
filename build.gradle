@@ -1,5 +1,4 @@
 buildscript {
-    ext.kotlin_version = "1.4.30"
     ext {
         appVersionName = '0.9.0'
 
@@ -8,13 +7,14 @@ buildscript {
             return (major.toInteger() * 10000) + (minor.toInteger() * 100) + patch.toInteger()
         }
     }
+
     repositories {
         google()
         jcenter()
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.1.2"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.31"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }

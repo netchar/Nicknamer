@@ -8,7 +8,6 @@ import com.netchar.nicknamer.databinding.RowContactBinding
 import com.netchar.nicknamer.presentation.infrastructure.helpers.BindableViewHolder
 
 class ContactsAdapter() : ListAdapter<Contact, ContactsAdapter.ContactViewHolder>(ContactDiff()) {
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
         val binding = RowContactBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ContactViewHolder(binding)

@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.netchar.nicknamer.R
-import com.netchar.nicknamer.domen.models.Config
 import com.netchar.nicknamer.domen.models.Nickname
 import com.netchar.nicknamer.domen.service.NicknameGeneratorService
+import com.netchar.nicknamer.domen.service.NicknameGeneratorService.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 

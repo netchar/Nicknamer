@@ -53,7 +53,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private fun copyToClipboard() {
         val context = requireContext()
         context.copyToClipboard(binding.mainTvNickname.text)
-        Snackbar.make(requireView(), "Copied to clipboard", Snackbar.LENGTH_SHORT).show()
+        Toast.makeText(context, "Copied to clipboard", Toast.LENGTH_SHORT).show()
     }
 }
 
