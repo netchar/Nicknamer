@@ -3,6 +3,7 @@ package com.netchar.nicknamer.domen.service
 import com.netchar.nicknamer.domen.models.Config
 import com.netchar.nicknamer.domen.models.Nickname
 import com.netchar.nicknamer.domen.NicknameModelsDataSource
+import com.netchar.nicknamer.domen.models.Nickname.Companion.orEmpty
 
 class NicknameGeneratorServiceImpl(
         private val dataSource: NicknameModelsDataSource
@@ -13,7 +14,7 @@ class NicknameGeneratorServiceImpl(
     override suspend fun generateNickname(config: Config): Nickname {
         val key = "${PEOPLE_PREFIX}_${config.gender.value}_${config.alphabet.value}"
         val source = dataSource.getDataSource()
-        return source[key]?.generateNickname(config.nicknameLength) ?: Nickname("")
+        return source[key]?.generateNickname(config.nicknameLength).orEmpty()
     }
 
     override fun addToFavorites(nickname: Nickname) {

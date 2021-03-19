@@ -18,9 +18,22 @@ android {
     }
 
     buildTypes {
-        release {
+        debug {
             minifyEnabled false
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-debug'
+        }
+
+        release {
+            minifyEnabled true
+            applicationIdSuffix '.release'
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        applicationVariants.all { variant ->
+            variant.outputs.all {
+                outputFileName = "nicknamer_${variant.name}_${variant.versionName}.apk"
+            }
         }
     }
     compileOptions {
@@ -46,6 +59,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.4'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.4'
     implementation "androidx.lifecycle:lifecycle-common-java8:2.3.0"
+    implementation "com.jakewharton.timber:timber:4.7.1"
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

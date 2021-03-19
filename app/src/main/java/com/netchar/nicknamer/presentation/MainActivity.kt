@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
 import com.netchar.nicknamer.R
 
 class MainActivity : AppCompatActivity() {
@@ -20,9 +21,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
+        when (item.itemId) {
+            R.id.action_about -> {
+                findNavController(R.id.nav_host_fragment).navigate(R.id.SecondFragment)
+            }
         }
+
+        return super.onOptionsItemSelected(item)
     }
 }
