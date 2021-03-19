@@ -3,9 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.netchar.nicknamer.presentation.MainActivity">
     <item
-        android:id="@+id/action_about"
+        android:id="@+id/about_fragment"
         android:icon="@drawable/ic_help_outline"
-        android:orderInCategory="100"
         android:title="@string/about"
         app:showAsAction="always" />
 </menu>

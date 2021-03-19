@@ -1,32 +1,37 @@
 package com.netchar.nicknamer.presentation
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.netchar.nicknamer.R
+import com.netchar.nicknamer.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    private val binding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
+
+    private lateinit var navigationController: NavController
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(findViewById(R.id.toolbar))
+        setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
+        setupWithNavController()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
+    private fun setupWithNavController() {
+        navigationController = findNavController(R.id.nav_host_fragment)
+        appBarConfiguration = AppBarConfiguration(navigationController.graph)
+        setupActionBarWithNavController(navigationController, appBarConfiguration)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_about -> {
-                findNavController(R.id.nav_host_fragment).navigate(R.id.SecondFragment)
-            }
-        }
-
-        return super.onOptionsItemSelected(item)
+    override fun onSupportNavigateUp(): Boolean {
+        return navigationController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }
