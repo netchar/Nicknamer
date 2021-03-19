@@ -23,7 +23,7 @@ import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
 
-class UncaughtExceptionHandler private constructor(
+class AppUncaughtExceptionHandler(
         context: Context,
         private val buildConfig: BuildConfiguration
 ) : Thread.UncaughtExceptionHandler {
@@ -76,11 +76,5 @@ class UncaughtExceptionHandler private constructor(
         }
 
         getFullStack(exception.cause, builder)
-    }
-
-    companion object {
-        fun create(context: Context, buildConfig: BuildConfiguration): UncaughtExceptionHandler {
-            return UncaughtExceptionHandler(context, buildConfig)
-        }
     }
 }

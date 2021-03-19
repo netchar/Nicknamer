@@ -3,7 +3,7 @@ package com.netchar.nicknamer.presentation.about
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.netchar.common.services.LibrariesProvider
+import com.netchar.nicknamer.presentation.infrastructure.LibrariesProvider
 import com.netchar.nicknamer.presentation.infrastructure.BuildConfiguration
 
 class AboutViewModel(

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.netchar.common.services
+package com.netchar.nicknamer.presentation.infrastructure
 
 interface LibrariesProvider {
     data class Library(val name: String, val description: String, val link: String)

@@ -10,9 +10,10 @@ import com.netchar.nicknamer.R
 import com.netchar.nicknamer.databinding.FragmentMainBinding
 import com.netchar.nicknamer.presentation.copyToClipboard
 import com.netchar.nicknamer.presentation.viewBinding
+import org.koin.android.ext.android.inject
 
 class MainFragment : Fragment(R.layout.fragment_main) {
-    private val viewModel by viewModels<MainViewModel> { MainViewModelFactory() }
+    private val viewModel by inject<MainViewModel>()
     private val binding by viewBinding(FragmentMainBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

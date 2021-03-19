@@ -1,42 +1,19 @@
 package com.netchar.nicknamer
 
 import android.app.Application
-import androidx.viewbinding.BuildConfig
-import com.netchar.nicknamer.domen.service.NicknameGeneratorService
-import com.netchar.nicknamer.presentation.di.DependenciesProvider
-import com.netchar.nicknamer.presentation.infrastructure.DebugTree
-import com.netchar.nicknamer.presentation.infrastructure.ReleaseTree
-import com.netchar.nicknamer.presentation.infrastructure.UncaughtExceptionHandler
+import com.netchar.nicknamer.presentation.di.Modules
+import org.koin.android.ext.android.get
+import org.koin.android.ext.android.startKoin
 import timber.log.Timber
 
 class App : Application() {
-    companion object {
-        lateinit var instance: App
-            private set
-    }
-
-    val provider = DependenciesProvider()
-
-    val nicknameService by lazy {
-        val source = provider.provideDataSource(this)
-        provider.provideNicknameGeneratorService(source)
-    }
-
-    val buildConfiguration by lazy {
-        provider.provideBuildConfiguration(this)
-    }
 
     override fun onCreate() {
         super.onCreate()
-        instance = this
+        startKoin(this, Modules.Application + Modules.ViewModels + Modules.Services)
 
-        if (BuildConfig.DEBUG) {
-            Timber.plant(DebugTree())
-        } else {
-            Timber.plant(ReleaseTree())
-        }
-
-        Thread.setDefaultUncaughtExceptionHandler(provider.provideUncaughtExceptionHandler(this, buildConfiguration))
+        Timber.plant(get())
+        Thread.setDefaultUncaughtExceptionHandler(get())
     }
 }
 

@@ -16,10 +16,9 @@
 
 package com.netchar.nicknamer.presentation.infrastructure
 
-import com.netchar.common.services.LibrariesProvider
-import com.netchar.common.services.LibrariesProvider.Library
+import com.netchar.nicknamer.presentation.infrastructure.LibrariesProvider.Library
 
-internal class AppLibrariesProvider : LibrariesProvider {
+internal class LibraryProviderImpl : LibrariesProvider {
     private val libraries = mutableListOf<Library>()
 
     init {

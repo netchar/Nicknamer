@@ -32,7 +32,8 @@ class MainViewModel(
         }
 
         job = viewModelScope.launch {
-            mutableNickname.value = nicknameService.generateNickname(Config(nicknameLength.toInt(), gender, alphabet))
+            val generateNickname = nicknameService.generateNickname(Config(nicknameLength.toInt(), gender, alphabet))
+            mutableNickname.value = generateNickname
         }
     }
 
