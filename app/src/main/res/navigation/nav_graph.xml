@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/MainFragment">
+    app:startDestination="@id/main_fragment">
     <fragment
-        android:id="@+id/MainFragment"
+        android:id="@+id/main_fragment"
         android:name="com.netchar.nicknamer.presentation.main.MainFragment"
         android:label="Nicknamer"
         tools:layout="@layout/fragment_main" >
@@ -19,6 +19,6 @@
         android:label="@string/about">
         <action
             android:id="@+id/action_about_fragment_to_MainFragment"
-            app:destination="@id/MainFragment" />
+            app:destination="@id/main_fragment" />
     </fragment>
 </navigation>

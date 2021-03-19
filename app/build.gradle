@@ -72,6 +72,7 @@ android {
 }
 
 dependencies {
+    kapt "com.android.databinding:compiler:3.1.4"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
     implementation "androidx.core:core-ktx:$versions.androidx.core"
     implementation "androidx.appcompat:appcompat:$versions.androidx.appcompat"
