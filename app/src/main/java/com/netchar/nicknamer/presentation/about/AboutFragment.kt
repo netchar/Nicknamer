@@ -30,7 +30,7 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
         aboutTxtPrivacyPolicy.setOnClickListener {
             navController.navigate(R.id.privacy_policy_fragment)
         }
-        aboutTxtVersion.text = viewModel.buildVersion
+        aboutTxtVersion.text = getString(R.string.about_label_version, viewModel.buildVersion)
         aboutRecyclerContacts.adapter = adapter
     }
 

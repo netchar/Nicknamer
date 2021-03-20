@@ -4,7 +4,6 @@
     <queries>
         <intent>
             <action android:name="android.intent.action.VIEW" />
-            <category android:name="android.intent.category.BROWSABLE" />
             <data android:scheme="https" />
         </intent>
     </queries>
@@ -14,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:name=".App"
-        android:theme="@style/Theme.App">
+        android:theme="@style/Theme.App"
+        android:fullBackupContent="@xml/backup_descriptor">
         <activity
             android:name=".presentation.MainActivity"
             android:label="Nickname Generator"

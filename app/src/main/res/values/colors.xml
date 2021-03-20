@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!--Color palette-->
 
-    <color name="teal_200">#80CBC4</color>
-    <color name="teal_500">#009688</color>
-    <color name="teal_600">#00897B</color>
+    <color name="teal_200" tools:ignore="UnusedResources">#80CBC4</color>
+    <color name="teal_500" tools:ignore="UnusedResources">#009688</color>
+    <color name="teal_600" tools:ignore="UnusedResources">#00897B</color>
     <color name="teal_700">#00796B</color>
     <color name="teal_900">#004D40</color>
 
-    <color name="brown_200">#BCAAA4</color>
-    <color name="brown_500">#6D4C41</color>
+    <color name="brown_200" tools:ignore="UnusedResources">#BCAAA4</color>
+    <color name="brown_500" tools:ignore="UnusedResources">#6D4C41</color>
 
-    <color name="red_200">#cf6679</color>
+    <color name="red_200" tools:ignore="UnusedResources">#cf6679</color>
     <color name="red_600">#b00020</color>
 
-    <color name="transparent">#00000000</color>
+    <color name="transparent" tools:ignore="UnusedResources">#00000000</color>
     <color name="white">#ffffff</color>
     <color name="gray_300">#E0E0E0</color>
-    <color name="gray_500">#9E9E9E</color>
-    <color name="gray_700">#616161</color>
+    <color name="gray_500" tools:ignore="UnusedResources">#9E9E9E</color>
+    <color name="gray_700" tools:ignore="UnusedResources">#616161</color>
     <color name="black_800">#121212</color>
-    <color name="black">#000000</color>
+    <color name="black" tools:ignore="UnusedResources">#000000</color>
 
 </resources>

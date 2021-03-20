@@ -3,7 +3,7 @@ package com.netchar.nicknamer.presentation
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -15,7 +15,11 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-    private lateinit var navigationController: NavController
+    private val navigationController: NavController by lazy {
+        val fragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+        val hostFragment = fragment as NavHostFragment
+        hostFragment.navController
+    }
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +30,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupWithNavController() {
-        navigationController = findNavController(R.id.nav_host_fragment)
+        navigationController.addOnDestinationChangedListener { controller, destination, arguments ->
+            binding.mainTxtTitle.visible(destination.id == R.id.main_fragment)
+        }
         appBarConfiguration = AppBarConfiguration(navigationController.graph)
         setupActionBarWithNavController(navigationController, appBarConfiguration)
     }

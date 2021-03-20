@@ -25,7 +25,7 @@ class ContactsAdapter(private val listener: (Contact) -> Unit) : ListAdapter<Con
         }
 
         companion object : Factory<ContactViewHolder> {
-            override fun from(parent: ViewGroup) = ContactViewHolder(RowContactBinding.inflate(parent.inflater()))
+            override fun from(parent: ViewGroup) = ContactViewHolder(RowContactBinding.inflate(parent.inflater(), parent, false))
         }
     }
 }

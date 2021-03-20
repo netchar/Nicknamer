@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/main_fragment"
         android:name="com.netchar.nicknamer.presentation.main.MainFragment"
-        android:label="Nicknamer"
+        android:label=""
         tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/action_MainFragment_to_about_fragment"
@@ -16,7 +16,7 @@
     <fragment
         android:id="@+id/about_fragment"
         android:name="com.netchar.nicknamer.presentation.about.AboutFragment"
-        android:label="@string/about">
+        android:label="@string/main_action_about">
         <action
             android:id="@+id/action_about_fragment_to_MainFragment"
             app:destination="@id/main_fragment" />
@@ -31,5 +31,5 @@
     <dialog
         android:id="@+id/privacy_policy_fragment"
         android:name="com.netchar.nicknamer.presentation.about.dialogs.PrivacyPolicyDialogFragment"
-        android:label="@string/privacy_policy" />
+        android:label="@string/about_label_privacy_policy" />
 </navigation>

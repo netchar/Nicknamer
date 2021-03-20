@@ -10,9 +10,9 @@ import com.netchar.nicknamer.presentation.toWebUri
 import timber.log.Timber
 
 interface ExternalAppService {
-    enum class ExternalApp(val appName: String, val packageName: String) {
-        INSTAGRAM("Instagram", "com.instagram.android"),
-        LINKED_IN("LinkedIn", "com.linkedin.android")
+    enum class ExternalApp(val packageName: String) {
+        INSTAGRAM("com.instagram.android"),
+        LINKED_IN("com.linkedin.android")
     }
 
     fun openUrlInExternalApp(app: ExternalApp, link: String)

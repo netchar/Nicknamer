@@ -7,10 +7,8 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.onNavDestinationSelected
-import com.google.android.material.snackbar.Snackbar
 import com.netchar.nicknamer.R
 import com.netchar.nicknamer.databinding.FragmentMainBinding
 import com.netchar.nicknamer.presentation.copyToClipboard

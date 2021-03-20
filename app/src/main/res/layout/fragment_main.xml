@@ -24,8 +24,7 @@
         android:id="@+id/main_radio_grp_gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:layout_editor_absoluteY="251dp">
+        android:orientation="horizontal">
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/main_radio_btn_male"
@@ -33,21 +32,21 @@
             android:layout_height="wrap_content"
             android:checked="true"
             android:minWidth="100dp"
-            android:text="Male" />
+            android:text="@string/main_button_gender_male" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/main_radio_btn_female"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minWidth="100dp"
-            android:text="Female" />
+            android:text="@string/main_button_gender_female" />
     </RadioGroup>
 
     <TextView
         android:id="@+id/main_tv_gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Gender"
+        android:text="@string/main_label_gender"
         android:textAppearance="@style/TextAppearance.App.Caption"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="333dp" />
@@ -56,7 +55,7 @@
         android:id="@+id/main_tv_alphabet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Alphabet"
+        android:text="@string/main_label_alphabet"
         android:textAppearance="@style/TextAppearance.App.Caption"
         tools:layout_editor_absoluteX="339dp"
         tools:layout_editor_absoluteY="270dp" />
@@ -75,14 +74,14 @@
             android:layout_height="wrap_content"
             android:checked="true"
             android:minWidth="100dp"
-            android:text="Latin" />
+            android:text="@string/main_button_alphabet_latin" />
 
         <RadioButton
             android:id="@+id/main_radio_btn_cyrillic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minWidth="100dp"
-            android:text="Cyrillic" />
+            android:text="@string/main_button_alphabet_cyrillic" />
     </RadioGroup>
 
     <com.google.android.material.slider.Slider
@@ -100,8 +99,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
-        android:text="Generate"
-        app:icon="@drawable/ic_random"
+        android:text="@string/main_button_generate"
+        app:icon="@drawable/ic_autorenew_baseline"
         app:iconSize="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -111,7 +110,7 @@
         android:id="@+id/main_tv_min_length_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Minumum Length"
+        android:text="@string/main_label_length"
         android:textAppearance="@style/TextAppearance.App.Caption"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="479dp" />
@@ -151,12 +150,13 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/main_txt_copy_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tap to copy to clipboard"
+        android:text="@string/main_label_copy"
         android:textAppearance="@style/TextAppearance.App.Caption"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_tv_nickname" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

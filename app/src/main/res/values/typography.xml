@@ -13,4 +13,7 @@
     <style name="TextAppearance.App.Button" parent="TextAppearance.MaterialComponents.Button" />
     <style name="TextAppearance.App.Caption" parent="TextAppearance.MaterialComponents.Caption" />
     <style name="TextAppearance.App.Overline" parent="TextAppearance.MaterialComponents.Overline" />
+    <style name="TextAppearance.App.Brand" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="fontFamily">@font/francois_one</item>
+    </style>
 </resources>

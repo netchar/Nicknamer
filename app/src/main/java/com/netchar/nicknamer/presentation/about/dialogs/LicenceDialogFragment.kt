@@ -28,9 +28,9 @@ class LicenceDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(requireContext()).apply {
-            setTitle(getString(R.string.title_libraries))
+            setTitle(getString(R.string.about_label_libraries))
             setAdapter(adapter, null)
-            setPositiveButton(getString(R.string.ok), null)
+            setPositiveButton(getString(R.string.button_ok), null)
         }
         return builder.create()
     }

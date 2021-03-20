@@ -22,7 +22,7 @@ import kotlin.reflect.KProperty
 
 fun Context.copyToClipboard(text: CharSequence) {
     val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-    val clip = ClipData.newPlainText(this.getString(R.string.copy_clipboard_label), text)
+    val clip = ClipData.newPlainText(this.getString(R.string.label_clipboard_copy), text)
     clipboard.setPrimaryClip(clip)
 }
 
@@ -35,7 +35,11 @@ fun ViewGroup.inflate(@LayoutRes resource: Int, attachToRoot: Boolean): View {
 }
 
 fun ViewGroup.inflate(@LayoutRes resource: Int): View {
-    return inflater().inflate(resource, this, false)
+    return this.inflate(resource, false)
+}
+
+fun View.visible(visible: Boolean) {
+    this.visibility = if (visible) View.VISIBLE else View.GONE
 }
 
 fun <T : BindingViewHolder<*, *>> T.listen(event: (position: Int) -> Unit): T {

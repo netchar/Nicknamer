@@ -29,7 +29,6 @@ class AppUncaughtExceptionHandler(
 ) : Thread.UncaughtExceptionHandler {
     private val formatter = SimpleDateFormat("dd/MM/yyyy HH:mm", ConfigurationCompat.getLocales(context.resources.configuration).get(0))
     private val defaultExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
-    private val runtime by lazy { Runtime.getRuntime() }
 
     override fun uncaughtException(thread: Thread, exception: Throwable) {
         val dumpDate = Date(System.currentTimeMillis())
