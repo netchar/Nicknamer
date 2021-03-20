@@ -73,16 +73,25 @@ android {
 }
 
 dependencies {
+    // AndoridX
     implementation "androidx.browser:browser:$versions.androidx.browser"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
     implementation "androidx.core:core-ktx:$versions.androidx.core"
     implementation "androidx.appcompat:appcompat:$versions.androidx.appcompat"
-    implementation "com.google.android.material:material:$versions.material"
     implementation "androidx.constraintlayout:constraintlayout:$versions.androidx.constraintlayout"
     implementation "androidx.navigation:navigation-fragment-ktx:$versions.androidx.navigation"
     implementation "androidx.navigation:navigation-ui-ktx:$versions.androidx.navigation"
     implementation "androidx.lifecycle:lifecycle-common-java8:$versions.androidx.lifecycle"
+
+    // Material Library
+    implementation "com.google.android.material:material:$versions.material"
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
+
+    // Timber
     implementation "com.jakewharton.timber:timber:$versions.timber"
+
+    // Koin
     implementation "org.koin:koin-android:$versions.koin"
     implementation "org.koin:koin-android-viewmodel:$versions.koin"
 
