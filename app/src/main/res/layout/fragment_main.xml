@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textAllCaps="true"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+        android:textAppearance="@style/TextAppearance.App.Headline4"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/main_flow_gender"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Gender"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+        android:textAppearance="@style/TextAppearance.App.Caption"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="333dp" />
 
@@ -57,7 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Alphabet"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+        android:textAppearance="@style/TextAppearance.App.Caption"
         tools:layout_editor_absoluteX="339dp"
         tools:layout_editor_absoluteY="270dp" />
 
@@ -99,6 +99,7 @@
         android:id="@+id/main_btn_generate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
         android:text="Generate"
         app:icon="@drawable/ic_random"
         app:iconSize="24dp"
@@ -111,7 +112,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Minumum Length"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+        android:textAppearance="@style/TextAppearance.App.Caption"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="479dp" />
 
@@ -154,7 +155,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tap to copy to clipboard"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+        android:textAppearance="@style/TextAppearance.App.Caption"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_tv_nickname" />

@@ -40,7 +40,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/textView"
             app:layout_constraintStart_toEndOf="@+id/textView"
             app:layout_constraintTop_toTopOf="@+id/textView"
-            app:tint="#009688" />
+            app:tint="?colorPrimary" />
 
         <TextView
             android:id="@+id/about_txt_description"
@@ -72,9 +72,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
-                android:padding="16dp"
                 android:clickable="true"
                 android:focusable="true"
+                android:padding="16dp"
                 android:text="Privacy Policy"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
 
@@ -86,9 +86,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
-                android:padding="16dp"
                 android:clickable="true"
                 android:focusable="true"
+                android:padding="16dp"
                 android:text="Third-party libraries"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
 
@@ -102,25 +102,22 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:text="Author"
+            android:textColor="?colorPrimary"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/about_linear_container" />
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/about_img_author_image"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            app:cardCornerRadius="40dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:elevation="2dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/about_headline_author">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/img_developer" />
-        </androidx.cardview.widget.CardView>
-
+            app:layout_constraintTop_toBottomOf="@+id/about_headline_author"
+            app:shapeAppearance="@style/ShapeAppearance.ImageView.Circle"
+            app:srcCompat="@drawable/img_developer" />
 
         <TextView
             android:id="@+id/about_txt_author_name"
@@ -138,7 +135,7 @@
             android:id="@+id/about_txt_author_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/small_50"
             android:text="Minsk, Belarus"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             app:layout_constraintBottom_toBottomOf="@+id/about_img_author_image"
@@ -153,6 +150,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:text="Contacts"
+            android:textColor="?colorPrimary"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/about_img_author_image" />
@@ -162,9 +160,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@+id/about_txt_contact_title"
             tools:itemCount="3"
             tools:listitem="@layout/row_contact" />
