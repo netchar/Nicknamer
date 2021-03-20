@@ -21,3 +21,16 @@ interface LibrariesProvider {
 
     fun getLibraries(): List<Library>
 }
+
+internal class LibraryProviderImpl : LibrariesProvider {
+    private val libraries = mutableListOf<LibrariesProvider.Library>()
+
+    init {
+        libraries.add(LibrariesProvider.Library("Timber", "This is a logger with a small, extensible API which provides utility on top of Android's normal Log class.", "https://github.com/JakeWharton/timber#license"))
+        libraries.add(LibrariesProvider.Library("Koin", "A pragmatic lightweight dependency injection framework for Kotlin developers.", "https://github.com/InsertKoinIO/koin"))
+    }
+
+    override fun getLibraries(): List<LibrariesProvider.Library> {
+        return libraries
+    }
+}

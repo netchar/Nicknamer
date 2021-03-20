@@ -16,8 +16,39 @@
 
 package com.netchar.nicknamer.presentation.infrastructure
 
+import android.content.Context
+import android.content.pm.PackageInfo
+import androidx.core.content.pm.PackageInfoCompat
+
 interface BuildConfiguration {
     fun getVersionCode(): Long
 
     fun getVersionName(): String
+}
+
+internal class BuildConfigurationImpl(val context: Context) : BuildConfiguration {
+
+    override fun getVersionCode(): Long {
+        return try {
+            val info = getPackageInfo(context) ?: return -1
+            PackageInfoCompat.getLongVersionCode(info)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            -1
+        }
+    }
+
+    override fun getVersionName(): String {
+        return try {
+            val info = getPackageInfo(context) ?: return ""
+            info.versionName
+        } catch (e: Exception) {
+            ""
+        }
+    }
+
+    private fun getPackageInfo(context: Context): PackageInfo? {
+        val manager = context.packageManager
+        return manager.getPackageInfo(context.packageName, 0)
+    }
 }
