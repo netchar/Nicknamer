@@ -1,4 +1,4 @@
-package com.netchar.nicknamer.presentation.about
+package com.netchar.nicknamer.presentation.ui.about
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

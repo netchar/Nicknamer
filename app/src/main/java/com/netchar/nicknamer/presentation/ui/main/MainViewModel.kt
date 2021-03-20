@@ -1,4 +1,4 @@
-package com.netchar.nicknamer.presentation.main
+package com.netchar.nicknamer.presentation.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -16,7 +16,7 @@
         android:theme="@style/Theme.App"
         android:fullBackupContent="@xml/backup_descriptor">
         <activity
-            android:name=".presentation.MainActivity"
+            android:name=".presentation.ui.main.MainActivity"
             android:label="Nickname Generator"
             android:theme="@style/Theme.App.NoActionBar">
             <intent-filter>

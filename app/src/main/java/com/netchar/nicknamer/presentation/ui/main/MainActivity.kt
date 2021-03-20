@@ -1,4 +1,4 @@
-package com.netchar.nicknamer.presentation
+package com.netchar.nicknamer.presentation.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +9,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.netchar.nicknamer.R
 import com.netchar.nicknamer.databinding.ActivityMainBinding
+import com.netchar.nicknamer.presentation.visible
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy {

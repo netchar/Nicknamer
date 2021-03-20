@@ -1,4 +1,4 @@
-package com.netchar.nicknamer.presentation.about
+package com.netchar.nicknamer.presentation.ui.about
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter

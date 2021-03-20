@@ -1,4 +1,4 @@
-package com.netchar.nicknamer.presentation.about
+package com.netchar.nicknamer.presentation.ui.about
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,9 +16,9 @@ class AboutViewModel(
 
     init {
         mutableContacts.value = listOf(
-            Contact.Instagram,
-            Contact.LinkedIn,
-            Contact.Mail,
+                Contact.Instagram,
+                Contact.LinkedIn,
+                Contact.Mail,
         )
     }
 

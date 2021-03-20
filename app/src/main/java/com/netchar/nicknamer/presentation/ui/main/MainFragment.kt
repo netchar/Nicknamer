@@ -1,4 +1,4 @@
-package com.netchar.nicknamer.presentation.main
+package com.netchar.nicknamer.presentation.ui.main
 
 import android.os.Bundle
 import android.view.Menu

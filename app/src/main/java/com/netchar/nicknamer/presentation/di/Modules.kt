@@ -5,9 +5,9 @@ import com.netchar.nicknamer.data.NicknameModelsDataSourceImpl
 import com.netchar.nicknamer.domen.NicknameModelsDataSource
 import com.netchar.nicknamer.domen.service.NicknameGeneratorService
 import com.netchar.nicknamer.domen.service.NicknameGeneratorServiceImpl
-import com.netchar.nicknamer.presentation.about.AboutViewModel
+import com.netchar.nicknamer.presentation.ui.about.AboutViewModel
 import com.netchar.nicknamer.presentation.infrastructure.*
-import com.netchar.nicknamer.presentation.main.MainViewModel
+import com.netchar.nicknamer.presentation.ui.main.MainViewModel
 import org.koin.android.viewmodel.experimental.builder.viewModel
 import org.koin.dsl.module.module
 import org.koin.experimental.builder.singleBy

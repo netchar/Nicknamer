@@ -1,4 +1,4 @@
-package com.netchar.nicknamer.presentation.about.dialogs
+package com.netchar.nicknamer.presentation.ui.about.dialogs
 
 import android.app.Dialog
 import android.os.Bundle

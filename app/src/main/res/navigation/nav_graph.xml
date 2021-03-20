@@ -6,7 +6,7 @@
     app:startDestination="@id/main_fragment">
     <fragment
         android:id="@+id/main_fragment"
-        android:name="com.netchar.nicknamer.presentation.main.MainFragment"
+        android:name="com.netchar.nicknamer.presentation.ui.main.MainFragment"
         android:label=""
         tools:layout="@layout/fragment_main" >
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/about_fragment"
-        android:name="com.netchar.nicknamer.presentation.about.AboutFragment"
+        android:name="com.netchar.nicknamer.presentation.ui.about.AboutFragment"
         android:label="@string/main_action_about">
         <action
             android:id="@+id/action_about_fragment_to_MainFragment"
@@ -26,10 +26,10 @@
     </fragment>
     <dialog
         android:id="@+id/license_dialog_fragment"
-        android:name="com.netchar.nicknamer.presentation.about.dialogs.LicenceDialogFragment"
+        android:name="com.netchar.nicknamer.presentation.ui.about.dialogs.LicenceDialogFragment"
         android:label="LicenceDialogFragment" />
     <dialog
         android:id="@+id/privacy_policy_fragment"
-        android:name="com.netchar.nicknamer.presentation.about.dialogs.PrivacyPolicyDialogFragment"
+        android:name="com.netchar.nicknamer.presentation.ui.about.dialogs.PrivacyPolicyDialogFragment"
         android:label="@string/about_label_privacy_policy" />
 </navigation>
