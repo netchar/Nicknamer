@@ -11,10 +11,9 @@ import org.koin.android.ext.android.inject
 class AboutFragment : Fragment(R.layout.fragment_about) {
     private val viewModel by inject<AboutViewModel>()
     private val viewBinding by viewBinding(FragmentAboutBinding::bind)
-    private val adapter = ContactsAdapter()
 
-    private val navigationController by lazy {
-        findNavController()
+    private val adapter = ContactsAdapter { contact ->
+        viewModel.openContact(contact)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -24,11 +23,12 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
     }
 
     private fun bindViews() = with(viewBinding) {
+        val navController = findNavController()
         aboutTxtExternalLibrariesLicences.setOnClickListener {
-            navigationController.navigate(R.id.license_dialog_fragment)
+            navController.navigate(R.id.license_dialog_fragment)
         }
         aboutTxtPrivacyPolicy.setOnClickListener {
-            navigationController.navigate(R.id.privacy_policy_fragment)
+            navController.navigate(R.id.privacy_policy_fragment)
         }
         aboutTxtVersion.text = viewModel.buildVersion
         aboutRecyclerContacts.adapter = adapter
