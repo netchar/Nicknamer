@@ -23,6 +23,7 @@ internal class LibraryProviderImpl : LibrariesProvider {
 
     init {
         libraries.add(Library("Timber", "This is a logger with a small, extensible API which provides utility on top of Android's normal Log class.", "https://github.com/JakeWharton/timber#license"))
+        libraries.add(Library("Koin", "A pragmatic lightweight dependency injection framework for Kotlin developers.", "https://github.com/InsertKoinIO/koin"))
     }
 
     override fun getLibraries(): List<Library> {

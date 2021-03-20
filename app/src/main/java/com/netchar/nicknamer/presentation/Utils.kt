@@ -3,17 +3,19 @@ package com.netchar.nicknamer.presentation
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.netchar.nicknamer.R
-import com.netchar.nicknamer.presentation.infrastructure.helpers.BindableViewHolder
+import com.netchar.nicknamer.presentation.infrastructure.helpers.BindingViewHolder
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
@@ -28,11 +30,23 @@ fun ViewGroup.inflater(): LayoutInflater {
     return LayoutInflater.from(this.context)
 }
 
-fun <T : BindableViewHolder<*, *>> T.listen(event: (position: Int, type: Int) -> Unit): T {
+fun ViewGroup.inflate(@LayoutRes resource: Int, attachToRoot: Boolean): View {
+    return inflater().inflate(resource, this, attachToRoot)
+}
+
+fun ViewGroup.inflate(@LayoutRes resource: Int): View {
+    return inflater().inflate(resource, this, false)
+}
+
+fun <T : BindingViewHolder<*, *>> T.listen(event: (position: Int) -> Unit): T {
     binding.root.setOnClickListener {
-        event.invoke(adapterPosition, itemViewType)
+        event.invoke(adapterPosition)
     }
     return this
+}
+
+fun String.toWebUri(): Uri {
+    return (if (startsWith("http://") || startsWith("https://")) this else "https://$this").toUri()
 }
 
 /**

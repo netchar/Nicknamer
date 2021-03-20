@@ -7,14 +7,11 @@ import com.netchar.nicknamer.presentation.infrastructure.LibrariesProvider
 import com.netchar.nicknamer.presentation.infrastructure.BuildConfiguration
 
 class AboutViewModel(
-    private val thirdPartyAppLibrariesProvider: LibrariesProvider,
     private val buildConfiguration: BuildConfiguration
 ) : ViewModel() {
     private val mutableContacts = MutableLiveData<List<Contact>>()
-    private val mutableLibraries = MutableLiveData<List<LibrariesProvider.Library>>()
 
     val contacts: LiveData<List<Contact>> = mutableContacts
-    val libraries: LiveData<List<LibrariesProvider.Library>> = mutableLibraries
 
     init {
         mutableContacts.value = listOf(
@@ -22,8 +19,6 @@ class AboutViewModel(
             Contact.LinkedIn,
             Contact.Mail,
         )
-
-        mutableLibraries.value = thirdPartyAppLibrariesProvider.getLibraries()
     }
 
     val buildVersion: String get() = buildConfiguration.getVersionName()

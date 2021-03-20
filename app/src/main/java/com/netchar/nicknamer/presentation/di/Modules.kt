@@ -33,6 +33,7 @@ object Modules {
         singleBy<NicknameModelsDataSource, NicknameModelsDataSourceImpl>()
         singleBy<NicknameGeneratorService, NicknameGeneratorServiceImpl>()
         singleBy<LibrariesProvider, LibraryProviderImpl>()
+        singleBy<ExternalAppService, ExternalAppServiceImpl>()
     }
 
     private val viewModelModule = module {

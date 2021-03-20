@@ -20,5 +20,16 @@
         <action
             android:id="@+id/action_about_fragment_to_MainFragment"
             app:destination="@id/main_fragment" />
+        <action
+            android:id="@+id/action_about_fragment_to_licenceDialogFragment"
+            app:destination="@id/license_dialog_fragment" />
     </fragment>
+    <dialog
+        android:id="@+id/license_dialog_fragment"
+        android:name="com.netchar.nicknamer.presentation.about.dialogs.LicenceDialogFragment"
+        android:label="LicenceDialogFragment" />
+    <dialog
+        android:id="@+id/privacy_policy_fragment"
+        android:name="com.netchar.nicknamer.presentation.about.dialogs.PrivacyPolicyDialogFragment"
+        android:label="@string/privacy_policy" />
 </navigation>
