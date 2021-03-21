@@ -27,7 +27,8 @@ import java.util.*
 
 class AppUncaughtExceptionHandler(
         context: Context,
-        private val buildConfig: BuildConfiguration
+        private val buildConfig: BuildConfiguration,
+        private val crashlytics: FirebaseCrashlytics
 ) : Thread.UncaughtExceptionHandler {
     private val formatter = SimpleDateFormat("dd/MM/yyyy HH:mm", ConfigurationCompat.getLocales(context.resources.configuration).get(0))
     private val defaultExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
@@ -63,7 +64,7 @@ class AppUncaughtExceptionHandler(
             val availableMemory = maxMemory - usedMemory
 
             //Set values to Crashlytics
-            FirebaseCrashlytics.getInstance().setCustomKeys {
+            crashlytics.setCustomKeys {
                 key("used_memory", usedMemory)
                 key("available_memory", availableMemory)
             }

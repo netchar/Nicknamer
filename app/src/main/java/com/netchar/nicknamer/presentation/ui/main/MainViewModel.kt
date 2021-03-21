@@ -8,11 +8,14 @@ import com.netchar.nicknamer.R
 import com.netchar.nicknamer.domen.models.Nickname
 import com.netchar.nicknamer.domen.service.NicknameGeneratorService
 import com.netchar.nicknamer.domen.service.NicknameGeneratorService.*
+import com.netchar.nicknamer.presentation.infrastructure.analytics.Analytics
+import com.netchar.nicknamer.presentation.infrastructure.analytics.AnalyticsEvent
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class MainViewModel(
-        private val nicknameService: NicknameGeneratorService
+        private val nicknameService: NicknameGeneratorService,
+        private val analytics: Analytics
 ) : ViewModel() {
     private val mutableNickname = MutableLiveData<Nickname>()
     private var gender: Config.Gender = Config.Gender.MALE
@@ -32,8 +35,9 @@ class MainViewModel(
         }
 
         job = viewModelScope.launch {
-            val generateNickname = nicknameService.generateNickname(Config(nicknameLength.toInt(), gender, alphabet))
-            mutableNickname.value = generateNickname
+            val config = Config(nicknameLength.toInt(), gender, alphabet)
+            analytics.trackEvent(AnalyticsEvent.GenerateNickname(config))
+            mutableNickname.value = nicknameService.generateNickname(config)
         }
     }
 

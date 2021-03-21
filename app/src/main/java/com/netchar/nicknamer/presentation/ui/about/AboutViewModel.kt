@@ -4,24 +4,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.netchar.nicknamer.presentation.infrastructure.*
-import com.netchar.nicknamer.presentation.infrastructure.ExternalAppService.*
+import com.netchar.nicknamer.presentation.infrastructure.ExternalAppService.ExternalApp
 
 class AboutViewModel(
-    private val buildConfiguration: BuildConfiguration,
-    private val externalAppService: ExternalAppService
+        private val buildConfiguration: BuildConfiguration,
+        private val externalAppService: ExternalAppService
 ) : ViewModel() {
     private val mutableContacts = MutableLiveData<List<Contact>>()
 
-    val contacts: LiveData<List<Contact>> = mutableContacts
-
     init {
-        mutableContacts.value = listOf(
-                Contact.Instagram,
-                Contact.LinkedIn,
-                Contact.Mail,
-        )
+        mutableContacts.value = listOf(Contact.Instagram, Contact.LinkedIn, Contact.Mail)
     }
 
+    val contacts: LiveData<List<Contact>> = mutableContacts
     val buildVersion: String get() = buildConfiguration.getVersionName()
 
     fun openContact(contact: Contact) {

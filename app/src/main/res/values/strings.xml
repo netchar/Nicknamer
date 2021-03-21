@@ -26,11 +26,12 @@
     <string name="main_label_gender">Gender</string>
     <string name="main_label_alphabet">Alphabet</string>
     <string name="main_label_length">Length</string>
-    <string name="main_label_copy">Tap to copy to clipboard</string>
+    <string name="main_label_copy">Tap to copy</string>
 
     <string name="main_action_about">About</string>
     <string name="descr_application_icon">Application icon</string>
     <string name="descr_contact_row_image">Contact row image</string>
     <string name="descr_logo_image">Icon Logo</string>
     <string name="label_app_name_without_first_letter">icknamer</string>
+    <string name="message_copied_to_clipboard">Copied to clipboard</string>
 </resources>
