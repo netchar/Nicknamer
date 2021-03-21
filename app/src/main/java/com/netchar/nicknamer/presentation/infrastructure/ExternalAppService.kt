@@ -100,6 +100,7 @@ internal class ExternalAppServiceImpl(val context: Context) : ExternalAppService
             val intent = CustomTabsIntent.Builder()
                 .setShowTitle(true)
                 .build()
+            intent.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             intent.launchUrl(context, uri)
             return true
         } catch (ex: Exception) {
