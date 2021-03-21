@@ -2,6 +2,7 @@ package com.netchar.nicknamer.presentation.infrastructure
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.widget.Toast
@@ -32,7 +33,7 @@ internal class ExternalAppServiceImpl(val context: Context) : ExternalAppService
     override fun composeEmail(to: String, subject: String, message: String) {
         val uri = Uri.parse("mailto:")
         val emailIntent = buildEmailIntent(uri, to, subject, message)
-        val emailIntentResolver = appPackageManager.queryIntentActivities(emailIntent, 0)
+        val emailIntentResolver = appPackageManager.queryIntentActivities(emailIntent, PackageManager.MATCH_DEFAULT_ONLY)
 
         if (emailIntentResolver.isNotEmpty()) {
             val intent: Intent = getChooserIntent(emailIntentResolver, emailIntent)
@@ -43,7 +44,7 @@ internal class ExternalAppServiceImpl(val context: Context) : ExternalAppService
         }
     }
 
-    private fun buildEmailIntent(uri: Uri?, to: String, subject: String, message: String) : Intent {
+    private fun buildEmailIntent(uri: Uri?, to: String, subject: String, message: String): Intent {
         return Intent(Intent.ACTION_SENDTO, uri).apply {
             putExtra(Intent.EXTRA_EMAIL, arrayOf(to)) // recipients
             putExtra(Intent.EXTRA_SUBJECT, subject)
