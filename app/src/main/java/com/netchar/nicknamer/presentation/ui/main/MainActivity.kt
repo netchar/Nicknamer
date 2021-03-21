@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupWithNavController() {
-        navigationController.addOnDestinationChangedListener { controller, destination, arguments ->
+        navigationController.addOnDestinationChangedListener { _, destination, _ ->
             binding.mainTxtTitle.visible(destination.id == R.id.main_fragment)
         }
         appBarConfiguration = AppBarConfiguration(navigationController.graph)

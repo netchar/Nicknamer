@@ -30,15 +30,15 @@
             android:id="@+id/main_radio_btn_male"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/Style.RadioButton"
             android:checked="true"
-            android:minWidth="100dp"
             android:text="@string/main_button_gender_male" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/main_radio_btn_female"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minWidth="100dp"
+            style="@style/Style.RadioButton"
             android:text="@string/main_button_gender_female" />
     </RadioGroup>
 
@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/main_label_gender"
-        android:textAppearance="@style/TextAppearance.App.Caption"
+        android:textAppearance="@style/TextAppearance.App.Subtitle2"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="333dp" />
 
@@ -56,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/main_label_alphabet"
-        android:textAppearance="@style/TextAppearance.App.Caption"
+        android:textAppearance="@style/TextAppearance.App.Subtitle2"
         tools:layout_editor_absoluteX="339dp"
         tools:layout_editor_absoluteY="270dp" />
 
@@ -73,14 +73,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:minWidth="100dp"
+            style="@style/Style.RadioButton"
             android:text="@string/main_button_alphabet_latin" />
 
         <RadioButton
             android:id="@+id/main_radio_btn_cyrillic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minWidth="100dp"
+            style="@style/Style.RadioButton"
             android:text="@string/main_button_alphabet_cyrillic" />
     </RadioGroup>
 
@@ -111,7 +111,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/main_label_length"
-        android:textAppearance="@style/TextAppearance.App.Caption"
+        android:textAppearance="@style/TextAppearance.App.Subtitle2"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="479dp" />
 
