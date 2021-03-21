@@ -19,6 +19,8 @@ package com.netchar.nicknamer.presentation.infrastructure
 import android.content.Context
 import android.os.Build
 import androidx.core.os.ConfigurationCompat
+import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.crashlytics.ktx.setCustomKeys
 import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
@@ -29,6 +31,7 @@ class AppUncaughtExceptionHandler(
 ) : Thread.UncaughtExceptionHandler {
     private val formatter = SimpleDateFormat("dd/MM/yyyy HH:mm", ConfigurationCompat.getLocales(context.resources.configuration).get(0))
     private val defaultExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
+    private val runtime by lazy { Runtime.getRuntime() }
 
     override fun uncaughtException(thread: Thread, exception: Throwable) {
         val dumpDate = Date(System.currentTimeMillis())
@@ -52,6 +55,18 @@ class AppUncaughtExceptionHandler(
             appendLine("Incremental: " + Build.VERSION.INCREMENTAL)
             appendLine("Version Name: " + buildConfig.getVersionName())
             appendLine("Version Code: " + buildConfig.getVersionCode())
+
+            // Calculate the memory heap
+            val maxMemory = runtime.maxMemory()
+            val freeMemory = runtime.freeMemory()
+            val usedMemory = runtime.totalMemory() - freeMemory
+            val availableMemory = maxMemory - usedMemory
+
+            //Set values to Crashlytics
+            FirebaseCrashlytics.getInstance().setCustomKeys {
+                key("used_memory", usedMemory)
+                key("available_memory", availableMemory)
+            }
 
             Timber.e(this.toString())
         }

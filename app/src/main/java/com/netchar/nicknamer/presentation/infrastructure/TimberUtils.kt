@@ -1,5 +1,7 @@
 package com.netchar.nicknamer.presentation.infrastructure
 
+import android.util.Log
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import timber.log.Timber
 
 class DebugTree : Timber.DebugTree() {
@@ -11,13 +13,13 @@ class DebugTree : Timber.DebugTree() {
 class ReleaseTree : Timber.Tree() {
     override fun log(priority: Int, tag: String?, message: String, throwable: Throwable?) {
 
-//        if (priority == Log.ERROR || priority == Log.WARN) {
-        // todo: add crashlytics
-//            Crashlytics.log(priority, tag, message)
+        if (priority == Log.ERROR || priority == Log.WARN) {
+            val crashlytics = FirebaseCrashlytics.getInstance()
+            crashlytics.log(message)
 
-//            if (throwable != null) {
-//                Crashlytics.logException(throwable)
-//            }
-//        }
+            if (throwable != null) {
+                crashlytics.recordException(throwable)
+            }
+        }
     }
 }

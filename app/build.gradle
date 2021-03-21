@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-parcelize'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 
 def versions = [
         kotlin  : '1.4.31',
@@ -26,7 +28,25 @@ def versions = [
         ]
 ]
 
+def secretProperties = new Properties()
+def secretPropertiesStream = project.rootProject.file('secret.properties').newDataInputStream()
+
+try {
+    secretProperties.load(secretPropertiesStream)
+} finally {
+    secretPropertiesStream.close()
+}
+
 android {
+    signingConfigs {
+        release {
+            storeFile file(secretProperties['KEYSTORE_FILE_NAME'])
+            storePassword secretProperties['KEYSTORE_PASSWORD']
+            keyAlias = secretProperties['KEYSTORE_KEY_ALIAS']
+            keyPassword secretProperties['KEYSTORE_KEY_PASSWORD']
+        }
+    }
+
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
@@ -36,6 +56,8 @@ android {
         targetSdkVersion 30
         versionCode extractVersionCode(appVersionName)
         versionName appVersionName
+
+        buildConfigField("String", "GOOGLE_PLAY_LICENSE_KEY", secretProperties['GOOGLE_PLAY_LICENSE_KEY'])
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -48,9 +70,10 @@ android {
         }
 
         release {
-            minifyEnabled true
+            minifyEnabled false
             applicationIdSuffix '.release'
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
 
         applicationVariants.all { variant ->
@@ -73,6 +96,8 @@ android {
 }
 
 dependencies {
+    implementation platform('com.google.firebase:firebase-bom:26.7.0')
+
     // AndoridX
     implementation "androidx.browser:browser:$versions.androidx.browser"
     implementation "androidx.core:core-ktx:$versions.androidx.core"
@@ -85,15 +110,16 @@ dependencies {
     // Material Library
     implementation "com.google.android.material:material:$versions.material"
 
-    // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin"
-
     // Timber
     implementation "com.jakewharton.timber:timber:$versions.timber"
 
     // Koin
     implementation "org.koin:koin-android:$versions.koin"
     implementation "org.koin:koin-android-viewmodel:$versions.koin"
+
+    // Analytics
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
 
     // Tests
     testImplementation "junit:junit:$versions.test.junit"
