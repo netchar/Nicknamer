@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/normal_200"
             android:text="@string/label_application_name"
-            android:textAppearance="@style/TextAppearance.App.Brand"
+            android:textAppearance="@style/TextAppearance.App.Headline6"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
