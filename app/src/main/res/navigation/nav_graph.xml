@@ -1,28 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2021 Eugene Glushankov
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
-
+    app:startDestination="@id/main_fragment">
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.netchar.nicknamer.presentation.MainFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_main">
-
+        android:id="@+id/main_fragment"
+        android:name="com.netchar.nicknamer.presentation.ui.main.MainFragment"
+        android:label=""
+        tools:layout="@layout/fragment_main" >
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_MainFragment_to_about_fragment"
+            app:destination="@id/about_fragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.netchar.nicknamer.presentation.AboutFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_about">
-
+        android:id="@+id/about_fragment"
+        android:name="com.netchar.nicknamer.presentation.ui.about.AboutFragment"
+        android:label="@string/main_action_about">
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_about_fragment_to_MainFragment"
+            app:destination="@id/main_fragment" />
+        <action
+            android:id="@+id/action_about_fragment_to_licenceDialogFragment"
+            app:destination="@id/license_dialog_fragment" />
     </fragment>
+    <dialog
+        android:id="@+id/license_dialog_fragment"
+        android:name="com.netchar.nicknamer.presentation.ui.about.dialogs.LicenceDialogFragment"
+        android:label="LicenceDialogFragment" />
+    <dialog
+        android:id="@+id/privacy_policy_fragment"
+        android:name="com.netchar.nicknamer.presentation.ui.about.dialogs.PrivacyPolicyDialogFragment"
+        android:label="@string/about_label_privacy_policy" />
 </navigation>

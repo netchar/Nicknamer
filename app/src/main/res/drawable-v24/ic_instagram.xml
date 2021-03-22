@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2021 Eugene Glushankov
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="96dp"
+    android:height="96dp"
+    android:viewportWidth="96"
+    android:viewportHeight="96">
+
+    <path
+        android:fillColor="?colorOnSurface"
+        android:strokeWidth="1"
+        android:pathData="M 32 12 C 20.96875 12 12 20.96875 12 32 L 12 64 C 12 75.03125 20.96875 84 32 84 L 64 84 C 75.03125 84 84 75.03125 84 64 L 84 32 C 84 20.96875 75.03125 12 64 12 Z M 32 20 L 64 20 C 70.609375 20 76 25.390625 76 32 L 76 64 C 76 70.609375 70.609375 76 64 76 L 32 76 C 25.390625 76 20 70.609375 20 64 L 20 32 C 20 25.390625 25.390625 20 32 20 Z M 68 24 C 65.796875 24 64 25.796875 64 28 C 64 30.203125 65.796875 32 68 32 C 70.203125 32 72 30.203125 72 28 C 72 25.796875 70.203125 24 68 24 Z M 48 28 C 36.96875 28 28 36.96875 28 48 C 28 59.03125 36.96875 68 48 68 C 59.03125 68 68 59.03125 68 48 C 68 36.96875 59.03125 28 48 28 Z M 48 36 C 54.609375 36 60 41.390625 60 48 C 60 54.609375 54.609375 60 48 60 C 41.390625 60 36 54.609375 36 48 C 36 41.390625 41.390625 36 48 36 Z" />
+</vector>

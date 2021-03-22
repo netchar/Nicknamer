@@ -1,3 +1,38 @@
-<resources>
-    <dimen name="fab_margin">16dp</dimen>
+<!--
+  ~ Copyright (c) 2021 Eugene Glushankov
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <dimen name="fab_margin" tools:keep="@dimen/fab_margin">16dp</dimen>
+
+    <dimen name="small_50">4dp</dimen>
+    <dimen name="small_100">8dp</dimen>
+
+    <dimen name="normal_100">16dp</dimen>
+    <dimen name="normal_125" tools:keep="@dimen/normal_125">20dp</dimen>
+    <dimen name="normal_150">24dp</dimen>
+    <dimen name="normal_175" tools:keep="@dimen/normal_175">28dp</dimen>
+    <dimen name="normal_200">32dp</dimen>
+    <dimen name="normal_225" tools:keep="@dimen/normal_225">36dp</dimen>
+    <dimen name="normal_250" tools:keep="@dimen/normal_250">40dp</dimen>
+    <dimen name="normal_275" tools:keep="@dimen/normal_275">44dp</dimen>
+
+    <dimen name="large_100" tools:keep="@dimen/large_100">32dp</dimen>
+    <dimen name="large_125" tools:keep="@dimen/large_125">40dp</dimen>
+    <dimen name="large_150" tools:keep="@dimen/large_150">48dp</dimen>
+    <dimen name="large_175" tools:keep="@dimen/large_175">56dp</dimen>
+    <dimen name="large_200" tools:keep="@dimen/large_200">64dp</dimen>
+    <dimen name="large_225" tools:keep="@dimen/large_225">72dp</dimen>
 </resources>

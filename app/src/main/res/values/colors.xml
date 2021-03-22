@@ -1,10 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+<!--
+  ~ Copyright (c) 2021 Eugene Glushankov
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!--Color palette-->
+
+    <color name="teal_200" tools:ignore="UnusedResources">#80CBC4</color>
+    <color name="teal_500" tools:ignore="UnusedResources">#009688</color>
+    <color name="teal_600" tools:ignore="UnusedResources">#00897B</color>
+    <color name="teal_700">#00796B</color>
+    <color name="teal_900">#004D40</color>
+
+    <color name="brown_200" tools:ignore="UnusedResources">#BCAAA4</color>
+    <color name="brown_500" tools:ignore="UnusedResources">#6D4C41</color>
+
+    <color name="red_200" tools:ignore="UnusedResources">#cf6679</color>
+    <color name="red_600">#b00020</color>
+
+    <color name="transparent" tools:ignore="UnusedResources">#00000000</color>
+    <color name="white">#ffffff</color>
+    <color name="gray_300">#E0E0E0</color>
+    <color name="gray_500" tools:ignore="UnusedResources">#9E9E9E</color>
+    <color name="gray_700" tools:ignore="UnusedResources">#616161</color>
+    <color name="black_800">#121212</color>
+    <color name="black" tools:ignore="UnusedResources">#000000</color>
+
 </resources>
