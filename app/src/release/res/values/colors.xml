@@ -16,5 +16,5 @@
   -->
 
 <resources>
-    <color name="ic_launcher_background">#004D40</color>
+    <color name="icon_application">@color/teal_900</color>
 </resources>
