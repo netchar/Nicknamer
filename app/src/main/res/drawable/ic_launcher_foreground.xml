@@ -24,7 +24,7 @@
       android:translateX="21.33"
       android:translateY="21.33">
       <path
-          android:fillColor="?colorPrimary"
+          android:fillColor="@color/icon_application"
           android:pathData="M256,256m-256,0a256,256 0,1 1,512 0a256,256 0,1 1,-512 0" />
       <path
           android:fillColor="#f8fffb"
