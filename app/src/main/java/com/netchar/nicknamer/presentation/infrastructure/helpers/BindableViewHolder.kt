@@ -16,14 +16,14 @@
 
 package com.netchar.nicknamer.presentation.infrastructure.helpers
 
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewbinding.ViewBinding
 
-abstract class BindableViewHolder<TBinding : ViewBinding,TModel>(val binding: TBinding) : RecyclerView.ViewHolder(binding.root) {
+abstract class BindableViewHolder<TModel>(view: View) : RecyclerView.ViewHolder(view) {
     abstract fun bind(model: TModel)
 
-    interface Factory<ViewHolder: BindableViewHolder<*, *>> {
+    interface Factory<ViewHolder: BindableViewHolder<*>> {
         fun from(parent: ViewGroup) : ViewHolder
     }
 }

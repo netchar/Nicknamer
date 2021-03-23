@@ -17,27 +17,24 @@
 package com.netchar.nicknamer.presentation.ui.favorites
 
 import android.os.Bundle
-import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.ListAdapter
 import com.netchar.nicknamer.R
 import com.netchar.nicknamer.databinding.FragmentFavoritesBinding
-import com.netchar.nicknamer.databinding.RowFavoriteBinding
-import com.netchar.nicknamer.domen.models.Nickname
 import com.netchar.nicknamer.presentation.infrastructure.copyToClipboard
-import com.netchar.nicknamer.presentation.infrastructure.inflater
-import com.netchar.nicknamer.presentation.infrastructure.helpers.BindableViewHolder
-import com.netchar.nicknamer.presentation.infrastructure.helpers.DefaultDiffCallback
-import com.netchar.nicknamer.presentation.infrastructure.listen
 import com.netchar.nicknamer.presentation.infrastructure.viewBinding
 import org.koin.android.ext.android.inject
 
 class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
     private val binding by viewBinding(FragmentFavoritesBinding::bind)
     private val viewModel by inject<FavoritesViewModel>()
-    private val favoritesAdapter = FavoritesAdapter()
-
+    private val favoritesAdapter = FavoritesAdapter {
+        requireContext().run {
+            copyToClipboard(it.value)
+            Toast.makeText(this, R.string.message_copied_to_clipboard, Toast.LENGTH_SHORT).show()
+        }
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -59,29 +56,6 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         }
     }
 
-    class FavoritesAdapter() : ListAdapter<Nickname, FavoritesAdapter.FavoriteViewHolder>(DefaultDiffCallback<Nickname>()) {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
-            return FavoriteViewHolder.from(parent).listen { position ->
-//                val nickname = getItem(position).value
-//                onClickListener(nickname)
-                val item: Nickname = getItem(position)
-                val t = 0
-            }
-        }
 
-        override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
-            val item: Nickname = getItem(position)
-            holder.bind(item)
-        }
-
-        class FavoriteViewHolder(binding: RowFavoriteBinding) : BindableViewHolder<RowFavoriteBinding, Nickname>(binding) {
-            override fun bind(model: Nickname) {
-                binding.favoriteTxtNickname.text = model.value
-            }
-
-            companion object : Factory<FavoriteViewHolder> {
-                override fun from(parent: ViewGroup) = FavoriteViewHolder(RowFavoriteBinding.inflate(parent.inflater(), parent, false))
-            }
-        }
-    }
 }
+

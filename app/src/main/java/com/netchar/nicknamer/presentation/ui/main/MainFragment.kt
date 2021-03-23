@@ -65,6 +65,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         mainTvNickname.setOnClickListener {
             analytics.trackEvent(AnalyticsEvent.Event("copy_to_clipboard"))
             mainTvNickname.copyToClipboard()
+            Toast.makeText(requireContext(), R.string.message_copied_to_clipboard, Toast.LENGTH_SHORT).show()
             mainCheckFavorite.isChecked = false
         }
 

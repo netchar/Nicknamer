@@ -34,7 +34,7 @@ class ContactsAdapter(private val listener: (Contact) -> Unit) : ListAdapter<Con
         holder.bind(item)
     }
 
-    class ContactViewHolder(binding: RowContactBinding) : BindableViewHolder<RowContactBinding, Contact>(binding) {
+    class ContactViewHolder(private val binding: RowContactBinding) : BindableViewHolder<Contact>(binding.root) {
         override fun bind(model: Contact) = with(binding) {
             rowContactImage.setImageResource(model.image)
             rowContactTxtDescription.setText(model.description)
