@@ -23,7 +23,7 @@ import androidx.lifecycle.viewModelScope
 import com.netchar.nicknamer.R
 import com.netchar.nicknamer.domen.models.Nickname
 import com.netchar.nicknamer.domen.service.NicknameGeneratorService
-import com.netchar.nicknamer.domen.service.NicknameGeneratorService.*
+import com.netchar.nicknamer.domen.service.NicknameGeneratorService.Config
 import com.netchar.nicknamer.presentation.infrastructure.analytics.Analytics
 import com.netchar.nicknamer.presentation.infrastructure.analytics.AnalyticsEvent
 import kotlinx.coroutines.Job
@@ -73,5 +73,13 @@ class MainViewModel(
 
     fun setLength(length: Float) {
         nicknameLength = length
+    }
+
+    fun addToFavorites(nickname: String) {
+        nicknameService.addToFavorites(Nickname(nickname))
+    }
+
+    fun removeFromFavorites(nickname: String) {
+        nicknameService.removeFromFavorites(Nickname(nickname))
     }
 }

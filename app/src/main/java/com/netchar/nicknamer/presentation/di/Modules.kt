@@ -16,18 +16,24 @@
 
 package com.netchar.nicknamer.presentation.di
 
+import android.content.Context
+import android.content.SharedPreferences
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.netchar.nicknamer.BuildConfig
 import com.netchar.nicknamer.data.NicknameModelsDataSourceImpl
+import com.netchar.nicknamer.data.NicknamesDatabase
+import com.netchar.nicknamer.data.NicknamesDatabaseImpl
 import com.netchar.nicknamer.domen.NicknameModelsDataSource
 import com.netchar.nicknamer.domen.service.NicknameGeneratorService
 import com.netchar.nicknamer.domen.service.NicknameGeneratorServiceImpl
-import com.netchar.nicknamer.presentation.ui.about.AboutViewModel
 import com.netchar.nicknamer.presentation.infrastructure.*
 import com.netchar.nicknamer.presentation.infrastructure.analytics.Analytics
 import com.netchar.nicknamer.presentation.infrastructure.analytics.AnalyticsImpl
+import com.netchar.nicknamer.presentation.ui.about.AboutViewModel
+import com.netchar.nicknamer.presentation.ui.favorites.FavoritesViewModel
 import com.netchar.nicknamer.presentation.ui.main.MainViewModel
+import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.experimental.builder.viewModel
 import org.koin.dsl.module.module
@@ -45,6 +51,7 @@ object Modules {
 
         single { FirebaseAnalytics.getInstance(androidContext()) }
         single { FirebaseCrashlytics.getInstance() }
+        single { androidApplication().getSharedPreferences("prefs", Context.MODE_PRIVATE) } bind SharedPreferences::class
         singleBy<BuildConfiguration, BuildConfigurationImpl>()
         singleBy<Thread.UncaughtExceptionHandler, AppUncaughtExceptionHandler>()
         singleBy<Analytics, AnalyticsImpl>()
@@ -55,11 +62,13 @@ object Modules {
         singleBy<NicknameGeneratorService, NicknameGeneratorServiceImpl>()
         singleBy<LibrariesProvider, LibraryProviderImpl>()
         singleBy<ExternalAppService, ExternalAppServiceImpl>()
+        singleBy<NicknamesDatabase, NicknamesDatabaseImpl>()
     }
 
     private val viewModelModule = module {
         viewModel<MainViewModel>()
         viewModel<AboutViewModel>()
+        viewModel<FavoritesViewModel>()
     }
 
     val ViewModels get() = listOf(viewModelModule)

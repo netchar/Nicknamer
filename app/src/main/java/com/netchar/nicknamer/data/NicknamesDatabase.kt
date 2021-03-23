@@ -14,16 +14,13 @@
  * limitations under the License.
  */
 
-package com.netchar.nicknamer.presentation.infrastructure.helpers
+package com.netchar.nicknamer.data
 
-import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
-import androidx.viewbinding.ViewBinding
+import com.netchar.nicknamer.domen.models.Nickname
 
-abstract class BindingViewHolder<TBinding : ViewBinding,TModel>(val binding: TBinding) : RecyclerView.ViewHolder(binding.root) {
-    abstract fun bind(model: TModel)
-
-    interface Factory<ViewHolder: BindingViewHolder<*, *>> {
-        fun from(parent: ViewGroup) : ViewHolder
-    }
+interface NicknamesDatabase {
+    fun getAll(): List<Nickname>
+    fun add(nickname: Nickname)
+    fun remove(nickname: Nickname)
 }
+

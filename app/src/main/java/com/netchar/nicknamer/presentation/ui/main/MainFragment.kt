@@ -27,10 +27,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.onNavDestinationSelected
 import com.netchar.nicknamer.R
 import com.netchar.nicknamer.databinding.FragmentMainBinding
-import com.netchar.nicknamer.presentation.copyToClipboard
+import com.netchar.nicknamer.presentation.infrastructure.copyToClipboard
 import com.netchar.nicknamer.presentation.infrastructure.analytics.Analytics
 import com.netchar.nicknamer.presentation.infrastructure.analytics.AnalyticsEvent
-import com.netchar.nicknamer.presentation.viewBinding
+import com.netchar.nicknamer.presentation.infrastructure.viewBinding
 import org.koin.android.ext.android.inject
 
 class MainFragment : Fragment(R.layout.fragment_main) {
@@ -64,7 +64,16 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private fun bindViews() = with(binding) {
         mainTvNickname.setOnClickListener {
             analytics.trackEvent(AnalyticsEvent.Event("copy_to_clipboard"))
-            copyToClipboard()
+            mainTvNickname.copyToClipboard()
+            mainCheckFavorite.isChecked = false
+        }
+
+        mainCheckFavorite.setOnClickListener {
+            if (mainCheckFavorite.isChecked) {
+                viewModel.addToFavorites(mainTvNickname.text.toString())
+            } else {
+                viewModel.removeFromFavorites(mainTvNickname.text.toString())
+            }
         }
 
         mainBtnGenerate.setOnClickListener {
@@ -88,12 +97,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         viewModel.nickname.observe(viewLifecycleOwner, { nickname ->
             binding.mainTvNickname.text = nickname.value
         })
-    }
-
-    private fun copyToClipboard() {
-        val context = requireContext()
-        context.copyToClipboard(binding.mainTvNickname.text)
-        Toast.makeText(context, getString(R.string.message_copied_to_clipboard), Toast.LENGTH_SHORT).show()
     }
 }
 

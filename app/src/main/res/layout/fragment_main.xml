@@ -25,16 +25,19 @@
 
     <TextView
         android:id="@+id/main_tv_nickname"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textAllCaps="true"
         android:textAppearance="@style/TextAppearance.App.Headline4"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/main_flow_gender"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/main_check_favorite"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="NAME" />
 
     <RadioGroup
         android:id="@+id/main_radio_grp_gender"
@@ -44,17 +47,17 @@
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/main_radio_btn_male"
+            style="@style/Style.RadioButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Style.RadioButton"
             android:checked="true"
             android:text="@string/main_button_gender_male" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/main_radio_btn_female"
+            style="@style/Style.RadioButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Style.RadioButton"
             android:text="@string/main_button_gender_female" />
     </RadioGroup>
 
@@ -86,17 +89,17 @@
 
         <RadioButton
             android:id="@+id/main_radio_btn_latin"
+            style="@style/Style.RadioButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
-            style="@style/Style.RadioButton"
             android:text="@string/main_button_alphabet_latin" />
 
         <RadioButton
             android:id="@+id/main_radio_btn_cyrillic"
+            style="@style/Style.RadioButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Style.RadioButton"
             android:text="@string/main_button_alphabet_cyrillic" />
     </RadioGroup>
 
@@ -174,5 +177,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_tv_nickname" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/main_check_favorite"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/main_tv_nickname"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/main_tv_nickname"
+        app:layout_constraintTop_toTopOf="@+id/main_tv_nickname" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

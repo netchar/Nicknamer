@@ -19,11 +19,10 @@ package com.netchar.nicknamer.presentation.ui.about
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.netchar.nicknamer.R
 import com.netchar.nicknamer.databinding.FragmentAboutBinding
 import com.netchar.nicknamer.presentation.infrastructure.analytics.*
-import com.netchar.nicknamer.presentation.viewBinding
+import com.netchar.nicknamer.presentation.infrastructure.viewBinding
 import org.koin.android.ext.android.inject
 
 class AboutFragment : Fragment(R.layout.fragment_about) {

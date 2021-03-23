@@ -19,14 +19,14 @@ package com.netchar.nicknamer.presentation.ui.about
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.netchar.nicknamer.databinding.RowContactBinding
-import com.netchar.nicknamer.presentation.inflater
-import com.netchar.nicknamer.presentation.infrastructure.helpers.BindingViewHolder
+import com.netchar.nicknamer.presentation.infrastructure.helpers.BindableViewHolder
 import com.netchar.nicknamer.presentation.infrastructure.helpers.DefaultDiffCallback
-import com.netchar.nicknamer.presentation.listen
+import com.netchar.nicknamer.presentation.infrastructure.inflater
+import com.netchar.nicknamer.presentation.infrastructure.listen
 
 class ContactsAdapter(private val listener: (Contact) -> Unit) : ListAdapter<Contact, ContactsAdapter.ContactViewHolder>(DefaultDiffCallback<Contact>()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
-        return ContactViewHolder.from(parent).listen { position ->  listener(getItem(position)) }
+        return ContactViewHolder.from(parent).listen { position -> listener(getItem(position)) }
     }
 
     override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
@@ -34,7 +34,7 @@ class ContactsAdapter(private val listener: (Contact) -> Unit) : ListAdapter<Con
         holder.bind(item)
     }
 
-    class ContactViewHolder(binding: RowContactBinding) : BindingViewHolder<RowContactBinding, Contact>(binding) {
+    class ContactViewHolder(binding: RowContactBinding) : BindableViewHolder<RowContactBinding, Contact>(binding) {
         override fun bind(model: Contact) = with(binding) {
             rowContactImage.setImageResource(model.image)
             rowContactTxtDescription.setText(model.description)
