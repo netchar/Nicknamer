@@ -35,6 +35,7 @@ import com.netchar.nicknamer.databinding.FragmentFavoritesBinding
 import com.netchar.nicknamer.domen.models.Nickname
 import com.netchar.nicknamer.presentation.infrastructure.copyToClipboard
 import com.netchar.nicknamer.presentation.infrastructure.viewBinding
+import com.netchar.nicknamer.presentation.ui.main.MainActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -96,10 +97,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites), NavController.O
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             removeFromFavorites(viewHolder)
-
-            Snackbar.make(binding.favoriteRecycler, getString(R.string.message_remove_back), Snackbar.LENGTH_LONG)
-                .setAction(getString(R.string.button_undo)) { viewModel.restoreFavorites() }
-                .show()
+            showUndoSnackbar()
         }
 
         private fun removeFromFavorites(viewHolder: RecyclerView.ViewHolder) {
@@ -117,6 +115,17 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites), NavController.O
                 else -> background.setBounds(0, 0, 0, 0)
             }
             background.draw(c)
+        }
+    }
+
+    private fun showUndoSnackbar() {
+        val mainActivity = requireActivity() as? MainActivity
+
+        if (mainActivity != null) {
+            Snackbar.make(binding.favoriteRecycler, getString(R.string.message_remove_back), Snackbar.LENGTH_LONG)
+                .setAnchorView(mainActivity.binding.bottomNav)
+                .setAction(getString(R.string.button_undo)) { viewModel.restoreFavorites() }
+                .show()
         }
     }
 

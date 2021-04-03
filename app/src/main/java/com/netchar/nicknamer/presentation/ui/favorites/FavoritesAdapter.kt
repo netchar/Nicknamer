@@ -27,7 +27,7 @@ import com.netchar.nicknamer.presentation.infrastructure.listen
 
 class FavoritesAdapter(private val listener: (Nickname) -> Unit) : ListAdapter<Nickname, FavoritesAdapter.FavoriteViewHolder>(DefaultDiffCallback<Nickname>()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
-        return FavoriteViewHolder.from(parent).listen { position -> listener(currentList[position]) }
+        return FavoriteViewHolder(RowFavoriteBinding.inflate(parent.inflater(), parent, false))
     }
 
     override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
@@ -35,13 +35,10 @@ class FavoritesAdapter(private val listener: (Nickname) -> Unit) : ListAdapter<N
         holder.bind(item)
     }
 
-    class FavoriteViewHolder(private val binding: RowFavoriteBinding) : BindableViewHolder<Nickname>(binding.root) {
+    inner class FavoriteViewHolder(private val binding: RowFavoriteBinding) : BindableViewHolder<Nickname>(binding.root) {
         override fun bind(model: Nickname) {
             binding.favoriteTxtNickname.text = model.value
-        }
-
-        companion object : Factory<FavoriteViewHolder> {
-            override fun from(parent: ViewGroup) = FavoriteViewHolder(RowFavoriteBinding.inflate(parent.inflater(), parent, false))
+            binding.favoriteRowImgCopy.setOnClickListener { listener(currentList[adapterPosition]) }
         }
     }
 }
