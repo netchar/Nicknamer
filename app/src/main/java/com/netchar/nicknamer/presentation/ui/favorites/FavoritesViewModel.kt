@@ -43,12 +43,7 @@ class FavoritesViewModel(
         mutableFavoriteNicknames.value = unmodifiedFavorites
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        applyRemoving()
-    }
-
-    private fun applyRemoving() {
+    fun applyRemoving() {
         unmodifiedFavorites
             .subtract(currentFavorites)
             .forEach { nicknameToDelete ->

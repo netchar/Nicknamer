@@ -20,7 +20,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.netchar.nicknamer.R
 import com.netchar.nicknamer.domen.models.Nickname
 import com.netchar.nicknamer.domen.service.NicknameGeneratorService
 import com.netchar.nicknamer.domen.service.NicknameGeneratorService.Config
@@ -34,9 +33,16 @@ class MainViewModel(
         private val analytics: Analytics
 ) : ViewModel() {
     private val mutableNickname = MutableLiveData<Nickname>()
-    private var gender: Config.Gender = Config.Gender.MALE
-    private var alphabet: Config.Alphabet = Config.Alphabet.LATIN
-    private var nicknameLength: Float = 5.0f
+    private val mutableGender = MutableLiveData(Config.Gender.MALE)
+    private val mutableAlphabet = MutableLiveData(Config.Alphabet.LATIN)
+    private val mutableNicknameLength = MutableLiveData(5.0f)
+    private val mutableFavorite = MutableLiveData<Boolean>()
+
+    val gender: LiveData<Config.Gender> = mutableGender
+    val alphabet: LiveData<Config.Alphabet> = mutableAlphabet
+    val nicknameLength: LiveData<Float> = mutableNicknameLength
+    val isFavorite: LiveData<Boolean> = mutableFavorite
+
     private var job: Job? = null
 
     val nickname: LiveData<Nickname> = mutableNickname
@@ -51,28 +57,27 @@ class MainViewModel(
         }
 
         job = viewModelScope.launch {
-            val config = Config(nicknameLength.toInt(), gender, alphabet)
+            val config = Config(
+                    requireNotNull(mutableNicknameLength.value).toInt(),
+                    requireNotNull(mutableGender.value),
+                    requireNotNull(mutableAlphabet.value)
+            )
             analytics.trackEvent(AnalyticsEvent.GenerateNickname(config))
             mutableNickname.value = nicknameService.generateNickname(config)
+            updateFavoriteState()
         }
     }
 
-    fun setGender(checkedId: Int) {
-        gender = when (checkedId) {
-            R.id.main_radio_btn_male -> Config.Gender.MALE
-            else -> Config.Gender.FEMALE
-        }
+    fun setGender(gender: Config.Gender) {
+        mutableGender.value = gender
     }
 
-    fun setAlphabet(checkedId: Int) {
-        alphabet = when (checkedId) {
-            R.id.main_radio_btn_latin -> Config.Alphabet.LATIN
-            else -> Config.Alphabet.CYRILLIC
-        }
+    fun setAlphabet(alphabet: Config.Alphabet) {
+        mutableAlphabet.value = alphabet
     }
 
     fun setLength(length: Float) {
-        nicknameLength = length
+        mutableNicknameLength.value = length
     }
 
     fun addToFavorites(nickname: String) {
@@ -81,5 +86,10 @@ class MainViewModel(
 
     fun removeFromFavorites(nickname: String) {
         nicknameService.removeFromFavorites(Nickname(nickname))
+    }
+
+    fun updateFavoriteState() {
+        val cachedFavoriteNickname = nicknameService.getFavoriteNicknames().find { nickname -> requireNotNull(mutableNickname.value) == nickname }
+        mutableFavorite.value = cachedFavoriteNickname != null
     }
 }

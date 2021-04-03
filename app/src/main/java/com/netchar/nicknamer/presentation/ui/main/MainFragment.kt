@@ -27,16 +27,30 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.onNavDestinationSelected
 import com.netchar.nicknamer.R
 import com.netchar.nicknamer.databinding.FragmentMainBinding
+import com.netchar.nicknamer.domen.service.NicknameGeneratorService.Config.*
 import com.netchar.nicknamer.presentation.infrastructure.copyToClipboard
 import com.netchar.nicknamer.presentation.infrastructure.analytics.Analytics
 import com.netchar.nicknamer.presentation.infrastructure.analytics.AnalyticsEvent
 import com.netchar.nicknamer.presentation.infrastructure.viewBinding
 import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class MainFragment : Fragment(R.layout.fragment_main) {
-    private val viewModel by inject<MainViewModel>()
+    private val viewModel by sharedViewModel<MainViewModel>(from = {
+        findNavController().getViewModelStoreOwner(R.id.nav_graph)
+    })
     private val binding by viewBinding(FragmentMainBinding::bind)
     private val analytics by inject<Analytics>()
+
+    private val genderGroupSelector = ViewGroupSelector(
+            R.id.main_radio_btn_male to Gender.MALE,
+            R.id.main_radio_btn_female to Gender.FEMALE,
+    )
+
+    private val alphabetGroupSelector = ViewGroupSelector(
+            R.id.main_radio_btn_cyrillic to Alphabet.CYRILLIC,
+            R.id.main_radio_btn_latin to Alphabet.LATIN,
+    )
 
     init {
         setHasOptionsMenu(true)
@@ -45,6 +59,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     override fun onStart() {
         super.onStart()
         analytics.trackScreen(AnalyticsEvent.ViewScreen(AnalyticsEvent.ViewScreen.Screen.MAIN))
+        viewModel.updateFavoriteState()
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -81,11 +100,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
 
         mainRadioGrpGender.setOnCheckedChangeListener { _, checkedId ->
-            viewModel.setGender(checkedId)
+            viewModel.setGender(genderGroupSelector[checkedId])
         }
 
         mainRadioGrpAlphabet.setOnCheckedChangeListener { _, checkedId ->
-            viewModel.setAlphabet(checkedId)
+            viewModel.setAlphabet(alphabetGroupSelector[checkedId])
         }
 
         mainSlideLength.addOnChangeListener { _, value, _ ->
@@ -93,10 +112,27 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
     }
 
-    private fun observe() {
-        viewModel.nickname.observe(viewLifecycleOwner, { nickname ->
+    private fun observe() = with(viewModel) {
+        nickname.observe(viewLifecycleOwner, { nickname ->
             binding.mainTvNickname.text = nickname.value
+        })
+        gender.observe(viewLifecycleOwner, { gender ->
+            binding.mainRadioGrpGender.check(genderGroupSelector[gender])
+        })
+        alphabet.observe(viewLifecycleOwner, { alphabet ->
+            binding.mainRadioGrpAlphabet.check(alphabetGroupSelector[alphabet])
+        })
+        nicknameLength.observe(viewLifecycleOwner, { length ->
+            binding.mainSlideLength.value = length
+        })
+        isFavorite.observe(viewLifecycleOwner, { isFavorite ->
+            binding.mainCheckFavorite.isChecked = isFavorite
         })
     }
 }
 
+class ViewGroupSelector<TRadioValue>(vararg pairs: Pair<Int, TRadioValue>) {
+    private val idsToValueMap = mapOf(*pairs)
+    operator fun get(radioItemId: Int): TRadioValue = idsToValueMap.getValue(radioItemId)
+    operator fun get(gender: TRadioValue): Int = idsToValueMap.keys.first { gender == idsToValueMap[it] }
+}

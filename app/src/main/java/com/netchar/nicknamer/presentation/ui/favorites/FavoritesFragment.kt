@@ -23,6 +23,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -35,7 +38,7 @@ import com.netchar.nicknamer.presentation.infrastructure.viewBinding
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
-class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
+class FavoritesFragment : Fragment(R.layout.fragment_favorites), NavController.OnDestinationChangedListener {
     private val binding by viewBinding(FragmentFavoritesBinding::bind)
     private val viewModel by viewModel<FavoritesViewModel>()
 
@@ -53,6 +56,16 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         super.onActivityCreated(savedInstanceState)
         bind()
         observe()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        findNavController().addOnDestinationChangedListener(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        findNavController().removeOnDestinationChangedListener(this)
     }
 
     private fun observe() {
@@ -105,6 +118,10 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
             }
             background.draw(c)
         }
+    }
+
+    override fun onDestinationChanged(controller: NavController, destination: NavDestination, arguments: Bundle?) {
+        viewModel.applyRemoving()
     }
 }
 
