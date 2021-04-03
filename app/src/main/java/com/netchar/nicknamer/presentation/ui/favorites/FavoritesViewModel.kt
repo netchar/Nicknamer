@@ -19,28 +19,40 @@ package com.netchar.nicknamer.presentation.ui.favorites
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.netchar.nicknamer.domen.models.Nickname
 import com.netchar.nicknamer.domen.service.NicknameGeneratorService
-import kotlinx.coroutines.launch
 
 class FavoritesViewModel(
         private val nicknameGeneratorService: NicknameGeneratorService
 ) : ViewModel() {
-
+    private val unmodifiedFavorites = nicknameGeneratorService.getFavoriteNicknames()
     private val mutableFavoriteNicknames = MutableLiveData<List<Nickname>>()
+    private val currentFavorites: List<Nickname> get() = mutableFavoriteNicknames.value.orEmpty()
 
     val nicknames: LiveData<List<Nickname>> = mutableFavoriteNicknames
 
     init {
-        update()
-    }
-
-    fun update() {
-        mutableFavoriteNicknames.value = nicknameGeneratorService.getFavoriteNicknames()
+        restoreFavorites()
     }
 
     fun removeFromFavorites(nickname: Nickname) {
-        nicknameGeneratorService.removeFromFavorites(nickname)
+        mutableFavoriteNicknames.value = currentFavorites - nickname
+    }
+
+    fun restoreFavorites() {
+        mutableFavoriteNicknames.value = unmodifiedFavorites
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        applyRemoving()
+    }
+
+    private fun applyRemoving() {
+        unmodifiedFavorites
+            .subtract(currentFavorites)
+            .forEach { nicknameToDelete ->
+                nicknameGeneratorService.removeFromFavorites(nicknameToDelete)
+            }
     }
 }

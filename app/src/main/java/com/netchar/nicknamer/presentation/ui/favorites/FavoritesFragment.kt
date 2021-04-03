@@ -16,24 +16,37 @@
 
 package com.netchar.nicknamer.presentation.ui.favorites
 
+import android.graphics.Canvas
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.netchar.nicknamer.R
 import com.netchar.nicknamer.databinding.FragmentFavoritesBinding
+import com.netchar.nicknamer.domen.models.Nickname
 import com.netchar.nicknamer.presentation.infrastructure.copyToClipboard
 import com.netchar.nicknamer.presentation.infrastructure.viewBinding
-import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
+
 
 class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
     private val binding by viewBinding(FragmentFavoritesBinding::bind)
-    private val viewModel by inject<FavoritesViewModel>()
-    private val favoritesAdapter = FavoritesAdapter {
-        requireContext().run {
-            copyToClipboard(it.value)
-            Toast.makeText(this, R.string.message_copied_to_clipboard, Toast.LENGTH_SHORT).show()
-        }
+    private val viewModel by viewModel<FavoritesViewModel>()
+
+    private val favoritesAdapter = FavoritesAdapter { nickname ->
+        copyToClipboard(nickname)
+    }
+
+    private fun copyToClipboard(nickname: Nickname) {
+        val context = requireContext()
+        context.copyToClipboard(nickname.value)
+        Toast.makeText(context, R.string.message_copied_to_clipboard, Toast.LENGTH_SHORT).show()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -54,8 +67,44 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             adapter = favoritesAdapter
         }
+
+        val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback);
+        itemTouchHelper.attachToRecyclerView(binding.favoriteRecycler);
     }
 
+    private val swipeToDeleteCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+        private val background by lazy {
+            ColorDrawable(ContextCompat.getColor(requireContext(), R.color.red_600))
+        }
 
+        override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+            return false
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            removeFromFavorites(viewHolder)
+
+            Snackbar.make(binding.favoriteRecycler, getString(R.string.message_remove_back), Snackbar.LENGTH_LONG)
+                .setAction(getString(R.string.button_undo)) { viewModel.restoreFavorites() }
+                .show()
+        }
+
+        private fun removeFromFavorites(viewHolder: RecyclerView.ViewHolder) {
+            val position = viewHolder.adapterPosition
+            val nicknameItem = favoritesAdapter.currentList[position]
+            viewModel.removeFromFavorites(nicknameItem)
+        }
+
+        override fun onChildDraw(c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean) {
+            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+            val itemView: View = viewHolder.itemView
+            when {
+                dX > 0 -> background.setBounds(itemView.left, itemView.top, itemView.left + dX.toInt(), itemView.bottom)
+                dX < 0 -> background.setBounds(itemView.right + dX.toInt(), itemView.top, itemView.right, itemView.bottom)
+                else -> background.setBounds(0, 0, 0, 0)
+            }
+            background.draw(c)
+        }
+    }
 }
 
