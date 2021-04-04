@@ -14,16 +14,20 @@
  * limitations under the License.
  */
 
-package com.netchar.nicknamer.presentation.infrastructure.helpers
+package com.netchar.nicknamer.domen
 
-import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
-import androidx.viewbinding.ViewBinding
+import com.netchar.nicknamer.domen.models.Nickname
+import com.netchar.nicknamer.domen.models.NicknameModel
 
-abstract class BindingViewHolder<TBinding : ViewBinding,TModel>(val binding: TBinding) : RecyclerView.ViewHolder(binding.root) {
-    abstract fun bind(model: TModel)
 
-    interface Factory<ViewHolder: BindingViewHolder<*, *>> {
-        fun from(parent: ViewGroup) : ViewHolder
-    }
+interface NicknameRepository {
+    fun getModels(): Map<String, NicknameModel>
+
+    fun addToFavorites(nickname: Nickname)
+
+    fun removeFromFavorites(nickname: Nickname)
+
+    fun getFavoriteNicknames(): List<Nickname>
+
+    fun isFavorite(nickname: Nickname) : Boolean
 }

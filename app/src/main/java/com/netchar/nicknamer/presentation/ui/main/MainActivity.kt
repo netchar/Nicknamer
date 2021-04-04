@@ -17,18 +17,22 @@
 package com.netchar.nicknamer.presentation.ui.main
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.netchar.nicknamer.R
 import com.netchar.nicknamer.databinding.ActivityMainBinding
-import com.netchar.nicknamer.presentation.visible
+import com.netchar.nicknamer.presentation.infrastructure.helpers.DoublePressHandler
+import com.netchar.nicknamer.presentation.infrastructure.visible
 
 class MainActivity : AppCompatActivity() {
-    private val binding by lazy {
+    val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
@@ -37,7 +41,18 @@ class MainActivity : AppCompatActivity() {
         val hostFragment = fragment as NavHostFragment
         hostFragment.navController
     }
+
     private lateinit var appBarConfiguration: AppBarConfiguration
+
+    private val doubleTapHandler = DoublePressHandler(listener = object : DoublePressHandler.Listener {
+        override fun onSingleTap() {
+            Toast.makeText(baseContext, getString(R.string.message_confirm_back), Toast.LENGTH_SHORT).show()
+        }
+
+        override fun onSingleTapConfirmed() {
+            finishAffinity()
+        }
+    })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,14 +62,31 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupWithNavController() {
-        navigationController.addOnDestinationChangedListener { _, destination, _ ->
-            binding.mainTxtTitle.visible(destination.id == R.id.main_fragment)
-        }
-        appBarConfiguration = AppBarConfiguration(navigationController.graph)
+        navigationController.addOnDestinationChangedListener { _, destination, _ -> updateUI(destination) }
+        binding.bottomNav.setupWithNavController(navigationController)
+        appBarConfiguration = AppBarConfiguration(topLevelDestinationIds = setOf(R.id.main_fragment, R.id.favorites_fragment))
         setupActionBarWithNavController(navigationController, appBarConfiguration)
+    }
+
+    private fun updateUI(destination: NavDestination) {
+        val isTopLevelDestination = destination.isTopLevelDestination()
+        binding.mainTxtTitle.visible(isTopLevelDestination)
+        binding.bottomNav.visible(isTopLevelDestination)
+    }
+
+    private fun NavDestination.isTopLevelDestination(): Boolean {
+        return this.id != R.id.about_fragment
     }
 
     override fun onSupportNavigateUp(): Boolean {
         return navigationController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun onBackPressed() {
+        if (navigationController.navigateUp()) {
+            return
+        }
+
+        doubleTapHandler.performPress()
     }
 }

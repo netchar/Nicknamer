@@ -30,6 +30,8 @@ interface NicknameGeneratorService {
 
     fun getFavoriteNicknames(): List<Nickname>
 
+    fun isFavorite(nickname: Nickname) : Boolean
+
     data class Config(
         val nicknameLength: Int = 5,
         val gender: Gender = Gender.MALE,

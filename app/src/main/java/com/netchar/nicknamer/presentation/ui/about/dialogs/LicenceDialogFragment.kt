@@ -26,7 +26,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.netchar.nicknamer.R
-import com.netchar.nicknamer.presentation.inflate
+import com.netchar.nicknamer.presentation.infrastructure.inflate
 import com.netchar.nicknamer.presentation.infrastructure.ExternalAppService
 import com.netchar.nicknamer.presentation.infrastructure.LibrariesProvider
 import com.netchar.nicknamer.presentation.infrastructure.LibrariesProvider.Library

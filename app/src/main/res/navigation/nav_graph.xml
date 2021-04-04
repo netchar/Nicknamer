@@ -34,9 +34,6 @@
         android:name="com.netchar.nicknamer.presentation.ui.about.AboutFragment"
         android:label="@string/main_action_about">
         <action
-            android:id="@+id/action_about_fragment_to_MainFragment"
-            app:destination="@id/main_fragment" />
-        <action
             android:id="@+id/action_about_fragment_to_licenceDialogFragment"
             app:destination="@id/license_dialog_fragment" />
     </fragment>
@@ -48,4 +45,7 @@
         android:id="@+id/privacy_policy_fragment"
         android:name="com.netchar.nicknamer.presentation.ui.about.dialogs.PrivacyPolicyDialogFragment"
         android:label="@string/about_label_privacy_policy" />
+    <fragment
+        android:id="@+id/favorites_fragment"
+        android:name="com.netchar.nicknamer.presentation.ui.favorites.FavoritesFragment" />
 </navigation>

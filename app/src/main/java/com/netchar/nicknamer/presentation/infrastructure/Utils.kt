@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.netchar.nicknamer.presentation
+package com.netchar.nicknamer.presentation.infrastructure
 
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -23,15 +23,16 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.netchar.nicknamer.R
-import com.netchar.nicknamer.presentation.infrastructure.helpers.BindingViewHolder
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
@@ -40,6 +41,10 @@ fun Context.copyToClipboard(text: CharSequence) {
     val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
     val clip = ClipData.newPlainText(this.getString(R.string.label_clipboard_copy), text)
     clipboard.setPrimaryClip(clip)
+}
+
+fun TextView.copyToClipboard() {
+    context.copyToClipboard(text)
 }
 
 fun ViewGroup.inflater(): LayoutInflater {
@@ -58,8 +63,8 @@ fun View.visible(visible: Boolean) {
     this.visibility = if (visible) View.VISIBLE else View.GONE
 }
 
-fun <T : BindingViewHolder<*, *>> T.listen(event: (position: Int) -> Unit): T {
-    binding.root.setOnClickListener {
+fun <T : RecyclerView.ViewHolder> T.listen(event: (position: Int) -> Unit): T {
+    itemView.setOnClickListener {
         event.invoke(adapterPosition)
     }
     return this
