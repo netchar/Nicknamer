@@ -17,6 +17,7 @@
 package com.netchar.nicknamer.presentation.ui.main
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
@@ -27,6 +28,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.netchar.nicknamer.R
 import com.netchar.nicknamer.databinding.ActivityMainBinding
+import com.netchar.nicknamer.presentation.infrastructure.helpers.DoublePressHandler
 import com.netchar.nicknamer.presentation.infrastructure.visible
 
 class MainActivity : AppCompatActivity() {
@@ -39,7 +41,18 @@ class MainActivity : AppCompatActivity() {
         val hostFragment = fragment as NavHostFragment
         hostFragment.navController
     }
+
     private lateinit var appBarConfiguration: AppBarConfiguration
+
+    private val doubleTapHandler = DoublePressHandler(listener = object : DoublePressHandler.Listener {
+        override fun onSingleTap() {
+            Toast.makeText(baseContext, getString(R.string.message_confirm_back), Toast.LENGTH_SHORT).show()
+        }
+
+        override fun onSingleTapConfirmed() {
+            finishAffinity()
+        }
+    })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,5 +80,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         return navigationController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun onBackPressed() {
+        if (navigationController.navigateUp()) {
+            return
+        }
+
+        doubleTapHandler.perform()
     }
 }

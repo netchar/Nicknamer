@@ -53,4 +53,5 @@
 
     <string name="message_copied_to_clipboard">Copied to clipboard</string>
     <string name="message_remove_back">Remove back?</string>
+    <string name="message_confirm_back">Press \'back\' again to exit.</string>
 </resources>
