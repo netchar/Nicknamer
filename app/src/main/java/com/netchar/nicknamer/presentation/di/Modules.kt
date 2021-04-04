@@ -35,8 +35,9 @@ import com.netchar.nicknamer.presentation.ui.favorites.FavoritesViewModel
 import com.netchar.nicknamer.presentation.ui.main.MainViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
-import org.koin.android.viewmodel.experimental.builder.viewModel
-import org.koin.dsl.module.module
+import org.koin.androidx.experimental.dsl.viewModel
+import org.koin.dsl.bind
+import org.koin.dsl.module
 import org.koin.experimental.builder.singleBy
 
 object Modules {
@@ -52,6 +53,7 @@ object Modules {
         single { FirebaseAnalytics.getInstance(androidContext()) }
         single { FirebaseCrashlytics.getInstance() }
         single { androidApplication().getSharedPreferences("prefs", Context.MODE_PRIVATE) } bind SharedPreferences::class
+
         singleBy<BuildConfiguration, BuildConfigurationImpl>()
         singleBy<Thread.UncaughtExceptionHandler, AppUncaughtExceptionHandler>()
         singleBy<Analytics, AnalyticsImpl>()

@@ -36,7 +36,7 @@ import com.netchar.nicknamer.domen.models.Nickname
 import com.netchar.nicknamer.presentation.infrastructure.copyToClipboard
 import com.netchar.nicknamer.presentation.infrastructure.viewBinding
 import com.netchar.nicknamer.presentation.ui.main.MainActivity
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class FavoritesFragment : Fragment(R.layout.fragment_favorites), NavController.OnDestinationChangedListener {

@@ -19,14 +19,21 @@ package com.netchar.nicknamer
 import android.app.Application
 import com.netchar.nicknamer.presentation.di.Modules
 import org.koin.android.ext.android.get
-import org.koin.android.ext.android.startKoin
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 import timber.log.Timber
 
 class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        startKoin(this, Modules.Application + Modules.ViewModels + Modules.Services)
+        startKoin {
+            androidLogger(Level.DEBUG)
+            androidContext(this@App)
+            modules(Modules.Application + Modules.ViewModels + Modules.Services)
+        }
 
         Timber.plant(get())
         Thread.setDefaultUncaughtExceptionHandler(get())
