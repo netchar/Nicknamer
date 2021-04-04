@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.netchar.nicknamer.presentation.ui.main
+package com.netchar.nicknamer.presentation.infrastructure.helpers
 
 class ViewGroupSelectionMapper<TRadioValue>(vararg pairs: Pair<Int, TRadioValue>) {
     private val idsToValueMap = mapOf(*pairs)

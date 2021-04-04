@@ -47,6 +47,8 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites), NavController.O
         copyToClipboard(nickname)
     }
 
+    private var snackbar: Snackbar? = null
+
     private fun copyToClipboard(nickname: Nickname) {
         val context = requireContext()
         context.copyToClipboard(nickname.value)
@@ -82,8 +84,8 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites), NavController.O
             adapter = favoritesAdapter
         }
 
-        val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback);
-        itemTouchHelper.attachToRecyclerView(binding.favoriteRecycler);
+        val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
+        itemTouchHelper.attachToRecyclerView(binding.favoriteRecycler)
     }
 
     private val swipeToDeleteCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
@@ -122,15 +124,18 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites), NavController.O
         val mainActivity = requireActivity() as? MainActivity
 
         if (mainActivity != null) {
-            Snackbar.make(binding.favoriteRecycler, getString(R.string.message_remove_back), Snackbar.LENGTH_LONG)
+            snackbar = Snackbar.make(binding.favoriteRecycler, getString(R.string.message_remove_back), Snackbar.LENGTH_LONG)
                 .setAnchorView(mainActivity.binding.bottomNav)
                 .setAction(getString(R.string.button_undo)) { viewModel.restoreFavorites() }
-                .show()
+                .also { it.show() }
         }
     }
 
     override fun onDestinationChanged(controller: NavController, destination: NavDestination, arguments: Bundle?) {
-        viewModel.applyRemoving()
+        if (destination.id == R.id.main_fragment) {
+            viewModel.applyRemoving()
+            snackbar?.dismiss()
+        }
     }
 }
 

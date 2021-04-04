@@ -32,6 +32,7 @@ import com.netchar.nicknamer.presentation.di.Constants
 import com.netchar.nicknamer.presentation.infrastructure.analytics.Analytics
 import com.netchar.nicknamer.presentation.infrastructure.analytics.AnalyticsEvent
 import com.netchar.nicknamer.presentation.infrastructure.copyToClipboard
+import com.netchar.nicknamer.presentation.infrastructure.helpers.ViewGroupSelectionMapper
 import com.netchar.nicknamer.presentation.infrastructure.viewBinding
 import org.koin.androidx.scope.ScopeFragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel

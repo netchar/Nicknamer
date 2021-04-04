@@ -36,7 +36,7 @@ import com.netchar.nicknamer.presentation.ui.about.AboutViewModel
 import com.netchar.nicknamer.presentation.ui.favorites.FavoritesViewModel
 import com.netchar.nicknamer.presentation.ui.main.MainFragment
 import com.netchar.nicknamer.presentation.ui.main.MainViewModel
-import com.netchar.nicknamer.presentation.ui.main.ViewGroupSelectionMapper
+import com.netchar.nicknamer.presentation.infrastructure.helpers.ViewGroupSelectionMapper
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.experimental.dsl.viewModel
