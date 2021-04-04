@@ -44,7 +44,6 @@
         android:id="@+id/main_check_favorite"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:layout_marginEnd="8dp"
         android:background="@drawable/ic_add_to_favorites_state_list"
         android:backgroundTint="@color/amber_400"
         android:button="@null"
@@ -55,36 +54,36 @@
         app:layout_constraintStart_toEndOf="@+id/main_tv_nickname"
         app:layout_constraintTop_toTopOf="@+id/main_tv_nickname" />
 
-    <RadioGroup
-        android:id="@+id/main_radio_grp_gender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/main_radio_btn_male"
-            style="@style/Style.RadioButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="@string/main_button_gender_male" />
-
-        <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/main_radio_btn_female"
-            style="@style/Style.RadioButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/main_button_gender_female" />
-    </RadioGroup>
-
     <TextView
         android:id="@+id/main_tv_gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/main_label_gender"
-        android:textAppearance="@style/TextAppearance.App.Subtitle2"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="333dp" />
+        android:textAppearance="@style/TextAppearance.App.Subtitle2" />
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/main_radio_grp_gender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:checkedButton="@+id/main_radio_btn_male"
+        app:singleSelection="true">
+
+        <Button
+            android:id="@+id/main_radio_btn_male"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/main_button_gender_male" />
+
+        <Button
+            android:id="@+id/main_radio_btn_female"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/main_button_gender_female" />
+    </com.google.android.material.button.MaterialButtonToggleGroup>
 
     <TextView
         android:id="@+id/main_tv_alphabet"
@@ -95,29 +94,29 @@
         tools:layout_editor_absoluteX="339dp"
         tools:layout_editor_absoluteY="270dp" />
 
-    <RadioGroup
+    <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/main_radio_grp_alphabet"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:layout_editor_absoluteX="140dp"
-        tools:layout_editor_absoluteY="232dp">
+        app:checkedButton="@+id/main_radio_btn_latin"
+        app:singleSelection="true">
 
-        <RadioButton
+        <Button
             android:id="@+id/main_radio_btn_latin"
-            style="@style/Style.RadioButton"
-            android:layout_width="match_parent"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:checked="true"
+            android:layout_weight="1"
             android:text="@string/main_button_alphabet_latin" />
 
-        <RadioButton
+        <Button
             android:id="@+id/main_radio_btn_cyrillic"
-            style="@style/Style.RadioButton"
-            android:layout_width="match_parent"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/main_button_alphabet_cyrillic" />
-    </RadioGroup>
+    </com.google.android.material.button.MaterialButtonToggleGroup>
 
     <com.google.android.material.slider.Slider
         android:id="@+id/main_slide_length"

@@ -99,11 +99,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             viewModel.generateNewNickname()
         }
 
-        mainRadioGrpGender.setOnCheckedChangeListener { _, checkedId ->
+        mainRadioGrpGender.addOnButtonCheckedListener { group, checkedId, isChecked  ->
             viewModel.setGender(genderGroupSelector[checkedId])
         }
 
-        mainRadioGrpAlphabet.setOnCheckedChangeListener { _, checkedId ->
+        mainRadioGrpAlphabet.addOnButtonCheckedListener { group, checkedId, isChecked ->
             viewModel.setAlphabet(alphabetGroupSelector[checkedId])
         }
 
