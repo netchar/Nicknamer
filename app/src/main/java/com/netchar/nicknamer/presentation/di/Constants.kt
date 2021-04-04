@@ -14,28 +14,11 @@
  * limitations under the License.
  */
 
-package com.netchar.nicknamer
+package com.netchar.nicknamer.presentation.di
 
-import android.app.Application
-import com.netchar.nicknamer.presentation.di.Modules
-import org.koin.android.ext.android.get
-import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
-import org.koin.core.context.startKoin
-import timber.log.Timber
-
-class App : Application() {
-
-    override fun onCreate() {
-        super.onCreate()
-        startKoin {
-            androidLogger()
-            androidContext(this@App)
-            modules(Modules.All)
-        }
-
-        Timber.plant(get())
-        Thread.setDefaultUncaughtExceptionHandler(get())
+object Constants {
+    object MainFragment {
+        const val GENDER_GROUP_MAPPER = "genderGroupMapper"
+        const val ALPHABET_GROUP_MAPPER = "alphabetGroupMapper"
     }
 }
-

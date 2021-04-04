@@ -23,7 +23,6 @@ import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.widget.Toast
 import androidx.browser.customtabs.CustomTabsIntent
-import com.netchar.nicknamer.presentation.toWebUri
 import timber.log.Timber
 
 interface ExternalAppService {

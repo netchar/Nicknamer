@@ -14,28 +14,17 @@
  * limitations under the License.
  */
 
-package com.netchar.nicknamer
+package com.netchar.nicknamer.data.mappers
 
-import android.app.Application
-import com.netchar.nicknamer.presentation.di.Modules
-import org.koin.android.ext.android.get
-import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
-import org.koin.core.context.startKoin
-import timber.log.Timber
+import com.netchar.nicknamer.data.database.dto.DBNickname
+import com.netchar.nicknamer.domen.models.Nickname
 
-class App : Application() {
+class NicknameMapper : Mapper<Nickname, DBNickname> {
+    override fun mapToDb(item: Nickname): DBNickname {
+        return DBNickname(item.value, System.currentTimeMillis().toString())
+    }
 
-    override fun onCreate() {
-        super.onCreate()
-        startKoin {
-            androidLogger()
-            androidContext(this@App)
-            modules(Modules.All)
-        }
-
-        Timber.plant(get())
-        Thread.setDefaultUncaughtExceptionHandler(get())
+    override fun mapToEntity(item: DBNickname): Nickname {
+        return Nickname(item.toString())
     }
 }
-

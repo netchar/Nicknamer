@@ -14,28 +14,17 @@
  * limitations under the License.
  */
 
-package com.netchar.nicknamer
+package com.netchar.nicknamer.data.database.dto
 
-import android.app.Application
-import com.netchar.nicknamer.presentation.di.Modules
-import org.koin.android.ext.android.get
-import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
-import org.koin.core.context.startKoin
-import timber.log.Timber
-
-class App : Application() {
-
-    override fun onCreate() {
-        super.onCreate()
-        startKoin {
-            androidLogger()
-            androidContext(this@App)
-            modules(Modules.All)
+data class DBNickname(val value: String, val timestamp: String) {
+    companion object {
+        fun parse(value: String) : DBNickname {
+            val parts = value.split("_")
+            return DBNickname(parts[0], parts[1])
         }
+    }
 
-        Timber.plant(get())
-        Thread.setDefaultUncaughtExceptionHandler(get())
+    override fun toString(): String {
+        return value
     }
 }
-
