@@ -21,7 +21,7 @@ import com.netchar.nicknamer.R
 import com.netchar.nicknamer.data.database.NicknamesDatabase
 import com.netchar.nicknamer.data.mappers.NicknameMapper
 import com.netchar.nicknamer.domen.models.CharContinuation
-import com.netchar.nicknamer.domen.NicknameDataSource
+import com.netchar.nicknamer.domen.NicknameRepository
 import com.netchar.nicknamer.domen.models.Nickname
 import com.netchar.nicknamer.domen.models.NicknameModel
 import org.json.JSONException
@@ -29,11 +29,11 @@ import org.json.JSONObject
 import java.io.IOException
 import java.util.ArrayList
 
-class NicknameDataSourceImpl(
+class NicknameRepositoryImpl(
         private val context: Context,
         private val database: NicknamesDatabase,
         private val mapper: NicknameMapper
-) : NicknameDataSource {
+) : NicknameRepository {
     override fun getModels(): Map<String, NicknameModel> {
         val source = mutableMapOf<String, NicknameModel>()
         val jsonObject = readRawJson(context)
@@ -74,12 +74,12 @@ class NicknameDataSourceImpl(
         return NicknameModel(breakableArray.toHashSet(), probabilities)
     }
 
-    override fun add(nickname: Nickname) {
+    override fun addToFavorites(nickname: Nickname) {
         val record = mapper.mapToDb(nickname)
         database.add(record)
     }
 
-    override fun remove(nickname: Nickname) {
+    override fun removeFromFavorites(nickname: Nickname) {
         val record = database.getByName(nickname.value)
 
         if (record != null) {
@@ -87,13 +87,13 @@ class NicknameDataSourceImpl(
         }
     }
 
-    override fun getAll(): List<Nickname> {
+    override fun getFavoriteNicknames(): List<Nickname> {
         return database.getAll()
             .sortedBy { it.timestamp }
             .map { mapper.mapToEntity(it) }
     }
 
-    override fun isExists(nickname: Nickname): Boolean {
+    override fun isFavorite(nickname: Nickname): Boolean {
         val record = database.getByName(nickname.value)
         return record != null
     }

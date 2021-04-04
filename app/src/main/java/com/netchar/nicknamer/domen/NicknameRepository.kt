@@ -20,14 +20,14 @@ import com.netchar.nicknamer.domen.models.Nickname
 import com.netchar.nicknamer.domen.models.NicknameModel
 
 
-interface NicknameDataSource {
+interface NicknameRepository {
     fun getModels(): Map<String, NicknameModel>
 
-    fun add(nickname: Nickname)
+    fun addToFavorites(nickname: Nickname)
 
-    fun remove(nickname: Nickname)
+    fun removeFromFavorites(nickname: Nickname)
 
-    fun getAll(): List<Nickname>
+    fun getFavoriteNicknames(): List<Nickname>
 
-    fun isExists(nickname: Nickname) : Boolean
+    fun isFavorite(nickname: Nickname) : Boolean
 }

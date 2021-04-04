@@ -26,7 +26,7 @@ import com.netchar.nicknamer.data.*
 import com.netchar.nicknamer.data.database.NicknamesDatabase
 import com.netchar.nicknamer.data.database.NicknamesDatabaseImpl
 import com.netchar.nicknamer.data.mappers.NicknameMapper
-import com.netchar.nicknamer.domen.NicknameDataSource
+import com.netchar.nicknamer.domen.NicknameRepository
 import com.netchar.nicknamer.domen.service.NicknameGeneratorService
 import com.netchar.nicknamer.domen.service.NicknameGeneratorService.*
 import com.netchar.nicknamer.domen.service.NicknameGeneratorServiceImpl
@@ -66,7 +66,7 @@ object Modules {
     }
 
     private val serviceModule = module {
-        singleBy<NicknameDataSource, NicknameDataSourceImpl>()
+        singleBy<NicknameRepository, NicknameRepositoryImpl>()
         singleBy<NicknameGeneratorService, NicknameGeneratorServiceImpl>()
         singleBy<LibrariesProvider, LibraryProviderImpl>()
         singleBy<ExternalAppService, ExternalAppServiceImpl>()

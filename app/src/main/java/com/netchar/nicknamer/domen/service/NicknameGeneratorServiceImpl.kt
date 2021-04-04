@@ -16,12 +16,12 @@
 
 package com.netchar.nicknamer.domen.service
 
-import com.netchar.nicknamer.domen.NicknameDataSource
+import com.netchar.nicknamer.domen.NicknameRepository
 import com.netchar.nicknamer.domen.models.Nickname
 import com.netchar.nicknamer.domen.models.Nickname.Companion.orEmpty
 
 class NicknameGeneratorServiceImpl(
-        private val dataSource: NicknameDataSource
+        private val dataSource: NicknameRepository
 ) : NicknameGeneratorService {
     companion object {
         private const val PEOPLE_PREFIX = "people"
@@ -34,18 +34,18 @@ class NicknameGeneratorServiceImpl(
     }
 
     override fun addToFavorites(nickname: Nickname) {
-        dataSource.add(nickname)
+        dataSource.addToFavorites(nickname)
     }
 
     override fun removeFromFavorites(nickname: Nickname) {
-        dataSource.remove(nickname)
+        dataSource.removeFromFavorites(nickname)
     }
 
     override fun getFavoriteNicknames(): List<Nickname> {
-        return dataSource.getAll()
+        return dataSource.getFavoriteNicknames()
     }
 
     override fun isFavorite(nickname: Nickname): Boolean {
-        return dataSource.isExists(nickname)
+        return dataSource.isFavorite(nickname)
     }
 }
