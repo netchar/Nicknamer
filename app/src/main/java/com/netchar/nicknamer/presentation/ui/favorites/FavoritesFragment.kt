@@ -35,6 +35,7 @@ import com.netchar.nicknamer.databinding.FragmentFavoritesBinding
 import com.netchar.nicknamer.domen.models.Nickname
 import com.netchar.nicknamer.presentation.infrastructure.copyToClipboard
 import com.netchar.nicknamer.presentation.infrastructure.viewBinding
+import com.netchar.nicknamer.presentation.infrastructure.visible
 import com.netchar.nicknamer.presentation.ui.main.MainActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -73,8 +74,13 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites), NavController.O
 
     private fun observe() {
         viewModel.nicknames.observe(viewLifecycleOwner, { nicknames ->
-            favoritesAdapter.submitList(nicknames)
+            updateUI(nicknames)
         })
+    }
+
+    private fun updateUI(nicknames: List<Nickname>) {
+        favoritesAdapter.submitList(nicknames)
+        binding.favoriteLayoutEmptyState.visible(nicknames.isEmpty())
     }
 
     private fun bind() {
