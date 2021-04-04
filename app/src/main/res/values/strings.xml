@@ -48,7 +48,7 @@
     <string name="main_action_about">About</string>
 
     <string name="favorites_label_empty_state_title">No Favorites Yet</string>
-    <string name="favorites_label_empty_state_description">Tap the Staricon on Home page to add a favorite</string>
+    <string name="favorites_label_empty_state_description">Tap the \'Star\' icon on Home page to add a favorite</string>
 
     <string name="descr_application_icon">Application icon</string>
     <string name="descr_contact_row_image">Contact row image</string>
