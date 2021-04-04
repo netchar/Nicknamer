@@ -22,34 +22,27 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.onNavDestinationSelected
 import com.netchar.nicknamer.R
 import com.netchar.nicknamer.databinding.FragmentMainBinding
 import com.netchar.nicknamer.domen.service.NicknameGeneratorService.Config.Alphabet
 import com.netchar.nicknamer.domen.service.NicknameGeneratorService.Config.Gender
+import com.netchar.nicknamer.presentation.di.Constants
 import com.netchar.nicknamer.presentation.infrastructure.analytics.Analytics
 import com.netchar.nicknamer.presentation.infrastructure.analytics.AnalyticsEvent
 import com.netchar.nicknamer.presentation.infrastructure.copyToClipboard
 import com.netchar.nicknamer.presentation.infrastructure.viewBinding
-import org.koin.android.ext.android.inject
+import org.koin.androidx.scope.ScopeFragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.core.qualifier.named
 
-class MainFragment : Fragment(R.layout.fragment_main)  {
-    private val viewModel by sharedViewModel<MainViewModel>()
+class MainFragment : ScopeFragment(R.layout.fragment_main) {
+    private val genderGroupSelectionMapper by inject<ViewGroupSelectionMapper<Gender>>(named(Constants.MainFragment.GENDER_GROUP_MAPPER))
+    private val alphabetGroupSelectionMapper by inject<ViewGroupSelectionMapper<Alphabet>>(named(Constants.MainFragment.ALPHABET_GROUP_MAPPER))
     private val binding by viewBinding(FragmentMainBinding::bind)
+    private val viewModel by sharedViewModel<MainViewModel>()
     private val analytics by inject<Analytics>()
-
-    private val genderGroupSelectionMapper = ViewGroupSelectionMapper(
-            R.id.main_radio_btn_male to Gender.MALE,
-            R.id.main_radio_btn_female to Gender.FEMALE,
-    )
-
-    private val alphabetGroupSelectionMapper = ViewGroupSelectionMapper(
-            R.id.main_radio_btn_cyrillic to Alphabet.CYRILLIC,
-            R.id.main_radio_btn_latin to Alphabet.LATIN,
-    )
 
     init {
         setHasOptionsMenu(true)
@@ -59,10 +52,6 @@ class MainFragment : Fragment(R.layout.fragment_main)  {
         super.onStart()
         analytics.trackScreen(AnalyticsEvent.ViewScreen(AnalyticsEvent.ViewScreen.Screen.MAIN))
         viewModel.updateFavoriteState()
-    }
-
-    override fun onResume() {
-        super.onResume()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -98,7 +87,7 @@ class MainFragment : Fragment(R.layout.fragment_main)  {
             viewModel.generateNewNickname()
         }
 
-        mainRadioGrpGender.addOnButtonCheckedListener { group, checkedId, isChecked  ->
+        mainRadioGrpGender.addOnButtonCheckedListener { group, checkedId, isChecked ->
             viewModel.setGender(genderGroupSelectionMapper[checkedId])
         }
 
