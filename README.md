@@ -3,7 +3,7 @@ A simple android app to generate nickname
 
 # Screenshots
 
-<img src="https://github.com/netchar/Nicknamer/blob/master/samples/screenshot1.jpeg" width="210">  <img src="https://github.com/netchar/Nicknamer/blob/master/samples/screenshot2.jpeg" width="210"> 
+<img src="https://github.com/netchar/Nicknamer/blob/master/samples/screenshot1.jpeg" width="210">  <img src="https://github.com/netchar/Nicknamer/blob/master/samples/screenshot2.jpeg" width="210">  <img src="https://github.com/netchar/Nicknamer/blob/master/samples/screenshot3.jpeg" width="210"> 
 
 # Developed By
 
