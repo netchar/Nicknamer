@@ -87,6 +87,6 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        doubleTapHandler.perform()
+        doubleTapHandler.performPress()
     }
 }

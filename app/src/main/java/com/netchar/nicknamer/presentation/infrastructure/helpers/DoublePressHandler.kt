@@ -23,7 +23,7 @@ class DoublePressHandler(private val doubleTapTimeout: Int = DEFAULT_TIMEOUT, pr
 
     private var lastPressedTime: Long = 0
 
-    fun perform() {
+    fun performPress() {
         val backPressElapsed = System.currentTimeMillis() - lastPressedTime
 
         if (backPressElapsed in 0..doubleTapTimeout) {
