@@ -14,13 +14,20 @@
  * limitations under the License.
  */
 
-package com.netchar.nicknamer.data
+package com.netchar.nicknamer.domen
 
 import com.netchar.nicknamer.domen.models.Nickname
+import com.netchar.nicknamer.domen.models.NicknameModel
 
-interface NicknamesDatabase {
-    fun getAll(): List<Nickname>
+
+interface NicknameDataSource {
+    fun getModels(): Map<String, NicknameModel>
+
     fun add(nickname: Nickname)
-    fun remove(nickname: Nickname)
-}
 
+    fun remove(nickname: Nickname)
+
+    fun getAll(): List<Nickname>
+
+    fun isExists(nickname: Nickname) : Boolean
+}

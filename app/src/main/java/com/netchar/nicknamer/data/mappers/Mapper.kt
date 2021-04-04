@@ -14,11 +14,9 @@
  * limitations under the License.
  */
 
-package com.netchar.nicknamer.domen
+package com.netchar.nicknamer.data.mappers
 
-import com.netchar.nicknamer.domen.models.NicknameModel
-
-
-interface NicknameModelsDataSource {
-    fun getDataSource(): Map<String, NicknameModel>
+interface Mapper<EntityItem, DBItem> {
+    fun mapToDb(item: EntityItem): DBItem
+    fun mapToEntity(item: DBItem): EntityItem
 }

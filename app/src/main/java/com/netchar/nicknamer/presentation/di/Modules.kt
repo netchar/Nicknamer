@@ -22,10 +22,11 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.netchar.nicknamer.BuildConfig
 import com.netchar.nicknamer.R
-import com.netchar.nicknamer.data.NicknameModelsDataSourceImpl
-import com.netchar.nicknamer.data.NicknamesDatabase
-import com.netchar.nicknamer.data.NicknamesDatabaseImpl
-import com.netchar.nicknamer.domen.NicknameModelsDataSource
+import com.netchar.nicknamer.data.*
+import com.netchar.nicknamer.data.database.NicknamesDatabase
+import com.netchar.nicknamer.data.database.NicknamesDatabaseImpl
+import com.netchar.nicknamer.data.mappers.NicknameMapper
+import com.netchar.nicknamer.domen.NicknameDataSource
 import com.netchar.nicknamer.domen.service.NicknameGeneratorService
 import com.netchar.nicknamer.domen.service.NicknameGeneratorService.*
 import com.netchar.nicknamer.domen.service.NicknameGeneratorServiceImpl
@@ -65,11 +66,13 @@ object Modules {
     }
 
     private val serviceModule = module {
-        singleBy<NicknameModelsDataSource, NicknameModelsDataSourceImpl>()
+        singleBy<NicknameDataSource, NicknameDataSourceImpl>()
         singleBy<NicknameGeneratorService, NicknameGeneratorServiceImpl>()
         singleBy<LibrariesProvider, LibraryProviderImpl>()
         singleBy<ExternalAppService, ExternalAppServiceImpl>()
         singleBy<NicknamesDatabase, NicknamesDatabaseImpl>()
+
+        single { NicknameMapper() }
     }
 
     private val viewModelModule = module {

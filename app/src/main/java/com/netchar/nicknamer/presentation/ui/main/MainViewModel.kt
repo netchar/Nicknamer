@@ -89,7 +89,6 @@ class MainViewModel(
     }
 
     fun updateFavoriteState() {
-        val cachedFavoriteNickname = nicknameService.getFavoriteNicknames().find { nickname -> requireNotNull(mutableNickname.value) == nickname }
-        mutableFavorite.value = cachedFavoriteNickname != null
+        mutableFavorite.value = nicknameService.isFavorite(requireNotNull(mutableNickname.value))
     }
 }
