@@ -140,8 +140,9 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites), NavController.O
     override fun onDestinationChanged(controller: NavController, destination: NavDestination, arguments: Bundle?) {
         if (destination.id == R.id.main_fragment) {
             viewModel.applyRemoving()
-            snackbar?.dismiss()
         }
+
+        snackbar?.dismiss()
     }
 }
 
