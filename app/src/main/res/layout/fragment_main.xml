@@ -20,6 +20,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
+    android:clipChildren="false"
     tools:context=".presentation.ui.main.MainFragment">
 
     <TextView
@@ -33,23 +34,22 @@
         android:textAppearance="@style/TextAppearance.App.Headline4"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/main_flow_gender"
-        app:layout_constraintEnd_toStartOf="@+id/main_check_favorite"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toEndOf="@+id/main_txt_copy_label"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/main_txt_copy_label"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="NAME" />
 
-    <com.google.android.material.checkbox.MaterialCheckBox
+    <CheckBox
         android:id="@+id/main_check_favorite"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="@drawable/ic_add_to_favorites_state_list"
         android:backgroundTint="@color/amber_400"
         android:button="@null"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
         android:stateListAnimator="@animator/scale"
         app:layout_constraintBottom_toBottomOf="@+id/main_tv_nickname"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/main_tv_nickname"
         app:layout_constraintTop_toTopOf="@+id/main_tv_nickname" />
 
