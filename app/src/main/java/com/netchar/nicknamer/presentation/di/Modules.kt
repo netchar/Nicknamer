@@ -37,7 +37,6 @@ import com.netchar.nicknamer.presentation.ui.about.AboutViewModel
 import com.netchar.nicknamer.presentation.ui.favorites.FavoritesViewModel
 import com.netchar.nicknamer.presentation.ui.main.MainFragment
 import com.netchar.nicknamer.presentation.ui.main.MainViewModel
-import com.netchar.nicknamer.presentation.infrastructure.helpers.ViewGroupSelectionMapper
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.experimental.dsl.viewModel
@@ -81,24 +80,6 @@ object Modules {
         viewModel<FavoritesViewModel>()
     }
 
-    private val mainFragmentModule = module {
-        scope<MainFragment> {
-            scoped(named(Constants.MainFragment.GENDER_GROUP_MAPPER)) {
-                ViewGroupSelectionMapper(
-                        R.id.main_radio_btn_male to Config.Gender.MALE,
-                        R.id.main_radio_btn_female to Config.Gender.FEMALE
-                )
-            }
-            scoped(named(Constants.MainFragment.ALPHABET_GROUP_MAPPER)) {
-                ViewGroupSelectionMapper(
-                        R.id.main_radio_btn_cyrillic to Config.Alphabet.CYRILLIC,
-                        R.id.main_radio_btn_latin to Config.Alphabet.LATIN,
-                )
-            }
-        }
-    }
-
     val ViewModels get() = listOf(viewModelModule)
-    val Fragments get() = listOf(mainFragmentModule)
-    val All get() = ViewModels + appModule + serviceModule + Fragments
+    val All get() = ViewModels + appModule + serviceModule
 }

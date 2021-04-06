@@ -14,183 +14,199 @@
   ~ limitations under the License.
   -->
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    android:clipChildren="false"
-    tools:context=".presentation.ui.main.MainFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/main_tv_nickname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:maxLines="1"
-        android:padding="@dimen/small_50"
-        android:textAllCaps="true"
-        android:textAppearance="@style/TextAppearance.App.Headline4"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/main_flow_gender"
-        app:layout_constraintEnd_toEndOf="@+id/main_txt_copy_label"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="@+id/main_txt_copy_label"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="NAME" />
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.netchar.nicknamer.presentation.ui.main.MainViewModel" />
 
-    <CheckBox
-        android:id="@+id/main_check_favorite"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/ic_add_to_favorites_state_list"
-        android:backgroundTint="@color/amber_400"
-        android:button="@null"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
-        android:stateListAnimator="@animator/scale"
-        app:layout_constraintBottom_toBottomOf="@+id/main_tv_nickname"
-        app:layout_constraintStart_toEndOf="@+id/main_tv_nickname"
-        app:layout_constraintTop_toTopOf="@+id/main_tv_nickname" />
+        <import type="com.netchar.nicknamer.presentation.infrastructure.binding.converters.GenderConverter"/>
+        <import type="com.netchar.nicknamer.presentation.infrastructure.binding.converters.AlphabetConverter"/>
+    </data>
 
-    <TextView
-        android:id="@+id/main_tv_gender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/main_label_gender"
-        android:textAppearance="@style/TextAppearance.App.Subtitle2" />
-
-    <com.google.android.material.button.MaterialButtonToggleGroup
-        android:id="@+id/main_radio_grp_gender"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:checkedButton="@+id/main_radio_btn_male"
-        app:singleSelection="true">
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:padding="16dp"
+        tools:context=".presentation.ui.main.MainFragment">
+
+        <TextView
+            android:id="@+id/main_tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:maxLines="1"
+            android:padding="@dimen/small_50"
+            android:text="@{viewmodel.nickname.value}"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.App.Headline4"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/main_flow_gender"
+            app:layout_constraintEnd_toEndOf="@+id/main_txt_copy_label"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@+id/main_txt_copy_label"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="NAME" />
+
+        <CheckBox
+            android:id="@+id/main_check_favorite"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_add_to_favorites_state_list"
+            android:backgroundTint="@color/amber_400"
+            android:button="@null"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:stateListAnimator="@animator/scale"
+            android:checked="@{viewmodel.isFavorite}"
+            android:onCheckedChanged="@{(view, checked) -> viewmodel.onFavoriteChecked(checked, mainTvNickname.text.toString())}"
+            app:layout_constraintBottom_toBottomOf="@+id/main_tv_nickname"
+            app:layout_constraintStart_toEndOf="@+id/main_tv_nickname"
+            app:layout_constraintTop_toTopOf="@+id/main_tv_nickname" />
+
+        <TextView
+            android:id="@+id/main_tv_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_label_gender"
+            android:textAppearance="@style/TextAppearance.App.Subtitle2" />
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/main_radio_grp_gender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checkedButton= "@={ GenderConverter.genderToButtonId(viewmodel.gender) }"
+            app:singleSelection="true">
+
+            <Button
+                android:id="@+id/main_radio_btn_male"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/main_button_gender_male" />
+
+            <Button
+                android:id="@+id/main_radio_btn_female"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/main_button_gender_female" />
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        <TextView
+            android:id="@+id/main_tv_alphabet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_label_alphabet"
+            android:textAppearance="@style/TextAppearance.App.Subtitle2"
+            tools:layout_editor_absoluteX="339dp"
+            tools:layout_editor_absoluteY="270dp" />
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/main_radio_grp_alphabet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checkedButton= "@={ AlphabetConverter.alphabetToButtonId(viewmodel.alphabet) }"
+            app:singleSelection="true">
+
+            <Button
+                android:id="@+id/main_radio_btn_latin"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/main_button_alphabet_latin" />
+
+            <Button
+                android:id="@+id/main_radio_btn_cyrillic"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/main_button_alphabet_cyrillic" />
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/main_slide_length"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:stepSize="1.0"
+            android:value="@={viewmodel.nicknameLength}"
+            android:valueFrom="3.0"
+            android:valueTo="12.0"
+            app:layout_constraintTop_toBottomOf="@+id/main_tv_min_length_title" />
 
         <Button
-            android:id="@+id/main_radio_btn_male"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="0dp"
+            android:id="@+id/main_btn_generate"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/main_button_gender_male" />
+            android:layout_marginBottom="24dp"
+            android:text="@string/main_button_generate"
+            android:onClick="@{() -> viewmodel.generateNewNickname()}"
+            app:icon="@drawable/ic_autorenew_baseline"
+            app:iconSize="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/main_radio_btn_female"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/main_tv_min_length_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/main_button_gender_female" />
-    </com.google.android.material.button.MaterialButtonToggleGroup>
+            android:text="@string/main_label_length"
+            android:textAppearance="@style/TextAppearance.App.Subtitle2"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="479dp" />
 
-    <TextView
-        android:id="@+id/main_tv_alphabet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/main_label_alphabet"
-        android:textAppearance="@style/TextAppearance.App.Subtitle2"
-        tools:layout_editor_absoluteX="339dp"
-        tools:layout_editor_absoluteY="270dp" />
-
-    <com.google.android.material.button.MaterialButtonToggleGroup
-        android:id="@+id/main_radio_grp_alphabet"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:checkedButton="@+id/main_radio_btn_latin"
-        app:singleSelection="true">
-
-        <Button
-            android:id="@+id/main_radio_btn_latin"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/main_flow_gender"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/main_button_alphabet_latin" />
+            android:layout_marginBottom="16dp"
+            android:orientation="vertical"
+            app:constraint_referenced_ids="main_tv_gender,main_radio_grp_gender"
+            app:flow_horizontalAlign="start"
+            app:layout_constraintBottom_toTopOf="@+id/main_flow_alphabet"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/main_radio_btn_cyrillic"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/main_flow_alphabet"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/main_button_alphabet_cyrillic" />
-    </com.google.android.material.button.MaterialButtonToggleGroup>
+            android:layout_marginBottom="16dp"
+            android:orientation="vertical"
+            app:constraint_referenced_ids="main_tv_alphabet,main_radio_grp_alphabet"
+            app:flow_horizontalAlign="start"
+            app:layout_constraintBottom_toTopOf="@+id/main_flow_length"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <com.google.android.material.slider.Slider
-        android:id="@+id/main_slide_length"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:stepSize="1.0"
-        android:value="5.0"
-        android:valueFrom="3.0"
-        android:valueTo="12.0"
-        app:layout_constraintTop_toBottomOf="@+id/main_tv_min_length_title" />
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/main_flow_length"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:orientation="vertical"
+            app:constraint_referenced_ids="main_tv_min_length_title,main_slide_length"
+            app:flow_horizontalAlign="start"
+            app:layout_constraintBottom_toTopOf="@+id/main_btn_generate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/main_btn_generate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:text="@string/main_button_generate"
-        app:icon="@drawable/ic_autorenew_baseline"
-        app:iconSize="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/main_txt_copy_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_label_copy"
+            android:textAppearance="@style/TextAppearance.App.Caption"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_tv_nickname" />
 
-    <TextView
-        android:id="@+id/main_tv_min_length_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/main_label_length"
-        android:textAppearance="@style/TextAppearance.App.Subtitle2"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="479dp" />
-
-    <androidx.constraintlayout.helper.widget.Flow
-        android:id="@+id/main_flow_gender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:orientation="vertical"
-        app:constraint_referenced_ids="main_tv_gender,main_radio_grp_gender"
-        app:flow_horizontalAlign="start"
-        app:layout_constraintBottom_toTopOf="@+id/main_flow_alphabet"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.constraintlayout.helper.widget.Flow
-        android:id="@+id/main_flow_alphabet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:orientation="vertical"
-        app:constraint_referenced_ids="main_tv_alphabet,main_radio_grp_alphabet"
-        app:flow_horizontalAlign="start"
-        app:layout_constraintBottom_toTopOf="@+id/main_flow_length"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.constraintlayout.helper.widget.Flow
-        android:id="@+id/main_flow_length"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:orientation="vertical"
-        app:constraint_referenced_ids="main_tv_min_length_title,main_slide_length"
-        app:flow_horizontalAlign="start"
-        app:layout_constraintBottom_toTopOf="@+id/main_btn_generate"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/main_txt_copy_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/main_label_copy"
-        android:textAppearance="@style/TextAppearance.App.Caption"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_tv_nickname" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -16,6 +16,7 @@
 
 package com.netchar.nicknamer.presentation.ui.main
 
+import androidx.databinding.Bindable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -32,20 +33,17 @@ class MainViewModel(
         private val nicknameService: NicknameGeneratorService,
         private val analytics: Analytics
 ) : ViewModel() {
+    private var job: Job? = null
     private val mutableNickname = MutableLiveData<Nickname>()
-    private val mutableGender = MutableLiveData(Config.Gender.MALE)
-    private val mutableAlphabet = MutableLiveData(Config.Alphabet.LATIN)
-    private val mutableNicknameLength = MutableLiveData(5.0f)
     private val mutableFavorite = MutableLiveData<Boolean>()
 
-    val gender: LiveData<Config.Gender> = mutableGender
-    val alphabet: LiveData<Config.Alphabet> = mutableAlphabet
-    val nicknameLength: LiveData<Float> = mutableNicknameLength
-    val isFavorite: LiveData<Boolean> = mutableFavorite
+    val isFavorite: LiveData<Boolean> get() = mutableFavorite
+    val nickname: LiveData<Nickname> get() = mutableNickname
 
-    private var job: Job? = null
-
-    val nickname: LiveData<Nickname> = mutableNickname
+    // Binding
+    val nicknameLength = MutableLiveData(5.0f)
+    val gender = MutableLiveData(Config.Gender.MALE)
+    val alphabet = MutableLiveData(Config.Alphabet.LATIN)
 
     init {
         generateNewNickname()
@@ -58,9 +56,9 @@ class MainViewModel(
 
         job = viewModelScope.launch {
             val config = Config(
-                    requireNotNull(mutableNicknameLength.value).toInt(),
-                    requireNotNull(mutableGender.value),
-                    requireNotNull(mutableAlphabet.value)
+                    requireNotNull(nicknameLength.value).toInt(),
+                    requireNotNull(gender.value),
+                    requireNotNull(alphabet.value)
             )
             analytics.trackEvent(AnalyticsEvent.GenerateNickname(config))
             mutableNickname.value = nicknameService.generateNickname(config)
@@ -68,24 +66,12 @@ class MainViewModel(
         }
     }
 
-    fun setGender(gender: Config.Gender) {
-        mutableGender.value = gender
-    }
-
-    fun setAlphabet(alphabet: Config.Alphabet) {
-        mutableAlphabet.value = alphabet
-    }
-
-    fun setLength(length: Float) {
-        mutableNicknameLength.value = length
-    }
-
-    fun addToFavorites(nickname: String) {
-        nicknameService.addToFavorites(Nickname(nickname))
-    }
-
-    fun removeFromFavorites(nickname: String) {
-        nicknameService.removeFromFavorites(Nickname(nickname))
+    fun onFavoriteChecked(checked: Boolean, nickname: String) {
+        if (checked) {
+            nicknameService.addToFavorites(Nickname(nickname))
+        } else {
+            nicknameService.removeFromFavorites(Nickname(nickname))
+        }
     }
 
     fun updateFavoriteState() {
