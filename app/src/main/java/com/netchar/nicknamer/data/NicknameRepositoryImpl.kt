@@ -75,8 +75,11 @@ class NicknameRepositoryImpl(
     }
 
     override fun addToFavorites(nickname: Nickname) {
-        val record = mapper.mapToDb(nickname)
-        database.add(record)
+        val record = database.getByName(nickname.value)
+
+        if (record == null) {
+            database.add(mapper.mapToDb(nickname))
+        }
     }
 
     override fun removeFromFavorites(nickname: Nickname) {
