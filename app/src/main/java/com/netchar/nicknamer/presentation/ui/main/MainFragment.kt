@@ -38,11 +38,15 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         setHasOptionsMenu(true)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        lifecycle.addObserver(viewModel)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewmodel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-        lifecycle.addObserver(viewModel)
         observe()
     }
 
