@@ -26,6 +26,7 @@ import com.netchar.nicknamer.domen.service.NicknameGeneratorService.Config
 import com.netchar.nicknamer.presentation.infrastructure.analytics.Analytics
 import com.netchar.nicknamer.presentation.infrastructure.analytics.AnalyticsEvent
 import com.netchar.nicknamer.presentation.infrastructure.copyToClipboard
+import com.netchar.nicknamer.presentation.infrastructure.helpers.SingleLiveEvent
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
@@ -36,8 +37,8 @@ class MainViewModel(
 ) : AndroidViewModel(application), DefaultLifecycleObserver {
     private var job: Job? = null
     private val mutableNickname = MutableLiveData<Nickname>()
-    private val mutableFavorite = MutableLiveData<Boolean>()
-    private val mutableMessage = MutableLiveData<Int>()
+    private val mutableFavorite = SingleLiveEvent<Boolean>()
+    private val mutableMessage = SingleLiveEvent<Int>()
 
     val isFavorite: LiveData<Boolean> get() = mutableFavorite
     val nickname: LiveData<Nickname> get() = mutableNickname
