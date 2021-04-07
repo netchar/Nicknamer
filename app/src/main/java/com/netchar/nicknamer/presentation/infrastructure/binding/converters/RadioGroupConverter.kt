@@ -36,7 +36,7 @@ object GenderConverter {
         return when (id) {
             R.id.main_radio_btn_male -> Config.Gender.MALE
             R.id.main_radio_btn_female -> Config.Gender.FEMALE
-            else -> error("No such gender specified")
+            else -> error("No such id specified: $id")
         }
     }
 }
@@ -56,7 +56,7 @@ object AlphabetConverter {
         return when (id) {
             R.id.main_radio_btn_cyrillic -> Config.Alphabet.CYRILLIC
             R.id.main_radio_btn_latin -> Config.Alphabet.LATIN
-            else -> error("No such alphabet specified")
+            else -> error("No such id specified: $id")
         }
     }
 }

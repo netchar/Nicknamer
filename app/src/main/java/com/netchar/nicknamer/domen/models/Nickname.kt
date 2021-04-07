@@ -23,4 +23,8 @@ inline class Nickname(val value: String) {
 
         fun Nickname?.orEmpty() = this ?: EMPTY
     }
+
+    override fun toString(): String {
+        return value
+    }
 }

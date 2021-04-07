@@ -17,17 +17,12 @@
 package com.netchar.nicknamer.presentation.infrastructure.binding.adapters
 
 import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
-import androidx.databinding.InverseBindingMethod
-import androidx.databinding.InverseBindingMethods
 import com.google.android.material.button.MaterialButtonToggleGroup
 
-@InverseBindingMethods(
-        InverseBindingMethod(type = MaterialButtonToggleGroup::class, attribute = "android:checkedButton", method = "getCheckedButtonId")
-)
 object ButtonToggleGroupBindingAdapter {
-
-    @BindingAdapter("android:checkedButton")
+    @BindingAdapter("app:checkedButton")
     @JvmStatic
     fun setCheckedButton(view: MaterialButtonToggleGroup, id: Int) {
         if (view.checkedButtonId != id) {
@@ -35,11 +30,17 @@ object ButtonToggleGroupBindingAdapter {
         }
     }
 
-    @BindingAdapter(value = ["android:checkedButtonAttrChanged"], requireAll = false)
+    @InverseBindingAdapter(attribute = "app:checkedButton")
     @JvmStatic
-    fun setSliderListeners(toggleGroup: MaterialButtonToggleGroup, attrChange: InverseBindingListener) {
+    fun getCheckedButton(toggleGroup: MaterialButtonToggleGroup): Int {
+        return toggleGroup.checkedButtonId
+    }
+
+    @BindingAdapter("app:checkedButtonAttrChanged")
+    @JvmStatic
+    fun setToggleGroupListener(toggleGroup: MaterialButtonToggleGroup, attrChange: InverseBindingListener) {
         toggleGroup.addOnButtonCheckedListener { group, checkedId, isChecked ->
-            attrChange.onChange()
+                attrChange.onChange()
         }
     }
 }
