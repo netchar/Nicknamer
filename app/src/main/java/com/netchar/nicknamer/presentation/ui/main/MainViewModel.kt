@@ -37,11 +37,10 @@ class MainViewModel(
 ) : AndroidViewModel(application), DefaultLifecycleObserver {
     private var job: Job? = null
     private val mutableNickname = MutableLiveData<Nickname>()
-    private val mutableFavorite = SingleLiveEvent<Boolean>()
     private val mutableMessage = SingleLiveEvent<Int>()
 
-    val isFavorite: LiveData<Boolean> get() = mutableFavorite
     val nickname: LiveData<Nickname> get() = mutableNickname
+    val isNicknameFavorite: LiveData<Boolean> get() = mutableNickname.map { nickname -> nicknameService.isFavorite(nickname) }
     val toastMessage: LiveData<Int> get() = mutableMessage
 
     // Binding
@@ -55,7 +54,6 @@ class MainViewModel(
 
     override fun onStart(owner: LifecycleOwner) {
         analytics.trackScreen(AnalyticsEvent.ViewScreen(AnalyticsEvent.ViewScreen.Screen.MAIN))
-        updateFavoriteState()
     }
 
     fun generateNewNickname() {
@@ -71,19 +69,16 @@ class MainViewModel(
             )
             analytics.trackEvent(AnalyticsEvent.GenerateNickname(config))
             mutableNickname.value = nicknameService.generateNickname(config)
-            updateFavoriteState()
         }
     }
 
-    private fun updateFavoriteState() {
-        mutableFavorite.value = nicknameService.isFavorite(requireNotNull(mutableNickname.value))
-    }
+    fun onFavoriteChecked(checked: Boolean) {
+        val nickname = requireNotNull(mutableNickname.value)
 
-    fun onFavoriteChecked(checked: Boolean, nickname: String) {
         if (checked) {
-            nicknameService.addToFavorites(Nickname(nickname))
+            nicknameService.addToFavorites(nickname)
         } else {
-            nicknameService.removeFromFavorites(Nickname(nickname))
+            nicknameService.removeFromFavorites(nickname)
         }
     }
 
