@@ -81,7 +81,7 @@
             android:id="@+id/main_radio_grp_gender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:checkedButton="@={ GenderConverter.genderToButtonId(viewmodel.gender) }"
+            app:checkedButton="@={ GenderConverter.toButtonId(viewmodel.gender) }"
             app:selectionRequired="true"
             app:singleSelection="true">
 
@@ -115,7 +115,7 @@
             android:id="@+id/main_radio_grp_alphabet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:checkedButton="@={ AlphabetConverter.alphabetToButtonId(viewmodel.alphabet) }"
+            app:checkedButton="@={ AlphabetConverter.toButtonId(viewmodel.alphabet) }"
             app:selectionRequired="true"
             app:singleSelection="true">
 

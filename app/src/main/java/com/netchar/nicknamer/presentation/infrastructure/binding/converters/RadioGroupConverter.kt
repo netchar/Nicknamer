@@ -23,8 +23,8 @@ import com.netchar.nicknamer.domen.service.NicknameGeneratorService.*
 
 object GenderConverter {
     @JvmStatic
-    @InverseMethod("buttonIdToGender")
-    fun genderToButtonId(gender: Config.Gender) : Int {
+    @InverseMethod("toGender")
+    fun toButtonId(gender: Config.Gender) : Int {
         return when(gender) {
             Config.Gender.MALE -> R.id.main_radio_btn_male
             Config.Gender.FEMALE -> R.id.main_radio_btn_female
@@ -32,7 +32,7 @@ object GenderConverter {
     }
 
     @JvmStatic
-    fun buttonIdToGender(id: Int) : Config.Gender {
+    fun toGender(id: Int) : Config.Gender {
         return when (id) {
             R.id.main_radio_btn_male -> Config.Gender.MALE
             R.id.main_radio_btn_female -> Config.Gender.FEMALE
@@ -43,8 +43,8 @@ object GenderConverter {
 
 object AlphabetConverter {
     @JvmStatic
-    @InverseMethod("buttonIdToAlphabet")
-    fun alphabetToButtonId(gender: Config.Alphabet) : Int {
+    @InverseMethod("toAlphabet")
+    fun toButtonId(gender: Config.Alphabet) : Int {
         return when(gender) {
             Config.Alphabet.CYRILLIC -> R.id.main_radio_btn_cyrillic
             Config.Alphabet.LATIN -> R.id.main_radio_btn_latin
@@ -52,7 +52,7 @@ object AlphabetConverter {
     }
 
     @JvmStatic
-    fun buttonIdToAlphabet(id: Int) : Config.Alphabet {
+    fun toAlphabet(id: Int) : Config.Alphabet {
         return when (id) {
             R.id.main_radio_btn_cyrillic -> Config.Alphabet.CYRILLIC
             R.id.main_radio_btn_latin -> Config.Alphabet.LATIN
