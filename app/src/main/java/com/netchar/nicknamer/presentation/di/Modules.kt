@@ -70,6 +70,7 @@ object Modules {
         singleBy<LibrariesProvider, LibraryProviderImpl>()
         singleBy<ExternalAppService, ExternalAppServiceImpl>()
         singleBy<NicknamesDatabase, NicknamesDatabaseImpl>()
+        singleBy<NicknameModelsDataSource, NicknameModelsDataSourceImpl>()
 
         single { NicknameMapper() }
     }
