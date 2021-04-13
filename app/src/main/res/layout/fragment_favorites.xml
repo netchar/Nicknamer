@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2021 Eugene Glushankov
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,64 +14,80 @@
   ~ limitations under the License.
   -->
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:animateLayoutChanges="true"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/favorite_recycler"
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.netchar.nicknamer.presentation.ui.favorites.FavoritesViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="gone" />
+        android:animateLayoutChanges="true">
 
-    <LinearLayout
-        android:id="@+id/favorite_layout_empty_state"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/favorite_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:hasFixedSize="@{true}"
+            app:hasVerticalDeividers="@{true}"
+            app:items="@{viewmodel.nicknames}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:toastMessage="@{viewmodel.toastMessage}"
+            tools:visibility="gone" />
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="170dp"
-            android:layout_height="170dp"
-            app:cardBackgroundColor="@color/gray_50"
-            app:cardElevation="0dp"
-            app:cardCornerRadius="100dp">
-
-            <ImageView
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_star_filled"
-                android:contentDescription="@string/descr_favorites_empty_state_icon"
-                app:tint="@color/amber_400" />
-        </com.google.android.material.card.MaterialCardView>
-
-        <TextView
+        <LinearLayout
+            android:id="@+id/favorite_layout_empty_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/normal_100"
-            android:text="@string/favorites_label_empty_state_title"
-            android:textAppearance="@style/TextAppearance.App.Headline6" />
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:visible="@{viewmodel.nicknames.isEmpty()}">
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small_100"
-            android:text="@string/favorites_label_empty_state_description"
-            android:textAppearance="@style/TextAppearance.App.Caption" />
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                app:cardBackgroundColor="@color/gray_50"
+                app:cardCornerRadius="100dp"
+                app:cardElevation="0dp">
+
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/descr_favorites_empty_state_icon"
+                    app:srcCompat="@drawable/ic_star_filled"
+                    app:tint="@color/amber_400" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/normal_100"
+                android:text="@string/favorites_label_empty_state_title"
+                android:textAppearance="@style/TextAppearance.App.Headline6" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_100"
+                android:text="@string/favorites_label_empty_state_description"
+                android:textAppearance="@style/TextAppearance.App.Caption" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

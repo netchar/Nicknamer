@@ -47,13 +47,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewmodel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-        observe()
-    }
-
-    private fun observe() {
-        viewModel.toastMessage.observe(viewLifecycleOwner, { messageRes ->
-            Toast.makeText(requireContext(), messageRes, Toast.LENGTH_SHORT).show()
-        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

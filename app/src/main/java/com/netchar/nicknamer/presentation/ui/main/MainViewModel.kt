@@ -39,9 +39,12 @@ class MainViewModel(
     private val mutableNickname = MutableLiveData<Nickname>()
     private val mutableMessage = SingleLiveEvent<Int>()
 
-    val nickname: LiveData<Nickname> get() = mutableNickname
-    val isNicknameFavorite: LiveData<Boolean> get() = mutableNickname.map { nickname -> nicknameService.isFavorite(nickname) }
-    val toastMessage: LiveData<Int> get() = mutableMessage
+    val nickname: LiveData<Nickname> = mutableNickname
+    val toastMessage: LiveData<Int> = mutableMessage
+
+    val isNicknameFavorite: LiveData<Boolean> get() = mutableNickname.map { nickname ->
+        nicknameService.isFavorite(nickname)
+    }
 
     // Binding
     val nicknameLength = MutableLiveData(5.0f)
