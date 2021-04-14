@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:hasFixedSize="@{true}"
-            app:hasVerticalDeividers="@{true}"
+            app:hasVerticalDividers="@{true}"
             app:items="@{viewmodel.nicknames}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"

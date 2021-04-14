@@ -38,11 +38,11 @@ object RecyclerViewBindingAdapters {
         recyclerView.setHasFixedSize(hasFixedSize)
     }
 
-    @BindingAdapter("hasVerticalDeividers")
+    @BindingAdapter("hasVerticalDividers")
     @JvmStatic
-    fun <T> setVerticalDividers(recyclerView: RecyclerView, hasVerticalDividers: Boolean) {
+    fun setVerticalDividers(recyclerView: RecyclerView, hasVerticalDividers: Boolean) {
         if (hasVerticalDividers) {
-            DividerItemDecoration(recyclerView.context, DividerItemDecoration.VERTICAL)
+            recyclerView.addItemDecoration(DividerItemDecoration(recyclerView.context, DividerItemDecoration.VERTICAL))
         }
     }
 }
