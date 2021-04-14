@@ -14,36 +14,35 @@
  * limitations under the License.
  */
 
+
 package com.netchar.nicknamer.presentation.infrastructure.binding.adapters
 
-import android.view.View
-import android.widget.Toast
-import androidx.annotation.StringRes
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
+object RecyclerViewBindingAdapters {
+    @BindingAdapter("items")
+    @JvmStatic
+    fun <T> setRecyclerViewProperties(recyclerView: RecyclerView, data: List<T>) {
+        val adapter = recyclerView.adapter ?: return
 
-@BindingAdapter("visible")
-fun visible(view: View, visible: Boolean) {
-    view.visibility = if (visible) View.VISIBLE else View.GONE
-}
-
-@BindingAdapter("toastMessage")
-fun toast(view: View, @StringRes messageRes: Int?) {
-    if (messageRes == null || messageRes == 0) {
-        return
+        @Suppress("UNCHECKED_CAST")
+        (adapter as? ListAdapter<T, *>)?.submitList(data)
     }
 
-    toast(view, view.context.getString(messageRes))
-}
-
-@BindingAdapter("toastMessage")
-fun toast(view: View, message: String?) {
-    if (message.isNullOrEmpty()) {
-        return
+    @BindingAdapter("hasFixedSize")
+    @JvmStatic
+    fun setHasFixedSize(recyclerView: RecyclerView, hasFixedSize: Boolean) {
+        recyclerView.setHasFixedSize(hasFixedSize)
     }
 
-    Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
+    @BindingAdapter("hasVerticalDeividers")
+    @JvmStatic
+    fun <T> setVerticalDividers(recyclerView: RecyclerView, hasVerticalDividers: Boolean) {
+        if (hasVerticalDividers) {
+            DividerItemDecoration(recyclerView.context, DividerItemDecoration.VERTICAL)
+        }
+    }
 }

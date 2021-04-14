@@ -62,10 +62,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupWithNavController() {
-        navigationController.addOnDestinationChangedListener { _, destination, _ -> updateUI(destination) }
         binding.bottomNav.setupWithNavController(navigationController)
         appBarConfiguration = AppBarConfiguration(topLevelDestinationIds = setOf(R.id.main_fragment, R.id.favorites_fragment))
         setupActionBarWithNavController(navigationController, appBarConfiguration)
+
+        navigationController.addOnDestinationChangedListener { _, destination, _ -> updateUI(destination) }
     }
 
     private fun updateUI(destination: NavDestination) {
@@ -75,7 +76,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun NavDestination.isTopLevelDestination(): Boolean {
-        return this.id != R.id.about_fragment
+        return appBarConfiguration.topLevelDestinations.contains(id)
     }
 
     override fun onSupportNavigateUp(): Boolean {

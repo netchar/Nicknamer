@@ -26,6 +26,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.core.net.toUri
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
@@ -94,3 +95,29 @@ fun <T : ViewBinding> Fragment.viewBinding(factory: (View) -> T): ReadOnlyProper
             binding = null
         }
     }
+
+fun <TViewDataBinding : ViewBinding> Fragment.viewDataBinding(
+    @LayoutRes layoutResId: Int
+): ReadOnlyProperty<Fragment, TViewDataBinding> {
+    return object : ReadOnlyProperty<Fragment, TViewDataBinding>, DefaultLifecycleObserver {
+        private var binding: TViewDataBinding? = null
+
+        override operator fun getValue(thisRef: Fragment, property: KProperty<*>): TViewDataBinding {
+            return binding ?: createBinding(thisRef).also {
+                // if binding is accessed after Lifecycle is DESTROYED, create new instance, but don't cache it
+                if (thisRef.lifecycle.currentState.isAtLeast(Lifecycle.State.INITIALIZED)) {
+                    thisRef.lifecycle.addObserver(this)
+                    binding = it
+                }
+            }
+        }
+
+        private fun createBinding(fragment: Fragment): TViewDataBinding {
+            return DataBindingUtil.inflate(LayoutInflater.from(fragment.context), layoutResId, null, true)
+        }
+
+        override fun onDestroy(owner: LifecycleOwner) {
+            binding = null
+        }
+    }
+}
