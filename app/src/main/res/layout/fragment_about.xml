@@ -170,7 +170,6 @@
                 android:id="@+id/about_txt_author_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/small_50"
                 android:text="@string/about_label_developer_location"
                 android:textAppearance="@style/TextAppearance.App.Caption"
                 app:layout_constraintBottom_toBottomOf="@+id/about_img_author_image"

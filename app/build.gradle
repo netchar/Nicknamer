@@ -135,7 +135,6 @@ dependencies {
     implementation "org.koin:koin-androidx-scope:$versions.koin"
     implementation "org.koin:koin-androidx-viewmodel:$versions.koin"
     implementation "org.koin:koin-androidx-fragment:$versions.koin"
-    implementation "org.koin:koin-androidx-ext:$versions.koin"
 
     // Analytics
     implementation 'com.google.firebase:firebase-analytics-ktx'

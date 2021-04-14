@@ -21,66 +21,65 @@ import android.content.SharedPreferences
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.netchar.nicknamer.BuildConfig
-import com.netchar.nicknamer.R
-import com.netchar.nicknamer.data.*
+import com.netchar.nicknamer.data.NicknameModelsDataSource
+import com.netchar.nicknamer.data.NicknameModelsDataSourceImpl
+import com.netchar.nicknamer.data.NicknameRepositoryImpl
 import com.netchar.nicknamer.data.database.NicknamesDatabase
 import com.netchar.nicknamer.data.database.NicknamesDatabaseImpl
 import com.netchar.nicknamer.data.mappers.NicknameMapper
 import com.netchar.nicknamer.domen.NicknameRepository
 import com.netchar.nicknamer.domen.service.NicknameGeneratorService
-import com.netchar.nicknamer.domen.service.NicknameGeneratorService.*
 import com.netchar.nicknamer.domen.service.NicknameGeneratorServiceImpl
 import com.netchar.nicknamer.presentation.infrastructure.*
 import com.netchar.nicknamer.presentation.infrastructure.analytics.Analytics
 import com.netchar.nicknamer.presentation.infrastructure.analytics.AnalyticsImpl
 import com.netchar.nicknamer.presentation.ui.about.AboutViewModel
 import com.netchar.nicknamer.presentation.ui.favorites.FavoritesViewModel
-import com.netchar.nicknamer.presentation.ui.main.MainFragment
 import com.netchar.nicknamer.presentation.ui.main.MainViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
-import org.koin.androidx.experimental.dsl.viewModel
-import org.koin.core.qualifier.named
-import org.koin.dsl.bind
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
-import org.koin.experimental.builder.singleBy
+import timber.log.Timber
+import java.lang.Thread.*
 
 object Modules {
     private val appModule = module {
-        single {
-            if (BuildConfig.DEBUG) {
+        fun provideTimber(): Timber.Tree {
+            return if (BuildConfig.DEBUG) {
                 DebugTree()
             } else {
                 ReleaseTree()
             }
         }
 
+        single { provideTimber() }
         single { FirebaseAnalytics.getInstance(androidContext()) }
         single { FirebaseCrashlytics.getInstance() }
-        single { androidApplication().getSharedPreferences("prefs", Context.MODE_PRIVATE) } bind SharedPreferences::class
 
-        singleBy<BuildConfiguration, BuildConfigurationImpl>()
-        singleBy<Thread.UncaughtExceptionHandler, AppUncaughtExceptionHandler>()
-        singleBy<Analytics, AnalyticsImpl>()
+        single<SharedPreferences> { androidApplication().getSharedPreferences("prefs", Context.MODE_PRIVATE) }
+        single<BuildConfiguration> { BuildConfigurationImpl(get()) }
+        single<UncaughtExceptionHandler> { AppUncaughtExceptionHandler(get(), get(), get()) }
+        single<Analytics> { AnalyticsImpl(get()) }
     }
 
+
     private val serviceModule = module {
-        singleBy<NicknameRepository, NicknameRepositoryImpl>()
-        singleBy<NicknameGeneratorService, NicknameGeneratorServiceImpl>()
-        singleBy<LibrariesProvider, LibraryProviderImpl>()
-        singleBy<ExternalAppService, ExternalAppServiceImpl>()
-        singleBy<NicknamesDatabase, NicknamesDatabaseImpl>()
-        singleBy<NicknameModelsDataSource, NicknameModelsDataSourceImpl>()
+        single<NicknameRepository> { NicknameRepositoryImpl(get(), get(), get()) }
+        single<NicknameGeneratorService> { NicknameGeneratorServiceImpl(get()) }
+        single<LibrariesProvider> { LibraryProviderImpl() }
+        single<ExternalAppService> { ExternalAppServiceImpl(get()) }
+        single<NicknamesDatabase> { NicknamesDatabaseImpl(get()) }
+        single<NicknameModelsDataSource> { NicknameModelsDataSourceImpl(get()) }
 
         single { NicknameMapper() }
     }
 
     private val viewModelModule = module {
-        viewModel<MainViewModel>()
-        viewModel<AboutViewModel>()
-        viewModel<FavoritesViewModel>()
+        viewModel { MainViewModel(get(), get(), get()) }
+        viewModel { AboutViewModel(get(), get()) }
+        viewModel { FavoritesViewModel(get(), get(), get()) }
     }
 
-    val ViewModels get() = listOf(viewModelModule)
-    val All get() = ViewModels + appModule + serviceModule
+    val All get() = viewModelModule + appModule + serviceModule
 }
