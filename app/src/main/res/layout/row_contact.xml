@@ -15,28 +15,46 @@
   ~ limitations under the License.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
-    android:clickable="true"
-    android:focusable="true"
-    android:gravity="center_vertical"
-    android:padding="@dimen/normal_100">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/row_contact_image"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        tools:src="@drawable/ic_instagram"
-        android:contentDescription="@string/descr_contact_row_image" />
+    <data>
+        <variable
+            name="contact"
+            type="com.netchar.nicknamer.presentation.ui.about.Contact" />
 
-    <TextView
-        android:id="@+id/row_contact_txt_description"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/normal_100"
-        android:textAppearance="@style/TextAppearance.App.Body2"
-        tools:text="Follow on Instagram" />
-</LinearLayout>
+        <variable
+            name="handler"
+            type="androidx.core.util.Consumer" />
+
+        <import type="androidx.core.content.ContextCompat"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:onClick="@{() -> handler.accept(contact)}"
+        android:padding="@dimen/normal_100">
+
+        <ImageView
+            android:id="@+id/row_contact_image"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@{ContextCompat.getDrawable(context, contact.image)}"
+            tools:src="@drawable/ic_instagram"
+            android:contentDescription="@string/descr_contact_row_image" />
+
+        <TextView
+            android:id="@+id/row_contact_txt_description"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/normal_100"
+            android:text="@{contact.description}"
+            android:textAppearance="@style/TextAppearance.App.Body2"
+            tools:text="Follow on Instagram" />
+    </LinearLayout>
+</layout>

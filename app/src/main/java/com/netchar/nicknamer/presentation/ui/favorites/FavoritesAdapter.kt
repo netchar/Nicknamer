@@ -17,17 +17,19 @@
 package com.netchar.nicknamer.presentation.ui.favorites
 
 import android.view.ViewGroup
+import androidx.core.util.Consumer
 import androidx.recyclerview.widget.ListAdapter
 import com.netchar.nicknamer.databinding.RowFavoriteBinding
 import com.netchar.nicknamer.domen.models.Nickname
 import com.netchar.nicknamer.presentation.infrastructure.helpers.BindableViewHolder
 import com.netchar.nicknamer.presentation.infrastructure.helpers.DefaultDiffCallback
 import com.netchar.nicknamer.presentation.infrastructure.inflater
-import com.netchar.nicknamer.presentation.infrastructure.listen
 
-class FavoritesAdapter(private val listener: (Nickname) -> Unit) : ListAdapter<Nickname, FavoritesAdapter.FavoriteViewHolder>(DefaultDiffCallback<Nickname>()) {
+class FavoritesAdapter(private val listener: Consumer<Nickname>) : ListAdapter<Nickname, FavoritesAdapter.FavoriteViewHolder>(DefaultDiffCallback<Nickname>()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
-        return FavoriteViewHolder(RowFavoriteBinding.inflate(parent.inflater(), parent, false))
+        return FavoriteViewHolder(RowFavoriteBinding.inflate(parent.inflater(), parent, false).apply {
+            handler = listener
+        })
     }
 
     override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
@@ -35,10 +37,10 @@ class FavoritesAdapter(private val listener: (Nickname) -> Unit) : ListAdapter<N
         holder.bind(item)
     }
 
-    inner class FavoriteViewHolder(private val binding: RowFavoriteBinding) : BindableViewHolder<Nickname>(binding.root) {
+    class FavoriteViewHolder(private val binding: RowFavoriteBinding) : BindableViewHolder<Nickname>(binding.root) {
         override fun bind(model: Nickname) {
-            binding.favoriteTxtNickname.text = model.value
-            binding.favoriteRowImgCopy.setOnClickListener { listener(currentList[adapterPosition]) }
+            binding.name = model
+            binding.executePendingBindings()
         }
     }
 }
