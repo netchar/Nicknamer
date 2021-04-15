@@ -109,7 +109,7 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
     }
 
     override fun onDestinationChanged(controller: NavController, destination: NavDestination, arguments: Bundle?) {
-        if (destination.id == R.id.main_fragment) {
+        if (destination.id != R.id.favorites_fragment) {
             viewModel.applyRemoving()
         }
 
