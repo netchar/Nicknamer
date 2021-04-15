@@ -43,6 +43,11 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>(R.layout.f
         inflater.inflate(R.menu.menu_main, menu)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        lifecycle.removeObserver(viewModel)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return item.onNavDestinationSelected(findNavController())
     }
