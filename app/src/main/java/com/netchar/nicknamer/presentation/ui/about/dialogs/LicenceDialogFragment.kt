@@ -22,14 +22,16 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.util.Consumer
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.netchar.nicknamer.R
-import com.netchar.nicknamer.presentation.infrastructure.inflate
+import com.netchar.nicknamer.databinding.RowLibraryBinding
 import com.netchar.nicknamer.presentation.infrastructure.ExternalAppService
 import com.netchar.nicknamer.presentation.infrastructure.LibrariesProvider
 import com.netchar.nicknamer.presentation.infrastructure.LibrariesProvider.Library
+import com.netchar.nicknamer.presentation.infrastructure.inflater
 import org.koin.android.ext.android.inject
 
 class LicenceDialogFragment : DialogFragment() {
@@ -51,21 +53,18 @@ class LicenceDialogFragment : DialogFragment() {
         return builder.create()
     }
 
-    private class LibAdapter(context: Context, libraries: List<Library>, private val listener: (Library) -> Unit) : ArrayAdapter<Library>(context, 0, libraries) {
+    private class LibAdapter(context: Context, libraries: List<Library>, private val listener: Consumer<Library>) : ArrayAdapter<Library>(context, 0, libraries) {
         override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-            val library = requireNotNull(getItem(position))
-            val view = convertView ?: inflateView(parent, library)
-
-            return view.apply {
-                findViewById<TextView>(R.id.row_library_title).text = library.name
-                findViewById<TextView>(R.id.row_library_description).text = library.description
+            val binding = getBinding(convertView, parent).apply {
+                library = requireNotNull(getItem(position))
+                handler = listener
             }
+
+            return binding.root
         }
 
-        private fun inflateView(parent: ViewGroup, library: Library) : View {
-            return parent.inflate(R.layout.row_library).apply {
-                setOnClickListener { listener(library) }
-            }
+        private fun getBinding(convertView: View?, parent: ViewGroup) : RowLibraryBinding {
+            return convertView?.let { DataBindingUtil.getBinding(it) } ?: RowLibraryBinding.inflate(parent.inflater(), parent, false)
         }
     }
 }
