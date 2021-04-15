@@ -20,9 +20,9 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.netchar.nicknamer.App
 import com.netchar.nicknamer.R
+import com.netchar.nicknamer.domen.NicknameGenerator.*
 import com.netchar.nicknamer.domen.models.Nickname
 import com.netchar.nicknamer.domen.service.NicknameGeneratorService
-import com.netchar.nicknamer.domen.service.NicknameGeneratorService.Config
 import com.netchar.nicknamer.presentation.infrastructure.analytics.Analytics
 import com.netchar.nicknamer.presentation.infrastructure.analytics.AnalyticsEvent
 import com.netchar.nicknamer.presentation.infrastructure.copyToClipboard

@@ -21,12 +21,13 @@ import com.netchar.nicknamer.data.mappers.NicknameMapper
 import com.netchar.nicknamer.domen.NicknameRepository
 import com.netchar.nicknamer.domen.models.Nickname
 import com.netchar.nicknamer.domen.models.NicknameModel
+import com.netchar.nicknamer.domen.NicknameModelsProvider
 
 
 class NicknameRepositoryImpl(
-        private val modelsDataSource: NicknameModelsDataSource,
-        private val database: NicknamesDatabase,
-        private val mapper: NicknameMapper
+    private val modelsDataSource: NicknameModelsProvider,
+    private val database: NicknamesDatabase,
+    private val mapper: NicknameMapper
 ) : NicknameRepository {
 
     override fun getModels(): Map<String, NicknameModel> {

@@ -16,10 +16,9 @@
 
 package com.netchar.nicknamer.presentation.infrastructure.binding.converters
 
-import androidx.databinding.BindingConversion
 import androidx.databinding.InverseMethod
 import com.netchar.nicknamer.R
-import com.netchar.nicknamer.domen.service.NicknameGeneratorService.*
+import com.netchar.nicknamer.domen.NicknameGenerator.*
 
 object GenderConverter {
     @JvmStatic

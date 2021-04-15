@@ -20,17 +20,15 @@ import android.content.Context
 import com.netchar.nicknamer.R
 import com.netchar.nicknamer.domen.models.CharContinuation
 import com.netchar.nicknamer.domen.models.NicknameModel
+import com.netchar.nicknamer.domen.NicknameModelsProvider
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
 
-interface NicknameModelsDataSource {
-    fun getModels() : Map<String, NicknameModel>
-}
 
-class NicknameModelsDataSourceImpl(
+class NicknameModelsProviderImpl(
         private val context: Context
-) : NicknameModelsDataSource {
+) : NicknameModelsProvider {
     private val models = mutableMapOf<String, NicknameModel>()
 
     override fun getModels(): Map<String, NicknameModel> {

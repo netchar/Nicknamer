@@ -21,12 +21,12 @@ import android.content.SharedPreferences
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.netchar.nicknamer.BuildConfig
-import com.netchar.nicknamer.data.NicknameModelsDataSource
-import com.netchar.nicknamer.data.NicknameModelsDataSourceImpl
+import com.netchar.nicknamer.data.NicknameModelsProviderImpl
 import com.netchar.nicknamer.data.NicknameRepositoryImpl
 import com.netchar.nicknamer.data.database.NicknamesDatabase
 import com.netchar.nicknamer.data.database.NicknamesDatabaseImpl
 import com.netchar.nicknamer.data.mappers.NicknameMapper
+import com.netchar.nicknamer.domen.NicknameModelsProvider
 import com.netchar.nicknamer.domen.NicknameRepository
 import com.netchar.nicknamer.domen.service.NicknameGeneratorService
 import com.netchar.nicknamer.domen.service.NicknameGeneratorServiceImpl
@@ -70,7 +70,7 @@ object Modules {
         single<LibrariesProvider> { LibraryProviderImpl() }
         single<ExternalAppService> { ExternalAppServiceImpl(get()) }
         single<NicknamesDatabase> { NicknamesDatabaseImpl(get()) }
-        single<NicknameModelsDataSource> { NicknameModelsDataSourceImpl(get()) }
+        single<NicknameModelsProvider> { NicknameModelsProviderImpl(get()) }
 
         single { NicknameMapper() }
     }

@@ -22,7 +22,7 @@ import androidx.databinding.InverseBindingListener
 import com.google.android.material.button.MaterialButtonToggleGroup
 
 object ButtonToggleGroupBindingAdapter {
-    @BindingAdapter("app:checkedButton")
+    @BindingAdapter("checkedButton")
     @JvmStatic
     fun setCheckedButton(view: MaterialButtonToggleGroup, id: Int) {
         if (view.checkedButtonId != id) {
@@ -30,16 +30,16 @@ object ButtonToggleGroupBindingAdapter {
         }
     }
 
-    @InverseBindingAdapter(attribute = "app:checkedButton")
+    @InverseBindingAdapter(attribute = "checkedButton")
     @JvmStatic
     fun getCheckedButton(toggleGroup: MaterialButtonToggleGroup): Int {
         return toggleGroup.checkedButtonId
     }
 
-    @BindingAdapter("app:checkedButtonAttrChanged")
+    @BindingAdapter("checkedButtonAttrChanged")
     @JvmStatic
     fun setToggleGroupListener(toggleGroup: MaterialButtonToggleGroup, attrChange: InverseBindingListener) {
-        toggleGroup.addOnButtonCheckedListener { group, checkedId, isChecked ->
+        toggleGroup.addOnButtonCheckedListener { _, _, _ ->
                 attrChange.onChange()
         }
     }
