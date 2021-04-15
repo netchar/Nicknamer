@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2021 Eugene Glushankov
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,177 +14,196 @@
   ~ limitations under the License.
   -->
 
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.netchar.nicknamer.presentation.ui.about.AboutViewModel" />
+
+        <variable
+            name="handler"
+            type="com.netchar.nicknamer.presentation.ui.about.AboutFragment" />
+
+        <import type="com.netchar.nicknamer.R" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".presentation.ui.about.AboutFragment">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/about_txt_version"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small_100"
-            android:textAppearance="@style/TextAppearance.App.Caption"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            tools:text="Version 1.0.0" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/normal_200"
-            android:text="@string/label_application_name"
-            android:textAppearance="@style/TextAppearance.App.Headline6"
-            android:textSize="30sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_random"
-            app:layout_constraintBottom_toBottomOf="@+id/textView"
-            app:layout_constraintStart_toEndOf="@+id/textView"
-            app:layout_constraintTop_toTopOf="@+id/textView"
-            android:contentDescription="@string/descr_application_icon"
-            app:tint="?colorPrimary" />
-
-        <TextView
-            android:id="@+id/about_txt_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/normal_200"
-            android:text="@string/about_label_app_description"
-            android:textAppearance="@style/TextAppearance.App.Body1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.578"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/about_txt_version" />
-
-
-        <LinearLayout
-            android:id="@+id/about_linear_container"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/normal_200"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/about_txt_description">
-
-            <include layout="@layout/view_separator" />
+            android:layout_height="match_parent"
+            tools:context=".presentation.ui.about.AboutFragment">
 
             <TextView
-                android:id="@+id/about_txt_privacy_policy"
-                android:layout_width="match_parent"
+                android:id="@+id/about_txt_version"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:padding="@dimen/normal_100"
-                android:text="@string/about_label_privacy_policy"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
-
-
-            <include layout="@layout/view_separator" />
+                android:layout_marginTop="@dimen/small_100"
+                android:text="@{String.format(@string/about_label_version, viewmodel.buildVersion) }"
+                android:textAppearance="@style/TextAppearance.App.Caption"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                tools:text="Version 1.0.0" />
 
             <TextView
-                android:id="@+id/about_txt_external_libraries_licences"
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/normal_200"
+                android:text="@string/label_application_name"
+                android:textAppearance="@style/TextAppearance.App.Headline6"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/descr_application_icon"
+                android:src="@drawable/ic_random"
+                app:layout_constraintBottom_toBottomOf="@+id/textView"
+                app:layout_constraintStart_toEndOf="@+id/textView"
+                app:layout_constraintTop_toTopOf="@+id/textView"
+                app:tint="?colorPrimary" />
+
+            <TextView
+                android:id="@+id/about_txt_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/normal_200"
+                android:text="@string/about_label_app_description"
+                android:textAppearance="@style/TextAppearance.App.Body1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.578"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/about_txt_version" />
+
+
+            <LinearLayout
+                android:id="@+id/about_linear_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:padding="@dimen/normal_100"
-                android:text="@string/about_label_third_party_libraries"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+                android:layout_marginTop="@dimen/normal_200"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/about_txt_description">
 
-            <include layout="@layout/view_separator" />
-        </LinearLayout>
+                <include layout="@layout/view_separator" />
 
-        <TextView
-            android:id="@+id/about_headline_author"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/normal_100"
-            android:layout_marginTop="@dimen/normal_150"
-            android:text="@string/about_label_author"
-            android:textAppearance="@style/TextAppearance.App.Subtitle2"
-            android:textColor="?colorPrimary"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/about_linear_container" />
+                <TextView
+                    android:id="@+id/about_txt_privacy_policy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="@{() -> handler.navigate(@string/about_label_privacy_policy, @id/privacy_policy_fragment)}"
+                    android:padding="@dimen/normal_100"
+                    android:text="@string/about_label_privacy_policy"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/about_img_author_image"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="@dimen/normal_100"
-            android:layout_marginTop="@dimen/normal_100"
-            android:elevation="2dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/about_headline_author"
-            app:shapeAppearance="@style/ShapeAppearance.ImageView.Circle"
-            app:srcCompat="@drawable/img_developer" />
 
-        <TextView
-            android:id="@+id/about_txt_author_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/normal_100"
-            android:text="@string/about_label_developer_name"
-            android:textAppearance="@style/TextAppearance.App.Subtitle1"
-            app:layout_constraintBottom_toTopOf="@+id/about_txt_author_address"
-            app:layout_constraintStart_toEndOf="@+id/about_img_author_image"
-            app:layout_constraintTop_toTopOf="@+id/about_img_author_image"
-            app:layout_constraintVertical_chainStyle="packed" />
+                <include layout="@layout/view_separator" />
 
-        <TextView
-            android:id="@+id/about_txt_author_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small_50"
-            android:text="@string/about_label_developer_location"
-            android:textAppearance="@style/TextAppearance.App.Caption"
-            app:layout_constraintBottom_toBottomOf="@+id/about_img_author_image"
-            app:layout_constraintStart_toStartOf="@+id/about_txt_author_name"
-            app:layout_constraintTop_toBottomOf="@+id/about_txt_author_name"
-            app:layout_constraintVertical_chainStyle="packed" />
+                <TextView
+                    android:id="@+id/about_txt_external_libraries_licences"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="@{() -> handler.navigate(@string/about_label_third_party_libraries, @id/license_dialog_fragment)}"
+                    android:padding="@dimen/normal_100"
+                    android:text="@string/about_label_third_party_libraries"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
 
-        <TextView
-            android:id="@+id/about_txt_contact_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/normal_100"
-            android:layout_marginTop="@dimen/normal_150"
-            android:text="@string/about_label_contacts"
-            android:textAppearance="@style/TextAppearance.App.Subtitle2"
-            android:textColor="?colorPrimary"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/about_img_author_image" />
+                <include layout="@layout/view_separator" />
+            </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/about_recycler_contacts"
-            android:overScrollMode="never"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small_100"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/about_txt_contact_title"
-            tools:itemCount="3"
-            tools:listitem="@layout/row_contact" />
+            <TextView
+                android:id="@+id/about_headline_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/normal_100"
+                android:layout_marginTop="@dimen/normal_150"
+                android:text="@string/about_label_author"
+                android:textAppearance="@style/TextAppearance.App.Subtitle2"
+                android:textColor="?colorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/about_linear_container" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/about_img_author_image"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="@dimen/normal_100"
+                android:layout_marginTop="@dimen/normal_100"
+                android:elevation="2dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/about_headline_author"
+                app:shapeAppearance="@style/ShapeAppearance.ImageView.Circle"
+                app:srcCompat="@drawable/img_developer" />
 
-</androidx.core.widget.NestedScrollView>
+            <TextView
+                android:id="@+id/about_txt_author_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/normal_100"
+                android:text="@string/about_label_developer_name"
+                android:textAppearance="@style/TextAppearance.App.Subtitle1"
+                app:layout_constraintBottom_toTopOf="@+id/about_txt_author_address"
+                app:layout_constraintStart_toEndOf="@+id/about_img_author_image"
+                app:layout_constraintTop_toTopOf="@+id/about_img_author_image"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/about_txt_author_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_label_developer_location"
+                android:textAppearance="@style/TextAppearance.App.Caption"
+                app:layout_constraintBottom_toBottomOf="@+id/about_img_author_image"
+                app:layout_constraintStart_toStartOf="@+id/about_txt_author_name"
+                app:layout_constraintTop_toBottomOf="@+id/about_txt_author_name"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/about_txt_contact_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/normal_100"
+                android:layout_marginTop="@dimen/normal_150"
+                android:text="@string/about_label_contacts"
+                android:textAppearance="@style/TextAppearance.App.Subtitle2"
+                android:textColor="?colorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/about_img_author_image" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/about_recycler_contacts"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_100"
+                android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/about_txt_contact_title"
+                app:items="@{viewmodel.contacts}"
+                tools:itemCount="3"
+                tools:listitem="@layout/row_contact" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</layout>

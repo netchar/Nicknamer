@@ -17,6 +17,7 @@
 package com.netchar.nicknamer.data.database
 
 import android.content.SharedPreferences
+import androidx.core.content.edit
 import com.netchar.nicknamer.data.database.dto.DBNickname
 
 class NicknamesDatabaseImpl(
@@ -41,17 +42,13 @@ class NicknamesDatabaseImpl(
     override fun add(nickname: DBNickname) {
         val updatedSet = getCachedNicknames() + nickname.asPreferenceRecord()
 
-        sharedPreferences.edit()
-            .putStringSet(KEY_NICKNAMES, updatedSet)
-            .apply()
+        sharedPreferences.edit { putStringSet(KEY_NICKNAMES, updatedSet) }
     }
 
     override fun remove(nickname: DBNickname) {
         val updatedSet = getCachedNicknames() - nickname.asPreferenceRecord()
 
-        sharedPreferences.edit()
-            .putStringSet(KEY_NICKNAMES, updatedSet)
-            .apply()
+        sharedPreferences.edit { putStringSet(KEY_NICKNAMES, updatedSet) }
     }
 
     override fun getByName(name: String): DBNickname? {

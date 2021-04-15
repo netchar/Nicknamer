@@ -17,16 +17,21 @@
 package com.netchar.nicknamer.presentation.ui.about
 
 import android.view.ViewGroup
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
+import androidx.core.util.Consumer
 import androidx.recyclerview.widget.ListAdapter
+import com.netchar.nicknamer.R
 import com.netchar.nicknamer.databinding.RowContactBinding
 import com.netchar.nicknamer.presentation.infrastructure.helpers.BindableViewHolder
 import com.netchar.nicknamer.presentation.infrastructure.helpers.DefaultDiffCallback
 import com.netchar.nicknamer.presentation.infrastructure.inflater
-import com.netchar.nicknamer.presentation.infrastructure.listen
 
-class ContactsAdapter(private val listener: (Contact) -> Unit) : ListAdapter<Contact, ContactsAdapter.ContactViewHolder>(DefaultDiffCallback<Contact>()) {
+class ContactsAdapter(private val listener: Consumer<Contact>) : ListAdapter<Contact, ContactsAdapter.ContactViewHolder>(DefaultDiffCallback<Contact>()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
-        return ContactViewHolder.from(parent).listen { position -> listener(getItem(position)) }
+        return ContactViewHolder(RowContactBinding.inflate(parent.inflater(), parent, false).apply {
+            handler = listener
+        })
     }
 
     override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
@@ -35,13 +40,15 @@ class ContactsAdapter(private val listener: (Contact) -> Unit) : ListAdapter<Con
     }
 
     class ContactViewHolder(private val binding: RowContactBinding) : BindableViewHolder<Contact>(binding.root) {
-        override fun bind(model: Contact) = with(binding) {
-            rowContactImage.setImageResource(model.image)
-            rowContactTxtDescription.setText(model.description)
-        }
-
-        companion object : Factory<ContactViewHolder> {
-            override fun from(parent: ViewGroup) = ContactViewHolder(RowContactBinding.inflate(parent.inflater(), parent, false))
+        override fun bind(model: Contact) {
+            binding.contact = model
+            binding.executePendingBindings()
         }
     }
+}
+
+sealed class Contact(@DrawableRes val image: Int, @StringRes val description: Int) {
+    object Instagram : Contact(R.drawable.ic_instagram, R.string.about_label_follow_on_instagram)
+    object LinkedIn : Contact(R.drawable.ic_linkedin, R.string.about_label_connect_on_linked_id)
+    object Mail : Contact(R.drawable.ic_gmail, R.string.about_label_send_email)
 }

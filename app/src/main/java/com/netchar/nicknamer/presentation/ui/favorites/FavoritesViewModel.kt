@@ -16,20 +16,30 @@
 
 package com.netchar.nicknamer.presentation.ui.favorites
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.netchar.nicknamer.App
+import com.netchar.nicknamer.R
 import com.netchar.nicknamer.domen.models.Nickname
 import com.netchar.nicknamer.domen.service.NicknameGeneratorService
+import com.netchar.nicknamer.presentation.infrastructure.analytics.Analytics
+import com.netchar.nicknamer.presentation.infrastructure.analytics.AnalyticsEvent
+import com.netchar.nicknamer.presentation.infrastructure.copyToClipboard
+import com.netchar.nicknamer.presentation.infrastructure.helpers.SingleLiveEvent
 
 class FavoritesViewModel(
-        private val nicknameGeneratorService: NicknameGeneratorService
-) : ViewModel() {
-    private val unmodifiedFavorites = nicknameGeneratorService.getFavoriteNicknames()
+        application: Application,
+        private val nicknameGeneratorService: NicknameGeneratorService,
+        private val analytics: Analytics
+) : AndroidViewModel(application) {
+    private val mutableMessage = SingleLiveEvent<Int>()
     private val mutableFavoriteNicknames = MutableLiveData<List<Nickname>>()
-    private val currentFavorites: List<Nickname> get() = mutableFavoriteNicknames.value.orEmpty()
+    private val unmodifiedFavorites = nicknameGeneratorService.getFavoriteNicknames()
 
     val nicknames: LiveData<List<Nickname>> = mutableFavoriteNicknames
+    val toastMessage: LiveData<Int> = mutableMessage
 
     init {
         restoreFavorites()
@@ -38,6 +48,8 @@ class FavoritesViewModel(
     fun removeFromFavorites(nickname: Nickname) {
         mutableFavoriteNicknames.value = currentFavorites - nickname
     }
+
+    private val currentFavorites: List<Nickname> get() = mutableFavoriteNicknames.value.orEmpty()
 
     fun restoreFavorites() {
         mutableFavoriteNicknames.value = unmodifiedFavorites
@@ -49,5 +61,12 @@ class FavoritesViewModel(
             .forEach { nicknameToDelete ->
                 nicknameGeneratorService.removeFromFavorites(nicknameToDelete)
             }
+    }
+
+    fun copyToClipboard(nickname: Nickname) {
+        analytics.trackEvent(AnalyticsEvent.Event("copy_to_clipboard"))
+
+        mutableMessage.value = R.string.message_copied_to_clipboard
+        getApplication<App>().copyToClipboard(nickname.toString())
     }
 }

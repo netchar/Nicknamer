@@ -16,7 +16,7 @@
 
 package com.netchar.nicknamer.presentation.infrastructure.analytics
 
-import com.netchar.nicknamer.domen.service.NicknameGeneratorService
+import com.netchar.nicknamer.domen.NicknameGenerator.*
 import com.netchar.nicknamer.presentation.ui.about.Contact
 
 interface Analytics {
@@ -50,9 +50,9 @@ sealed class AnalyticsEvent(val eventName: String, val parameters: Map<String, S
     }
     class Event(eventName: String) : AnalyticsEvent(Constants.Event.EVENT, mapOf(Constants.Event.PARAM_EVENT_NAME to eventName))
     class SelectItem(itemName: String) : AnalyticsEvent(Constants.Event.SelectItem.EVENT, mapOf(Constants.Event.SelectItem.PARAM_ITEM_NAME to itemName))
-    class GenerateNickname(config: NicknameGeneratorService.Config) : AnalyticsEvent(Constants.Event.EVENT, config.toToAnalyticsParams()) {
-        companion object : AnalyticsDictionaryMapper<NicknameGeneratorService.Config> {
-            override fun NicknameGeneratorService.Config.toToAnalyticsParams() = mapOf(
+    class GenerateNickname(config: Config) : AnalyticsEvent(Constants.Event.EVENT, config.toToAnalyticsParams()) {
+        companion object : AnalyticsDictionaryMapper<Config> {
+            override fun Config.toToAnalyticsParams() = mapOf(
                     "gender" to gender.value,
                     "alphabet" to alphabet.value,
                     "nickname_length" to nicknameLength.toString()

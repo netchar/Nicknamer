@@ -16,36 +16,35 @@
 
 package com.netchar.nicknamer.domen.service
 
+import com.netchar.nicknamer.domen.NicknameGenerator
+import com.netchar.nicknamer.domen.NicknameGenerator.Companion.buildQueryKey
 import com.netchar.nicknamer.domen.NicknameRepository
 import com.netchar.nicknamer.domen.models.Nickname
 import com.netchar.nicknamer.domen.models.Nickname.Companion.orEmpty
 
 class NicknameGeneratorServiceImpl(
-        private val dataSource: NicknameRepository
+        private val repository: NicknameRepository
 ) : NicknameGeneratorService {
-    companion object {
-        private const val PEOPLE_PREFIX = "people"
-    }
-
-    override suspend fun generateNickname(config: NicknameGeneratorService.Config): Nickname {
-        val key = "${PEOPLE_PREFIX}_${config.gender.value}_${config.alphabet.value}"
-        val source = dataSource.getModels()
-        return source[key]?.generateNickname(config.nicknameLength).orEmpty()
+    override suspend fun generateNickname(config: NicknameGenerator.Config): Nickname {
+        val key = config.buildQueryKey()
+        val models = repository.getModels()
+        return models[key]?.generateNickname(config.nicknameLength).orEmpty()
     }
 
     override fun addToFavorites(nickname: Nickname) {
-        dataSource.addToFavorites(nickname)
+        repository.addToFavorites(nickname)
     }
 
     override fun removeFromFavorites(nickname: Nickname) {
-        dataSource.removeFromFavorites(nickname)
+        repository.removeFromFavorites(nickname)
     }
 
     override fun getFavoriteNicknames(): List<Nickname> {
-        return dataSource.getFavoriteNicknames()
+        return repository.getFavoriteNicknames()
     }
 
     override fun isFavorite(nickname: Nickname): Boolean {
-        return dataSource.isFavorite(nickname)
+        return repository.isFavorite(nickname)
     }
 }
+

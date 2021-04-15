@@ -20,46 +20,32 @@ import android.graphics.Canvas
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.netchar.nicknamer.R
 import com.netchar.nicknamer.databinding.FragmentFavoritesBinding
-import com.netchar.nicknamer.domen.models.Nickname
-import com.netchar.nicknamer.presentation.infrastructure.copyToClipboard
-import com.netchar.nicknamer.presentation.infrastructure.viewBinding
-import com.netchar.nicknamer.presentation.infrastructure.visible
+import com.netchar.nicknamer.presentation.ui.BaseFragment
 import com.netchar.nicknamer.presentation.ui.main.MainActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class FavoritesFragment : Fragment(R.layout.fragment_favorites), NavController.OnDestinationChangedListener {
-    private val binding by viewBinding(FragmentFavoritesBinding::bind)
-    private val viewModel by viewModel<FavoritesViewModel>()
+class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBinding>(R.layout.fragment_favorites), NavController.OnDestinationChangedListener {
+    override val viewModel: FavoritesViewModel by viewModel()
 
     private val favoritesAdapter = FavoritesAdapter { nickname ->
-        copyToClipboard(nickname)
+        viewModel.copyToClipboard(nickname)
     }
 
     private var snackbar: Snackbar? = null
 
-    private fun copyToClipboard(nickname: Nickname) {
-        val context = requireContext()
-        context.copyToClipboard(nickname.value)
-        Toast.makeText(context, R.string.message_copied_to_clipboard, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        bind()
-        observe()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupBindings()
     }
 
     override fun onStart() {
@@ -72,23 +58,8 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites), NavController.O
         findNavController().removeOnDestinationChangedListener(this)
     }
 
-    private fun observe() {
-        viewModel.nicknames.observe(viewLifecycleOwner, { nicknames ->
-            updateUI(nicknames)
-        })
-    }
-
-    private fun updateUI(nicknames: List<Nickname>) {
-        favoritesAdapter.submitList(nicknames)
-        binding.favoriteLayoutEmptyState.visible(nicknames.isEmpty())
-    }
-
-    private fun bind() {
-        with(binding.favoriteRecycler) {
-            setHasFixedSize(true)
-            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-            adapter = favoritesAdapter
-        }
+    private fun setupBindings() {
+        binding.favoriteRecycler.adapter = favoritesAdapter
 
         val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
         itemTouchHelper.attachToRecyclerView(binding.favoriteRecycler)

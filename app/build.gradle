@@ -108,6 +108,7 @@ android {
     }
     buildFeatures {
         viewBinding true
+        dataBinding true
     }
 }
 
@@ -122,6 +123,7 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$versions.androidx.navigation"
     implementation "androidx.navigation:navigation-ui-ktx:$versions.androidx.navigation"
     implementation "androidx.lifecycle:lifecycle-common-java8:$versions.androidx.lifecycle"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$versions.androidx.lifecycle"
 
     // Material Library
     implementation "com.google.android.material:material:$versions.material"
@@ -133,7 +135,6 @@ dependencies {
     implementation "org.koin:koin-androidx-scope:$versions.koin"
     implementation "org.koin:koin-androidx-viewmodel:$versions.koin"
     implementation "org.koin:koin-androidx-fragment:$versions.koin"
-    implementation "org.koin:koin-androidx-ext:$versions.koin"
 
     // Analytics
     implementation 'com.google.firebase:firebase-analytics-ktx'

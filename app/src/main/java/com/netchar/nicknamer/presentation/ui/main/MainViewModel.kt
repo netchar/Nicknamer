@@ -16,39 +16,47 @@
 
 package com.netchar.nicknamer.presentation.ui.main
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.app.Application
+import androidx.lifecycle.*
+import com.netchar.nicknamer.App
+import com.netchar.nicknamer.R
+import com.netchar.nicknamer.domen.NicknameGenerator.*
 import com.netchar.nicknamer.domen.models.Nickname
 import com.netchar.nicknamer.domen.service.NicknameGeneratorService
-import com.netchar.nicknamer.domen.service.NicknameGeneratorService.Config
 import com.netchar.nicknamer.presentation.infrastructure.analytics.Analytics
 import com.netchar.nicknamer.presentation.infrastructure.analytics.AnalyticsEvent
+import com.netchar.nicknamer.presentation.infrastructure.copyToClipboard
+import com.netchar.nicknamer.presentation.infrastructure.helpers.SingleLiveEvent
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class MainViewModel(
+        application: Application,
         private val nicknameService: NicknameGeneratorService,
         private val analytics: Analytics
-) : ViewModel() {
-    private val mutableNickname = MutableLiveData<Nickname>()
-    private val mutableGender = MutableLiveData(Config.Gender.MALE)
-    private val mutableAlphabet = MutableLiveData(Config.Alphabet.LATIN)
-    private val mutableNicknameLength = MutableLiveData(5.0f)
-    private val mutableFavorite = MutableLiveData<Boolean>()
-
-    val gender: LiveData<Config.Gender> = mutableGender
-    val alphabet: LiveData<Config.Alphabet> = mutableAlphabet
-    val nicknameLength: LiveData<Float> = mutableNicknameLength
-    val isFavorite: LiveData<Boolean> = mutableFavorite
-
+) : AndroidViewModel(application), DefaultLifecycleObserver {
     private var job: Job? = null
+    private val mutableNickname = MutableLiveData<Nickname>()
+    private val mutableMessage = SingleLiveEvent<Int>()
 
     val nickname: LiveData<Nickname> = mutableNickname
+    val toastMessage: LiveData<Int> = mutableMessage
+
+    val isNicknameFavorite: LiveData<Boolean> get() = mutableNickname.map { nickname ->
+        nicknameService.isFavorite(nickname)
+    }
+
+    // Binding
+    val nicknameLength = MutableLiveData(5.0f)
+    val gender = MutableLiveData(Config.Gender.MALE)
+    val alphabet = MutableLiveData(Config.Alphabet.LATIN)
 
     init {
         generateNewNickname()
+    }
+
+    override fun onStart(owner: LifecycleOwner) {
+        analytics.trackScreen(AnalyticsEvent.ViewScreen(AnalyticsEvent.ViewScreen.Screen.MAIN))
     }
 
     fun generateNewNickname() {
@@ -58,37 +66,30 @@ class MainViewModel(
 
         job = viewModelScope.launch {
             val config = Config(
-                    requireNotNull(mutableNicknameLength.value).toInt(),
-                    requireNotNull(mutableGender.value),
-                    requireNotNull(mutableAlphabet.value)
+                    requireNotNull(nicknameLength.value).toInt(),
+                    requireNotNull(gender.value),
+                    requireNotNull(alphabet.value)
             )
             analytics.trackEvent(AnalyticsEvent.GenerateNickname(config))
             mutableNickname.value = nicknameService.generateNickname(config)
-            updateFavoriteState()
         }
     }
 
-    fun setGender(gender: Config.Gender) {
-        mutableGender.value = gender
+    fun onFavoriteChecked(checked: Boolean) {
+        val nickname = requireNotNull(mutableNickname.value)
+
+        if (checked) {
+            nicknameService.addToFavorites(nickname)
+        } else {
+            nicknameService.removeFromFavorites(nickname)
+        }
     }
 
-    fun setAlphabet(alphabet: Config.Alphabet) {
-        mutableAlphabet.value = alphabet
-    }
+    fun copyToClipboard() {
+        analytics.trackEvent(AnalyticsEvent.Event("copy_to_clipboard"))
+        mutableMessage.value = R.string.message_copied_to_clipboard
 
-    fun setLength(length: Float) {
-        mutableNicknameLength.value = length
-    }
-
-    fun addToFavorites(nickname: String) {
-        nicknameService.addToFavorites(Nickname(nickname))
-    }
-
-    fun removeFromFavorites(nickname: String) {
-        nicknameService.removeFromFavorites(Nickname(nickname))
-    }
-
-    fun updateFavoriteState() {
-        mutableFavorite.value = nicknameService.isFavorite(requireNotNull(mutableNickname.value))
+        val nickname = requireNotNull(nickname.value).toString()
+        getApplication<App>().copyToClipboard(nickname)
     }
 }
