@@ -15,8 +15,8 @@
   -->
 
 <resources>
-    <string name="label_clipboard_copy">Nickname: </string>
-    <string name="label_application_name">Nicknamer</string>
+    <string name="label_clipboard_copy" translatable="false">Nickname: </string>
+    <string name="label_application_name" translatable="false">Nicknamer</string>
 
     <string name="button_ok">OK</string>
     <string name="button_undo">Undo</string>
@@ -55,9 +55,11 @@
     <string name="descr_logo_image">Icon Logo</string>
     <string name="descr_favorites_empty_state_icon">Empty state icon</string>
 
-    <string name="label_app_name_without_first_letter">icknamer</string>
+    <string name="label_app_name_without_first_letter" translatable="false">icknamer</string>
 
     <string name="message_copied_to_clipboard">Copied to clipboard</string>
     <string name="message_remove_back">Remove back?</string>
     <string name="message_confirm_back">Press \'back\' again to exit.</string>
+    <string name="action_home">Home</string>
+    <string name="action_favorites">Favorites</string>
 </resources>

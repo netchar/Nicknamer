@@ -77,9 +77,10 @@
 
             <TextView
                 android:id="@+id/about_txt_description"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/normal_200"
+                android:gravity="center"
                 android:text="@string/about_label_app_description"
                 android:textAppearance="@style/TextAppearance.App.Body1"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -107,6 +108,7 @@
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
+                    android:gravity="center_vertical"
                     android:onClick="@{() -> handler.navigate(@string/about_label_privacy_policy, @id/privacy_policy_fragment)}"
                     android:padding="@dimen/normal_100"
                     android:text="@string/about_label_privacy_policy"
@@ -122,6 +124,7 @@
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
+                    android:gravity="center_vertical"
                     android:onClick="@{() -> handler.navigate(@string/about_label_third_party_libraries, @id/license_dialog_fragment)}"
                     android:padding="@dimen/normal_100"
                     android:text="@string/about_label_third_party_libraries"

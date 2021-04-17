@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2021 Eugene Glushankov
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+    <string name="button_undo">Отменить</string>
+    <string name="button_ok">Принять</string>
+    <string name="about_label_follow_on_instagram">Instagram</string>
+    <string name="about_label_connect_on_linked_id">LinkedIn</string>
+    <string name="about_label_send_email">Отправить Email</string>
+    <string name="about_label_libraries">Библиотеки</string>
+    <string name="about_label_version">Версия: %1$s</string>
+    <string name="about_label_app_description">Самый простой способ создать себе уникальный псевдоним</string>
+    <string name="about_label_privacy_policy">Политика конфиденциальности</string>
+    <string name="about_label_third_party_libraries">Сторонние библиотеки</string>
+    <string name="about_label_contacts">Контакты</string>
+    <string name="about_label_developer_name">Евгений Глушанков</string>
+    <string name="about_label_developer_location">Минск, Беларусь</string>
+    <string name="about_label_author">Автор</string>
+    <string name="main_button_gender_male">Мужкой</string>
+    <string name="main_button_gender_female">Женский</string>
+    <string name="main_button_generate">Сгенерировать</string>
+    <string name="main_button_alphabet_cyrillic">Кириллица</string>
+    <string name="main_button_alphabet_latin">Латиница</string>
+    <string name="main_label_gender">Пол</string>
+    <string name="main_label_alphabet">Алфавит</string>
+    <string name="main_label_length">Длинна</string>
+    <string name="main_label_copy">Нажмите, чтобы скопировать</string>
+    <string name="main_action_about">Описание</string>
+    <string name="favorites_label_empty_state_title">В избранном пока пусто</string>
+    <string name="favorites_label_empty_state_description">Нажмите иконку \'Избранное\' на главной странице, чтобы добавить сюда новые псевдонимы</string>
+    <string name="descr_application_icon">Иконка приложения</string>
+    <string name="descr_contact_row_image">Иконка контактов</string>
+    <string name="descr_logo_image">Логотип</string>
+    <string name="descr_favorites_empty_state_icon">Картина на странице избранного, когда нет записей</string>
+    <string name="message_copied_to_clipboard">Скопировано в буффер обмена</string>
+    <string name="message_remove_back">Отменить удаление?</string>
+    <string name="message_confirm_back">Нажмите \'Назад\' еще раз, чтобы закрыть приложение</string>
+    <string name="action_home">Главная</string>
+    <string name="action_favorites">Избранное</string>
+</resources>
