@@ -20,9 +20,9 @@
     <item
         android:id="@+id/main_fragment"
         android:icon="@drawable/ic_home"
-        android:title="Home" />
+        android:title="@string/action_home" />
     <item
         android:id="@+id/favorites_fragment"
         android:icon="@drawable/ic_star_filled"
-        android:title="Favorites" />
+        android:title="@string/action_favorites" />
 </menu>
