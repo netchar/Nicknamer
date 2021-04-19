@@ -37,10 +37,10 @@ class MainViewModel(
 ) : AndroidViewModel(application), DefaultLifecycleObserver {
     private var job: Job? = null
     private val mutableNickname = MutableLiveData<Nickname>()
-    private val mutableMessage = SingleLiveEvent<Int>()
+    private val mutableToastMessage = SingleLiveEvent<Int>()
 
     val nickname: LiveData<Nickname> = mutableNickname
-    val toastMessage: LiveData<Int> = mutableMessage
+    val toastMessage: LiveData<Int> = mutableToastMessage
 
     val isNicknameFavorite: LiveData<Boolean> get() = mutableNickname.map { nickname ->
         nicknameService.isFavorite(nickname)
@@ -87,7 +87,7 @@ class MainViewModel(
 
     fun copyToClipboard() {
         analytics.trackEvent(AnalyticsEvent.Event("copy_to_clipboard"))
-        mutableMessage.value = R.string.message_copied_to_clipboard
+        mutableToastMessage.value = R.string.message_copied_to_clipboard
 
         val nickname = requireNotNull(nickname.value).toString()
         getApplication<App>().copyToClipboard(nickname)

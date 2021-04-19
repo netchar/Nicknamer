@@ -53,7 +53,6 @@
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@+id/main_txt_copy_label"
             app:layout_constraintTop_toTopOf="parent"
-            app:toastMessage="@{viewmodel.toastMessage}"
             tools:text="NAME" />
 
         <CheckBox
