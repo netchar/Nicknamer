@@ -18,6 +18,7 @@ package com.netchar.nicknamer.domen
 
 import com.netchar.nicknamer.domen.models.Nickname
 import com.netchar.nicknamer.domen.models.NicknameModel
+import kotlinx.coroutines.flow.Flow
 
 
 interface NicknameRepository {
@@ -30,4 +31,8 @@ interface NicknameRepository {
     fun getFavoriteNicknames(): List<Nickname>
 
     fun isFavorite(nickname: Nickname) : Boolean
+
+    fun getHistory(): List<Nickname>
+
+    fun addToHistory(nickname: Nickname)
 }

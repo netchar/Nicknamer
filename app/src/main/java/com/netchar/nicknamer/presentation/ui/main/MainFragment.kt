@@ -16,6 +16,7 @@
 
 package com.netchar.nicknamer.presentation.ui.main
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -86,7 +87,7 @@ class HistoryBottomSheetDialogFragment() : BottomSheetDialogFragment() {
 
 //    override fun getTheme(): Int  = R.style.Theme_NoWiredStrapInNavigationBar
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return binding.root
     }
 
@@ -96,18 +97,23 @@ class HistoryBottomSheetDialogFragment() : BottomSheetDialogFragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.setVariable(BR.viewmodel, viewModel)
     }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        viewModel.invalidateCurrentNicknameState()
+    }
 }
 
-class HistoryAdapter(private val listener: Consumer<String>) : BindableListAdapter<Nickname, HistoryAdapter.HistoryViewHolder>(DefaultDiffCallback<Nickname>()) {
+class HistoryAdapter(private val listener: Consumer<String>) : BindableListAdapter<MainViewModel.NicknameItem, HistoryAdapter.HistoryViewHolder>(DefaultDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
         return HistoryViewHolder(RowHistoryBinding.inflate(parent.inflater(), parent, false).apply {
             handler = listener
         })
     }
 
-    class HistoryViewHolder(private val binding: RowHistoryBinding) : BindableViewHolder<Nickname>(binding.root) {
-        override fun bind(model: Nickname) {
-            binding.name = model.toString()
+    class HistoryViewHolder(private val binding: RowHistoryBinding) : BindableViewHolder<MainViewModel.NicknameItem>(binding.root) {
+        override fun bind(model: MainViewModel.NicknameItem) {
+            binding.model = model
             binding.executePendingBindings()
         }
     }

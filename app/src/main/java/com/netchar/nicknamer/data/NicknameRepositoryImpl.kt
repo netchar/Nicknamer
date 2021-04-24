@@ -22,6 +22,7 @@ import com.netchar.nicknamer.domen.NicknameRepository
 import com.netchar.nicknamer.domen.models.Nickname
 import com.netchar.nicknamer.domen.models.NicknameModel
 import com.netchar.nicknamer.domen.NicknameModelsProvider
+import java.util.*
 
 
 class NicknameRepositoryImpl(
@@ -29,6 +30,7 @@ class NicknameRepositoryImpl(
     private val database: NicknamesDatabase,
     private val mapper: NicknameMapper
 ) : NicknameRepository {
+    private val historyStack: LinkedList<Nickname> = LinkedList()
 
     override fun getModels(): Map<String, NicknameModel> {
         return modelsDataSource.getModels()
@@ -59,5 +61,13 @@ class NicknameRepositoryImpl(
     override fun isFavorite(nickname: Nickname): Boolean {
         val record = database.getByName(nickname.value)
         return record != null
+    }
+
+    override fun getHistory(): List<Nickname> {
+        return historyStack.toList()
+    }
+
+    override fun addToHistory(nickname: Nickname) {
+        historyStack.push(nickname)
     }
 }

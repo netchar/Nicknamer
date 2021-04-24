@@ -17,7 +17,7 @@
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- the pressed state; increase x and y size to 150% -->
-    <item android:state_pressed="true">
+    <item android:state_checked="true">
         <set>
             <objectAnimator
                 android:duration="@android:integer/config_shortAnimTime"
@@ -36,11 +36,6 @@
                 android:propertyName="translationZ"
                 android:valueTo="4dp"
                 android:valueType="floatType" />
-        </set>
-    </item>
-
-    <item android:state_pressed="false">
-        <set>
             <objectAnimator
                 android:duration="@android:integer/config_shortAnimTime"
                 android:propertyName="scaleX"

@@ -34,6 +34,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.netchar.nicknamer.R
+import kotlinx.coroutines.Job
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
@@ -121,3 +122,5 @@ fun <TViewDataBinding : ViewBinding> Fragment.viewDataBinding(
         }
     }
 }
+
+val Job?.isActive get() = this?.isActive ?: false

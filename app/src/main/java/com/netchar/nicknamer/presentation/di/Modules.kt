@@ -28,8 +28,8 @@ import com.netchar.nicknamer.data.database.NicknamesDatabaseImpl
 import com.netchar.nicknamer.data.mappers.NicknameMapper
 import com.netchar.nicknamer.domen.NicknameModelsProvider
 import com.netchar.nicknamer.domen.NicknameRepository
-import com.netchar.nicknamer.domen.service.NicknameGeneratorService
-import com.netchar.nicknamer.domen.service.NicknameGeneratorServiceImpl
+import com.netchar.nicknamer.domen.service.NicknameGeneratorFacade
+import com.netchar.nicknamer.domen.service.NicknameGeneratorFacadeImpl
 import com.netchar.nicknamer.presentation.infrastructure.*
 import com.netchar.nicknamer.presentation.infrastructure.analytics.Analytics
 import com.netchar.nicknamer.presentation.infrastructure.analytics.AnalyticsImpl
@@ -66,7 +66,7 @@ object Modules {
 
     private val serviceModule = module {
         single<NicknameRepository> { NicknameRepositoryImpl(get(), get(), get()) }
-        single<NicknameGeneratorService> { NicknameGeneratorServiceImpl(get()) }
+        single<NicknameGeneratorFacade> { NicknameGeneratorFacadeImpl(get()) }
         single<LibrariesProvider> { LibraryProviderImpl() }
         single<ExternalAppService> { ExternalAppServiceImpl(get()) }
         single<NicknamesDatabase> { NicknamesDatabaseImpl(get()) }

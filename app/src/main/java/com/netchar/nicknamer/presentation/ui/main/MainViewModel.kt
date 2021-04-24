@@ -22,32 +22,28 @@ import com.netchar.nicknamer.App
 import com.netchar.nicknamer.R
 import com.netchar.nicknamer.domen.NicknameGenerator.*
 import com.netchar.nicknamer.domen.models.Nickname
-import com.netchar.nicknamer.domen.service.NicknameGeneratorService
+import com.netchar.nicknamer.domen.service.FavoritesService
+import com.netchar.nicknamer.domen.service.NicknameGeneratorFacade
 import com.netchar.nicknamer.presentation.infrastructure.analytics.Analytics
 import com.netchar.nicknamer.presentation.infrastructure.analytics.AnalyticsEvent
 import com.netchar.nicknamer.presentation.infrastructure.copyToClipboard
 import com.netchar.nicknamer.presentation.infrastructure.helpers.SingleLiveEvent
+import com.netchar.nicknamer.presentation.infrastructure.isActive
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.util.*
 
 class MainViewModel(
         application: Application,
-        private val nicknameService: NicknameGeneratorService,
+        private val nicknameService: NicknameGeneratorFacade,
         private val analytics: Analytics
 ) : AndroidViewModel(application), DefaultLifecycleObserver {
     private var job: Job? = null
-    private val mutableNickname = MutableLiveData<Nickname>()
+    private val mutableNicknameItem = MutableLiveData<NicknameItem>()
     private val mutableToastMessage = SingleLiveEvent<Int>()
 
-    val historyStack: LinkedList<Nickname> = LinkedList()
-
-    val nickname: LiveData<Nickname> = mutableNickname
+    val history: List<NicknameItem> get() = nicknameService.getHistory().map {  NicknameItem(it, nicknameService) }
+    val nicknameItem: LiveData<NicknameItem> = mutableNicknameItem
     val toastMessage: LiveData<Int> = mutableToastMessage
-
-    val isNicknameFavorite: LiveData<Boolean> get() = mutableNickname.map { nickname ->
-        nicknameService.isFavorite(nickname)
-    }
 
     // Binding
     val nicknameLength = MutableLiveData(5.0f)
@@ -63,31 +59,28 @@ class MainViewModel(
     }
 
     fun generateNewNickname() {
-        if (job?.isActive == true) {
+        if (job.isActive) {
             return
         }
 
         job = viewModelScope.launch {
-            val config = Config(
-                    requireNotNull(nicknameLength.value).toInt(),
-                    requireNotNull(gender.value),
-                    requireNotNull(alphabet.value)
-            )
-            analytics.trackEvent(AnalyticsEvent.GenerateNickname(config))
-            val newNickname = nicknameService.generateNickname(config)
-            mutableNickname.value = newNickname
-            historyStack.push(newNickname)
+            mutableNicknameItem.value = generateNicknameItem(composeConfig()).also {
+                putInHistory(it)
+            }
         }
     }
 
-    fun onFavoriteChecked(checked: Boolean) {
-        val nickname = requireNotNull(mutableNickname.value)
+    private fun composeConfig() = Config(requireNotNull(nicknameLength.value).toInt(), requireNotNull(gender.value), requireNotNull(alphabet.value))
 
-        if (checked) {
-            nicknameService.addToFavorites(nickname)
-        } else {
-            nicknameService.removeFromFavorites(nickname)
-        }
+    private suspend fun generateNicknameItem(config: Config): NicknameItem {
+        analytics.trackEvent(AnalyticsEvent.GenerateNickname(config))
+
+        val nickname = nicknameService.generateNickname(config)
+        return NicknameItem(nickname, nicknameService)
+    }
+
+    private fun putInHistory(it: NicknameItem) {
+        nicknameService.addToHistory(it.nickname)
     }
 
     fun copyToClipboard(nickname: String) {
@@ -95,5 +88,21 @@ class MainViewModel(
         mutableToastMessage.value = R.string.message_copied_to_clipboard
 
         getApplication<App>().copyToClipboard(nickname)
+    }
+
+    fun invalidateCurrentNicknameState() {
+        mutableNicknameItem.value = mutableNicknameItem.value
+    }
+
+    data class NicknameItem(val nickname: Nickname, private val service: FavoritesService) {
+        var isFavorite: Boolean
+            get() = service.isFavorite(nickname)
+            set(value) {
+                if (value) {
+                    service.addToFavorites(nickname)
+                } else {
+                    service.removeFromFavorites(nickname)
+                }
+            }
     }
 }

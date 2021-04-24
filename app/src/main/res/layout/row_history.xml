@@ -25,8 +25,8 @@
             type="androidx.core.util.Consumer" />
 
         <variable
-            name="name"
-            type="String" />
+            name="model"
+            type="com.netchar.nicknamer.presentation.ui.main.MainViewModel.NicknameItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,8 +34,10 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:background="?attr/selectableItemBackground"
-        android:onClick="@{() -> handler.accept(name)}"
+        android:onClick="@{() -> handler.accept(model.nickname.toString())}"
         android:padding="@dimen/normal_100"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         android:focusable="true">
 
         <TextView
@@ -43,7 +45,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:text="@{name}"
+            android:text="@{model.nickname.toString()}"
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.App.Body1"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -59,6 +61,8 @@
             android:background="@drawable/ic_add_to_favorites_state_list"
             android:backgroundTint="@color/amber_400"
             android:button="@null"
+            android:checked="@{model.favorite}"
+            android:onCheckedChanged="@{(view, checked) -> model.setFavorite(checked)}"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:stateListAnimator="@animator/scale"
             app:layout_constraintBottom_toBottomOf="parent"
