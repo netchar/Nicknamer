@@ -70,6 +70,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateUI(destination: NavDestination) {
+        if (destination.id == R.id.history_bottom_sheet_dialog_fragment) {
+            return
+        }
+
         val isTopLevelDestination = destination.isTopLevelDestination()
         binding.mainTxtTitle.visible(isTopLevelDestination)
         binding.bottomNav.visible(isTopLevelDestination)

@@ -29,6 +29,7 @@ import com.netchar.nicknamer.presentation.infrastructure.copyToClipboard
 import com.netchar.nicknamer.presentation.infrastructure.helpers.SingleLiveEvent
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.util.*
 
 class MainViewModel(
         application: Application,
@@ -38,6 +39,8 @@ class MainViewModel(
     private var job: Job? = null
     private val mutableNickname = MutableLiveData<Nickname>()
     private val mutableToastMessage = SingleLiveEvent<Int>()
+
+    val historyStack: LinkedList<Nickname> = LinkedList()
 
     val nickname: LiveData<Nickname> = mutableNickname
     val toastMessage: LiveData<Int> = mutableToastMessage
@@ -71,7 +74,9 @@ class MainViewModel(
                     requireNotNull(alphabet.value)
             )
             analytics.trackEvent(AnalyticsEvent.GenerateNickname(config))
-            mutableNickname.value = nicknameService.generateNickname(config)
+            val newNickname = nicknameService.generateNickname(config)
+            mutableNickname.value = newNickname
+            historyStack.push(newNickname)
         }
     }
 
@@ -85,11 +90,10 @@ class MainViewModel(
         }
     }
 
-    fun copyToClipboard() {
+    fun copyToClipboard(nickname: String) {
         analytics.trackEvent(AnalyticsEvent.Event("copy_to_clipboard"))
         mutableToastMessage.value = R.string.message_copied_to_clipboard
 
-        val nickname = requireNotNull(nickname.value).toString()
         getApplication<App>().copyToClipboard(nickname)
     }
 }
