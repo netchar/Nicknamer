@@ -48,4 +48,8 @@
     <fragment
         android:id="@+id/favorites_fragment"
         android:name="com.netchar.nicknamer.presentation.ui.favorites.FavoritesFragment" />
+    <dialog
+        android:id="@+id/history_bottom_sheet_dialog_fragment"
+        android:name="com.netchar.nicknamer.presentation.ui.history.HistoryBottomSheetDialogFragment"
+        android:label="HistoryBottomSheetDialogFragment" />
 </navigation>

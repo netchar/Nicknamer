@@ -24,6 +24,10 @@
             name="viewmodel"
             type="com.netchar.nicknamer.presentation.ui.main.MainViewModel" />
 
+        <variable
+            name="handler"
+            type="com.netchar.nicknamer.presentation.ui.main.MainFragment" />
+
         <import type="com.netchar.nicknamer.presentation.infrastructure.binding.converters.GenderConverter" />
 
         <import type="com.netchar.nicknamer.presentation.infrastructure.binding.converters.AlphabetConverter" />
@@ -42,9 +46,9 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:maxLines="1"
-            android:onClick="@{() -> viewmodel.copyToClipboard()}"
+            android:onClick="@{() -> viewmodel.copyToClipboard(viewmodel.nicknameItem.toString())}"
             android:padding="@dimen/small_50"
-            android:text="@{viewmodel.nickname.toString()}"
+            android:text="@{viewmodel.nicknameItem.nickname.toString()}"
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.App.Headline4"
             android:textStyle="bold"
@@ -56,15 +60,15 @@
             tools:text="NAME" />
 
         <CheckBox
-            android:id="@+id/main_check_favorite"
+            android:id="@+id/history_check_favorite"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/ic_add_to_favorites_state_list"
             android:backgroundTint="@color/amber_400"
             android:button="@null"
-            android:checked="@{viewmodel.isNicknameFavorite}"
+            android:checked="@{viewmodel.nicknameItem.favorite}"
             android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:onCheckedChanged="@{(view, checked) -> viewmodel.onFavoriteChecked(checked)}"
+            android:onCheckedChanged="@{(view, checked) -> viewmodel.nicknameItem.setFavorite(checked)}"
             android:stateListAnimator="@animator/scale"
             app:layout_constraintBottom_toBottomOf="@+id/main_tv_nickname"
             app:layout_constraintStart_toEndOf="@+id/main_tv_nickname"
@@ -212,6 +216,17 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/main_tv_nickname" />
+
+        <Button
+            android:id="@+id/main_btn_history"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_history"
+            android:onClick="@{() -> handler.showHistory()}"
+            android:text="@string/button_history"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

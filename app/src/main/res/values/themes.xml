@@ -65,17 +65,26 @@
 
         <item name="toolbarStyle">@style/Widget.App.Toolbar</item>
         <item name="appBarLayoutStyle">@style/Widget.App.AppBarLayout</item>
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.AppTheme.BottomSheetDialog</item>
     </style>
 
     <style name="Base.Theme" parent="Theme.MaterialComponents.Light">
-        <item name="android:statusBarColor" tools:ignore="NewApi">?attr/colorSurface</item>
-        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
-        <item name="android:navigationBarColor" tools:ignore="NewApi">?android:attr/colorBackground</item>
-        <item name="android:windowLightNavigationBar" tools:ignore="NewApi">true</item>
-        <item name="android:navigationBarDividerColor" tools:ignore="NewApi">?attr/colorControlHighlight</item>
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="Theme.App.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Light">
         <item name="colorControlNormal">?colorOnSurface</item>
+    </style>
+
+    <!--Bottom Sheets-->
+    <style name="ThemeOverlay.AppTheme.BottomSheetDialog" parent="ThemeOverlay.BottomSheetDialog.Base">
+        <item name="android:navigationBarColor">@color/gray_500</item>
+    </style>
+
+    <style name="ThemeOverlay.BottomSheetDialog.Base" parent="ThemeOverlay.MaterialComponents.DayNight.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:navigationBarDividerColor" tools:ignore="NewApi">@android:color/transparent</item>
     </style>
 </resources>

@@ -16,11 +16,8 @@
 
 package com.netchar.nicknamer.presentation.ui.favorites
 
-import android.graphics.Canvas
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.findNavController
@@ -29,19 +26,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.netchar.nicknamer.R
 import com.netchar.nicknamer.databinding.FragmentFavoritesBinding
+import com.netchar.nicknamer.presentation.infrastructure.helpers.SwipeToDeleteCallback
 import com.netchar.nicknamer.presentation.ui.BaseFragment
 import com.netchar.nicknamer.presentation.ui.main.MainActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBinding>(R.layout.fragment_favorites), NavController.OnDestinationChangedListener {
+class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBinding>(R.layout.fragment_favorites), NavController.OnDestinationChangedListener, SwipeToDeleteCallback.Listener {
+    private var snackbar: Snackbar? = null
+
     override val viewModel: FavoritesViewModel by viewModel()
 
     private val favoritesAdapter = FavoritesAdapter { nickname ->
         viewModel.copyToClipboard(nickname)
     }
-
-    private var snackbar: Snackbar? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -61,40 +59,28 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
     private fun setupBindings() {
         binding.favoriteRecycler.adapter = favoritesAdapter
 
+        val swipeToDeleteCallback = SwipeToDeleteCallback(requireContext(), this)
         val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
         itemTouchHelper.attachToRecyclerView(binding.favoriteRecycler)
     }
 
-    private val swipeToDeleteCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-        private val background by lazy {
-            ColorDrawable(ContextCompat.getColor(requireContext(), R.color.red_600))
+    override fun onDestinationChanged(controller: NavController, destination: NavDestination, arguments: Bundle?) {
+        if (destination.id != R.id.favorites_fragment) {
+            viewModel.applyRemoving()
         }
 
-        override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
-            return false
-        }
+        snackbar?.dismiss()
+    }
 
-        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            removeFromFavorites(viewHolder)
-            showUndoSnackbar()
-        }
+    override fun onSwiped(viewHolder: RecyclerView.ViewHolder) {
+        removeFromFavorites(viewHolder)
+        showUndoSnackbar()
+    }
 
-        private fun removeFromFavorites(viewHolder: RecyclerView.ViewHolder) {
-            val position = viewHolder.adapterPosition
-            val nicknameItem = favoritesAdapter.currentList[position]
-            viewModel.removeFromFavorites(nicknameItem)
-        }
-
-        override fun onChildDraw(c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean) {
-            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-            val itemView: View = viewHolder.itemView
-            when {
-                dX > 0 -> background.setBounds(itemView.left, itemView.top, itemView.left + dX.toInt(), itemView.bottom)
-                dX < 0 -> background.setBounds(itemView.right + dX.toInt(), itemView.top, itemView.right, itemView.bottom)
-                else -> background.setBounds(0, 0, 0, 0)
-            }
-            background.draw(c)
-        }
+    private fun removeFromFavorites(viewHolder: RecyclerView.ViewHolder) {
+        val position = viewHolder.adapterPosition
+        val nicknameItem = favoritesAdapter.currentList[position]
+        viewModel.removeFromFavorites(nicknameItem)
     }
 
     private fun showUndoSnackbar() {
@@ -107,13 +93,4 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
                 .also { it.show() }
         }
     }
-
-    override fun onDestinationChanged(controller: NavController, destination: NavDestination, arguments: Bundle?) {
-        if (destination.id != R.id.favorites_fragment) {
-            viewModel.applyRemoving()
-        }
-
-        snackbar?.dismiss()
-    }
 }
-
