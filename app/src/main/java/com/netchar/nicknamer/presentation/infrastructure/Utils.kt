@@ -27,12 +27,15 @@ import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import com.netchar.nicknamer.BR
 import com.netchar.nicknamer.R
 import kotlinx.coroutines.Job
 import kotlin.properties.ReadOnlyProperty
@@ -124,3 +127,8 @@ fun <TViewDataBinding : ViewBinding> Fragment.viewDataBinding(
 }
 
 val Job?.isActive get() = this?.isActive ?: false
+
+fun <T: ViewModel> ViewDataBinding.bind(fragment: Fragment, viewModel: T) {
+    lifecycleOwner = fragment.viewLifecycleOwner
+    setVariable(BR.viewmodel, viewModel)
+}

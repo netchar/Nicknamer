@@ -29,7 +29,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AboutFragment : BaseFragment<AboutViewModel, FragmentAboutBinding>(R.layout.fragment_about) {
     override val viewModel: AboutViewModel by viewModel()
-    private val analytics by inject<Analytics>()
+    private val analytics: Analytics by inject()
 
     private val adapter = ContactsAdapter { contact ->
         analytics.trackEvent(AnalyticsEvent.SelectContact(contact))

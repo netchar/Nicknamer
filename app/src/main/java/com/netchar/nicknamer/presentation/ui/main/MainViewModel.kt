@@ -70,7 +70,9 @@ class MainViewModel(
         }
     }
 
-    private fun composeConfig() = Config(requireNotNull(nicknameLength.value).toInt(), requireNotNull(gender.value), requireNotNull(alphabet.value))
+    private fun composeConfig(): Config {
+        return Config(requireNotNull(nicknameLength.value).toInt(), requireNotNull(gender.value), requireNotNull(alphabet.value))
+    }
 
     private suspend fun generateNicknameItem(config: Config): NicknameItem {
         analytics.trackEvent(AnalyticsEvent.GenerateNickname(config))

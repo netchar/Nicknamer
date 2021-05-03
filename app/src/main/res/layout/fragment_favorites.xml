@@ -56,6 +56,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:padding="@dimen/normal_150"
             app:visible="@{viewmodel.nicknames.isEmpty()}">
 
             <com.google.android.material.card.MaterialCardView
@@ -86,6 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/small_100"
+                android:gravity="center"
                 android:text="@string/favorites_label_empty_state_description"
                 android:textAppearance="@style/TextAppearance.App.Caption" />
         </LinearLayout>
