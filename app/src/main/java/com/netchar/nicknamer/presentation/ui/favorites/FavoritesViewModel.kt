@@ -23,7 +23,7 @@ import androidx.lifecycle.MutableLiveData
 import com.netchar.nicknamer.App
 import com.netchar.nicknamer.R
 import com.netchar.nicknamer.domen.models.Nickname
-import com.netchar.nicknamer.domen.service.NicknameGeneratorFacade
+import com.netchar.nicknamer.domen.service.FavoritesService
 import com.netchar.nicknamer.presentation.infrastructure.analytics.Analytics
 import com.netchar.nicknamer.presentation.infrastructure.analytics.AnalyticsEvent
 import com.netchar.nicknamer.presentation.infrastructure.copyToClipboard
@@ -31,7 +31,7 @@ import com.netchar.nicknamer.presentation.infrastructure.helpers.SingleLiveEvent
 
 class FavoritesViewModel(
         application: Application,
-        private val nicknameGeneratorFacade: NicknameGeneratorFacade,
+        private val nicknameGeneratorFacade: FavoritesService,
         private val analytics: Analytics
 ) : AndroidViewModel(application) {
     private val mutableMessage = SingleLiveEvent<Int>()

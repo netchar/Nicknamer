@@ -17,18 +17,15 @@
 package com.netchar.nicknamer.domen.service
 
 import com.netchar.nicknamer.domen.NicknameGenerator
-import com.netchar.nicknamer.domen.NicknameGenerator.Companion.buildQueryKey
 import com.netchar.nicknamer.domen.NicknameRepository
 import com.netchar.nicknamer.domen.models.Nickname
-import com.netchar.nicknamer.domen.models.Nickname.Companion.orEmpty
 
 class NicknameGeneratorFacadeImpl(
-        private val repository: NicknameRepository
+    private val generator: NicknameGenerator,
+    private val repository: NicknameRepository
 ) : NicknameGeneratorFacade {
     override suspend fun generateNickname(config: NicknameGenerator.Config): Nickname {
-        val key = config.buildQueryKey()
-        val models = repository.getModels()
-        return models[key]?.generateNickname(config.nicknameLength).orEmpty()
+        return generator.generateNickname(config)
     }
 
     override fun addToFavorites(nickname: Nickname) {

@@ -81,6 +81,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/normal_200"
                 android:gravity="center"
+                android:paddingStart="@dimen/normal_100"
+                android:paddingEnd="@dimen/normal_100"
                 android:text="@string/about_label_app_description"
                 android:textAppearance="@style/TextAppearance.App.Body1"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -19,7 +19,9 @@ package com.netchar.nicknamer.domen.service
 import com.netchar.nicknamer.domen.NicknameGenerator
 import com.netchar.nicknamer.domen.models.Nickname
 
-interface NicknameGeneratorFacade : NicknameGenerator, FavoritesService, HistoryService
+interface NicknameGeneratorFacade : FavoritesService, HistoryService {
+    suspend fun generateNickname(config: NicknameGenerator.Config) : Nickname
+}
 
 interface FavoritesService {
     fun addToFavorites(nickname: Nickname)

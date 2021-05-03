@@ -22,8 +22,6 @@ import kotlinx.coroutines.flow.Flow
 
 
 interface NicknameRepository {
-    fun getModels(): Map<String, NicknameModel>
-
     fun addToFavorites(nickname: Nickname)
 
     fun removeFromFavorites(nickname: Nickname)
