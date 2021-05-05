@@ -225,6 +225,7 @@
             android:drawableEnd="@drawable/ic_history"
             android:onClick="@{() -> handler.showHistory()}"
             android:text="@string/button_history"
+            android:debounceInterval="@{1000}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
