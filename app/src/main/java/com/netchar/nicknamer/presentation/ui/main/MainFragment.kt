@@ -20,6 +20,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.onNavDestinationSelected
 import com.netchar.nicknamer.R
@@ -39,6 +41,18 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>(R.layout.f
         lifecycle.addObserver(viewModel)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.handler = this
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel.toastMessage.observe(viewLifecycleOwner, { message ->
+            Toast.makeText(requireContext(), getString(message), Toast.LENGTH_SHORT).show()
+        })
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_main, menu)
     }
@@ -50,6 +64,10 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>(R.layout.f
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return item.onNavDestinationSelected(findNavController())
+    }
+
+    fun showHistory() {
+        findNavController().navigate(R.id.history_bottom_sheet_dialog_fragment)
     }
 }
 

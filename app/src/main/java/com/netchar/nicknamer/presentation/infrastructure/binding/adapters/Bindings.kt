@@ -16,13 +16,11 @@
 
 package com.netchar.nicknamer.presentation.infrastructure.binding.adapters
 
+import android.os.SystemClock
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 
 
 @BindingAdapter("visible")
@@ -46,4 +44,20 @@ fun toast(view: View, message: String?) {
     }
 
     Toast.makeText(view.context, message, Toast.LENGTH_SHORT).show()
+}
+
+@BindingAdapter(value = ["android:onClick", "android:debounceInterval"], requireAll = true)
+fun setDebouncedListener(view: View, onClickListener: View.OnClickListener, interval: Int) {
+    view.setOnClickListener(object : View.OnClickListener {
+        private var lastClickTime = 0L
+
+        override fun onClick(v: View) {
+            val time = SystemClock.elapsedRealtime()
+
+            if (time - lastClickTime >= interval) {
+                lastClickTime = time
+                onClickListener.onClick(v)
+            }
+        }
+    })
 }

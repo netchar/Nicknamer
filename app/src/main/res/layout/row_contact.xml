@@ -38,6 +38,7 @@
         android:focusable="true"
         android:gravity="center_vertical"
         android:onClick="@{() -> handler.accept(contact)}"
+        android:debounceInterval="@{1000}"
         android:padding="@dimen/normal_100">
 
         <ImageView

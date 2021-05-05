@@ -8,7 +8,7 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
-import com.netchar.nicknamer.BR
+import com.netchar.nicknamer.presentation.infrastructure.bind
 import com.netchar.nicknamer.presentation.infrastructure.viewDataBinding
 
 abstract class BaseFragment<TViewModel : ViewModel, TViewBinding : ViewDataBinding>(@LayoutRes layoutRes: Int) : Fragment(layoutRes) {
@@ -21,7 +21,6 @@ abstract class BaseFragment<TViewModel : ViewModel, TViewBinding : ViewDataBindi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.setVariable(BR.viewmodel, viewModel)
+        binding.bind(this, viewModel)
     }
 }

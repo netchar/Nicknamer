@@ -81,6 +81,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/normal_200"
                 android:gravity="center"
+                android:paddingStart="@dimen/normal_100"
+                android:paddingEnd="@dimen/normal_100"
                 android:text="@string/about_label_app_description"
                 android:textAppearance="@style/TextAppearance.App.Body1"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -110,6 +112,7 @@
                     android:focusable="true"
                     android:gravity="center_vertical"
                     android:onClick="@{() -> handler.navigate(@string/about_label_privacy_policy, @id/privacy_policy_fragment)}"
+                    android:debounceInterval="@{1000}"
                     android:padding="@dimen/normal_100"
                     android:text="@string/about_label_privacy_policy"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
@@ -126,6 +129,7 @@
                     android:focusable="true"
                     android:gravity="center_vertical"
                     android:onClick="@{() -> handler.navigate(@string/about_label_third_party_libraries, @id/license_dialog_fragment)}"
+                    android:debounceInterval="@{1000}"
                     android:padding="@dimen/normal_100"
                     android:text="@string/about_label_third_party_libraries"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />

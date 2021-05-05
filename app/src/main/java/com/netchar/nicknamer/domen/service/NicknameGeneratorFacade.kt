@@ -19,7 +19,11 @@ package com.netchar.nicknamer.domen.service
 import com.netchar.nicknamer.domen.NicknameGenerator
 import com.netchar.nicknamer.domen.models.Nickname
 
-interface NicknameGeneratorService : NicknameGenerator {
+interface NicknameGeneratorFacade : FavoritesService, HistoryService {
+    suspend fun generateNickname(config: NicknameGenerator.Config) : Nickname
+}
+
+interface FavoritesService {
     fun addToFavorites(nickname: Nickname)
 
     fun removeFromFavorites(nickname: Nickname)
@@ -27,4 +31,10 @@ interface NicknameGeneratorService : NicknameGenerator {
     fun getFavoriteNicknames(): List<Nickname>
 
     fun isFavorite(nickname: Nickname) : Boolean
+}
+
+interface HistoryService {
+    fun getHistory() : List<Nickname>
+
+    fun addToHistory(nickname: Nickname)
 }

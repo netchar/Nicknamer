@@ -21,15 +21,15 @@ import android.content.SharedPreferences
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.netchar.nicknamer.BuildConfig
-import com.netchar.nicknamer.data.NicknameModelsProviderImpl
+import com.netchar.nicknamer.data.PersonNicknameModelsProviderImpl
 import com.netchar.nicknamer.data.NicknameRepositoryImpl
 import com.netchar.nicknamer.data.database.NicknamesDatabase
 import com.netchar.nicknamer.data.database.NicknamesDatabaseImpl
 import com.netchar.nicknamer.data.mappers.NicknameMapper
-import com.netchar.nicknamer.domen.NicknameModelsProvider
+import com.netchar.nicknamer.domen.NicknameGenerator
+import com.netchar.nicknamer.domen.PersonNicknameModelsProvider
 import com.netchar.nicknamer.domen.NicknameRepository
-import com.netchar.nicknamer.domen.service.NicknameGeneratorService
-import com.netchar.nicknamer.domen.service.NicknameGeneratorServiceImpl
+import com.netchar.nicknamer.domen.service.*
 import com.netchar.nicknamer.presentation.infrastructure.*
 import com.netchar.nicknamer.presentation.infrastructure.analytics.Analytics
 import com.netchar.nicknamer.presentation.infrastructure.analytics.AnalyticsImpl
@@ -39,6 +39,7 @@ import com.netchar.nicknamer.presentation.ui.main.MainViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.binds
 import org.koin.dsl.module
 import timber.log.Timber
 import java.lang.Thread.*
@@ -63,15 +64,19 @@ object Modules {
         single<Analytics> { AnalyticsImpl(get()) }
     }
 
-
     private val serviceModule = module {
-        single<NicknameRepository> { NicknameRepositoryImpl(get(), get(), get()) }
-        single<NicknameGeneratorService> { NicknameGeneratorServiceImpl(get()) }
+        single<PersonNicknameModelsProvider> { PersonNicknameModelsProviderImpl(get()) }
+        single<NicknameGenerator> { PersonNicknameGenerator(get()) }
+        single<NicknameRepository> { NicknameRepositoryImpl(get(), get()) }
         single<LibrariesProvider> { LibraryProviderImpl() }
         single<ExternalAppService> { ExternalAppServiceImpl(get()) }
         single<NicknamesDatabase> { NicknamesDatabaseImpl(get()) }
-        single<NicknameModelsProvider> { NicknameModelsProviderImpl(get()) }
 
+        single { NicknameGeneratorFacadeImpl(get(), get()) } binds arrayOf(
+            NicknameGeneratorFacade::class,
+            FavoritesService::class,
+            HistoryService::class
+        )
         single { NicknameMapper() }
     }
 

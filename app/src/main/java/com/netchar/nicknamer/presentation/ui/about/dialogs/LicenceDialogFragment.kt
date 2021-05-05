@@ -58,6 +58,7 @@ class LicenceDialogFragment : DialogFragment() {
             val binding = getBinding(convertView, parent).apply {
                 library = requireNotNull(getItem(position))
                 handler = listener
+                executePendingBindings()
             }
 
             return binding.root
