@@ -32,27 +32,12 @@ import com.netchar.nicknamer.presentation.infrastructure.helpers.DoublePressHand
 import com.netchar.nicknamer.presentation.infrastructure.visible
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var navigationController: NavController
+
     val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
-
-    private val navigationController: NavController by lazy {
-        val fragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
-        val hostFragment = fragment as NavHostFragment
-        hostFragment.navController
-    }
-
-    private lateinit var appBarConfiguration: AppBarConfiguration
-
-    private val doubleTapHandler = DoublePressHandler(listener = object : DoublePressHandler.Listener {
-        override fun onSingleTap() {
-            Toast.makeText(baseContext, getString(R.string.message_confirm_back), Toast.LENGTH_SHORT).show()
-        }
-
-        override fun onSingleTapConfirmed() {
-            finishAffinity()
-        }
-    })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,11 +47,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupWithNavController() {
-        binding.bottomNav.setupWithNavController(navigationController)
+        val hostFragment = getNavigationFragment()
+        navigationController = hostFragment.navController
         appBarConfiguration = AppBarConfiguration(topLevelDestinationIds = setOf(R.id.main_fragment, R.id.favorites_fragment))
+
         setupActionBarWithNavController(navigationController, appBarConfiguration)
+        binding.bottomNav.setupWithNavController(navigationController)
 
         navigationController.addOnDestinationChangedListener { _, destination, _ -> updateUI(destination) }
+    }
+
+    private fun getNavigationFragment(): NavHostFragment {
+        val hostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+        return hostFragment as NavHostFragment
     }
 
     private fun updateUI(destination: NavDestination) {
@@ -94,4 +87,14 @@ class MainActivity : AppCompatActivity() {
 
         doubleTapHandler.performPress()
     }
+
+    private val doubleTapHandler = DoublePressHandler(listener = object : DoublePressHandler.Listener {
+        override fun onSingleTap() {
+            Toast.makeText(baseContext, getString(R.string.message_confirm_back), Toast.LENGTH_SHORT).show()
+        }
+
+        override fun onSingleTapConfirmed() {
+            finishAffinity()
+        }
+    })
 }

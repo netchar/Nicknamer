@@ -41,7 +41,7 @@ class MainViewModel(
     private val mutableNicknameItem = MutableLiveData<NicknameItem>()
     private val mutableToastMessage = SingleLiveEvent<Int>()
 
-    val history: List<NicknameItem> get() = nicknameService.getHistory().map {  NicknameItem(it, nicknameService) }
+    val history: List<NicknameItem> get() = nicknameService.getHistory().map { NicknameItem(it, nicknameService) }
     val nicknameItem: LiveData<NicknameItem> = mutableNicknameItem
     val toastMessage: LiveData<Int> = mutableToastMessage
 
@@ -64,14 +64,16 @@ class MainViewModel(
         }
 
         job = viewModelScope.launch {
-            mutableNicknameItem.value = generateNicknameItem(composeConfig()).also {
-                putInHistory(it)
-            }
+            val config = composeConfig()
+            mutableNicknameItem.value = generateNicknameItem(config).also(::putInHistory)
         }
     }
 
     private fun composeConfig(): Config {
-        return Config(requireNotNull(nicknameLength.value).toInt(), requireNotNull(gender.value), requireNotNull(alphabet.value))
+        val nicknameLength = requireNotNull(nicknameLength.value).toInt()
+        val gender = requireNotNull(gender.value)
+        val alphabet = requireNotNull(alphabet.value)
+        return Config(nicknameLength, gender, alphabet)
     }
 
     private suspend fun generateNicknameItem(config: Config): NicknameItem {
@@ -81,12 +83,12 @@ class MainViewModel(
         return NicknameItem(nickname, nicknameService)
     }
 
-    private fun putInHistory(it: NicknameItem) {
-        nicknameService.addToHistory(it.nickname)
+    private fun putInHistory(item: NicknameItem) {
+        nicknameService.addToHistory(item.nickname)
     }
 
     fun copyToClipboard(nickname: String) {
-        analytics.trackEvent(AnalyticsEvent.Event("copy_to_clipboard"))
+        analytics.trackEvent(AnalyticsEvent.CopyToClipboard(nickname))
         mutableToastMessage.value = R.string.message_copied_to_clipboard
 
         getApplication<App>().copyToClipboard(nickname)
@@ -106,5 +108,9 @@ class MainViewModel(
                     service.removeFromFavorites(nickname)
                 }
             }
+
+        override fun toString(): String {
+            return nickname.toString()
+        }
     }
 }

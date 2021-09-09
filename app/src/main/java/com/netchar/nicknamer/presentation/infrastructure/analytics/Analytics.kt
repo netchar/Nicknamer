@@ -33,6 +33,8 @@ sealed class AnalyticsEvent(val eventName: String, val parameters: Map<String, S
 
         object Event {
             const val EVENT = "event"
+            const val GENERATE_NICKNAME = "generate_nickname"
+            const val COPY_TO_CLIPBOARD = "copy_to_clipboard"
             const val PARAM_EVENT_NAME = "event_name"
 
             object SelectItem {
@@ -49,8 +51,9 @@ sealed class AnalyticsEvent(val eventName: String, val parameters: Map<String, S
         }
     }
     class Event(eventName: String) : AnalyticsEvent(Constants.Event.EVENT, mapOf(Constants.Event.PARAM_EVENT_NAME to eventName))
+    class CopyToClipboard(eventName: String) : AnalyticsEvent(Constants.Event.COPY_TO_CLIPBOARD, mapOf(Constants.Event.PARAM_EVENT_NAME to eventName))
     class SelectItem(itemName: String) : AnalyticsEvent(Constants.Event.SelectItem.EVENT, mapOf(Constants.Event.SelectItem.PARAM_ITEM_NAME to itemName))
-    class GenerateNickname(config: Config) : AnalyticsEvent(Constants.Event.EVENT, config.toToAnalyticsParams()) {
+    class GenerateNickname(config: Config) : AnalyticsEvent(Constants.Event.GENERATE_NICKNAME, config.toToAnalyticsParams()) {
         companion object : AnalyticsDictionaryMapper<Config> {
             override fun Config.toToAnalyticsParams() = mapOf(
                     "gender" to gender.value,
@@ -62,7 +65,6 @@ sealed class AnalyticsEvent(val eventName: String, val parameters: Map<String, S
     class SelectContact(contract: Contact) : AnalyticsEvent(Constants.Event.SelectItem.EVENT, mapOf(contract.toAnalyticsParams())) {
         companion object : AnalyticsPairMapper<Contact> {
             override fun Contact.toAnalyticsParams() = "contact" to when (this) {
-                Contact.Instagram -> "Lnstagram"
                 Contact.LinkedIn -> "LinkedIn"
                 Contact.Mail -> "Mail"
             }

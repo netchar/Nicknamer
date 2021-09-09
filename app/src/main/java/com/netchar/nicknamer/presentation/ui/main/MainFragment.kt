@@ -48,6 +48,10 @@ class MainFragment : BaseFragment<MainViewModel, FragmentMainBinding>(R.layout.f
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        observe()
+    }
+
+    private fun observe() {
         viewModel.toastMessage.observe(viewLifecycleOwner, { message ->
             Toast.makeText(requireContext(), getString(message), Toast.LENGTH_SHORT).show()
         })

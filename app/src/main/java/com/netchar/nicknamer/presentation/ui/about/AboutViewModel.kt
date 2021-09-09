@@ -29,7 +29,7 @@ class AboutViewModel(
     private val mutableContacts = MutableLiveData<List<Contact>>()
 
     init {
-        mutableContacts.value = listOf(Contact.Instagram, Contact.LinkedIn, Contact.Mail)
+        mutableContacts.value = listOf(Contact.LinkedIn, Contact.Mail)
     }
 
     val contacts: LiveData<List<Contact>> = mutableContacts
@@ -37,7 +37,6 @@ class AboutViewModel(
 
     fun openContact(contact: Contact) {
         when (contact) {
-            Contact.Instagram -> externalAppService.openUrlInExternalApp(ExternalApp.INSTAGRAM, URL_DEVELOPER_INSTAGRAM)
             Contact.LinkedIn -> externalAppService.openUrlInExternalApp(ExternalApp.LINKED_IN, URL_DEVELOPER_LINKEDIN)
             Contact.Mail -> externalAppService.composeEmail(MAIL_ADDRESS_AUTHOR, "[Nicknamer] Hi, Eugene!")
         }
