@@ -16,6 +16,7 @@
 
 package com.netchar.nicknamer.presentation.ui.favorites
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.NavController
@@ -83,6 +84,7 @@ class FavoritesFragment : BaseFragment<FavoritesViewModel, FragmentFavoritesBind
         viewModel.removeFromFavorites(nicknameItem)
     }
 
+    @SuppressLint("ShowToast")
     private fun showUndoSnackbar() {
         val mainActivity = requireActivity() as? MainActivity
 

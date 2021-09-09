@@ -64,7 +64,7 @@ class FavoritesViewModel(
     }
 
     fun copyToClipboard(nickname: Nickname) {
-        analytics.trackEvent(AnalyticsEvent.Event("copy_to_clipboard"))
+        analytics.trackEvent(AnalyticsEvent.CopyToClipboard(nickname.toString()))
 
         mutableMessage.value = R.string.message_copied_to_clipboard
         getApplication<App>().copyToClipboard(nickname.toString())
