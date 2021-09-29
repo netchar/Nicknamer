@@ -39,7 +39,7 @@ class LicenceDialogFragment : DialogFragment() {
     private val librariesProvider: LibrariesProvider by inject()
 
     private val adapter by lazy {
-        LibAdapter(requireContext(), librariesProvider.getLibraries()) { library ->
+        LibsAdapter(requireContext(), librariesProvider.getLibraries()) { library ->
             externalAppService.openWebPage(library.link)
         }
     }
@@ -50,10 +50,16 @@ class LicenceDialogFragment : DialogFragment() {
             setAdapter(adapter, null)
             setPositiveButton(getString(R.string.button_ok), null)
         }
+
         return builder.create()
     }
 
-    private class LibAdapter(context: Context, libraries: List<Library>, private val listener: Consumer<Library>) : ArrayAdapter<Library>(context, 0, libraries) {
+    private class LibsAdapter(
+            context: Context,
+            libraries: List<Library>,
+            private val listener: Consumer<Library>
+    ) : ArrayAdapter<Library>(context, 0, libraries) {
+
         override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
             val binding = getBinding(convertView, parent).apply {
                 library = requireNotNull(getItem(position))
@@ -64,8 +70,12 @@ class LicenceDialogFragment : DialogFragment() {
             return binding.root
         }
 
-        private fun getBinding(convertView: View?, parent: ViewGroup) : RowLibraryBinding {
-            return convertView?.let { DataBindingUtil.getBinding(it) } ?: RowLibraryBinding.inflate(parent.inflater(), parent, false)
+        private fun getBinding(convertView: View?, parent: ViewGroup): RowLibraryBinding {
+            if (convertView == null) {
+                return RowLibraryBinding.inflate(parent.inflater(), parent, false)
+            }
+
+            return requireNotNull(DataBindingUtil.getBinding(convertView))
         }
     }
 }

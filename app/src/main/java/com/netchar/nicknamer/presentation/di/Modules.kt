@@ -36,6 +36,8 @@ import com.netchar.nicknamer.presentation.infrastructure.analytics.AnalyticsImpl
 import com.netchar.nicknamer.presentation.ui.about.AboutViewModel
 import com.netchar.nicknamer.presentation.ui.favorites.FavoritesViewModel
 import com.netchar.nicknamer.presentation.ui.main.MainViewModel
+import com.netchar.nicknamer.presentation.infrastructure.localization.LocalizationHelperImpl
+import com.netchar.nicknamer.presentation.infrastructure.localization.LocalizationHelper
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -62,6 +64,7 @@ object Modules {
         single<BuildConfiguration> { BuildConfigurationImpl(get()) }
         single<UncaughtExceptionHandler> { AppUncaughtExceptionHandler(get(), get(), get()) }
         single<Analytics> { AnalyticsImpl(get()) }
+        single<LocalizationHelper> { LocalizationHelperImpl() }
     }
 
     private val serviceModule = module {
