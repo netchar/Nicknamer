@@ -29,8 +29,6 @@ class AppSettingsImpl(
         localization.init(application)
 
         val savedThemeMode = theme.getSavedThemeMode()
-        if (savedThemeMode != null) {
-            theme.applyDayNightMode(savedThemeMode)
-        }
+        theme.applyDayNightMode(savedThemeMode)
     }
 }

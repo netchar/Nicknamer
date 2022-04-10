@@ -15,7 +15,7 @@
   -->
 
 <resources>
-    <style name="Base.Theme.App" parent="Base.Theme">
+    <style name="Base.V23.Night.Theme.App" parent="Base.V23.Theme.App">
         <!--Material color attributes (light theme) -->
         <!--colorPrimary colors map to components and elements, such as app bars and buttons. -->
         <!--colorSecondary colors are most often used as accents on components, such as FABs and -->
@@ -38,10 +38,10 @@
         <item name="colorOnBackground">@color/white</item>
         <item name="colorOnSurface">@color/white</item>
         <item name="colorOnError">@color/black</item>
+
+        <item name="android:statusBarColor">@color/gray_dark</item>
+        <item name="android:navigationBarColor">@color/gray_dark</item>
     </style>
 
-    <style name="Base.Theme" parent="Theme.MaterialComponents.DayNight">
-        <item name="android:statusBarColor">?attr/colorSurface</item>
-        <item name="android:navigationBarColor">?attr/colorSurface</item>
-    </style>
+    <style name="Base.Theme.App" parent="Base.V23.Night.Theme.App"/>
 </resources>

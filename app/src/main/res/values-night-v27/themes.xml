@@ -16,11 +16,11 @@
 
 <resources>
 
-    <style name="Base.Theme" parent="Theme.MaterialComponents.DayNight">
+    <style name="Base.V27.Night.Theme.App" parent="Base.V23.Night.Theme.App">
         <item name="android:windowLightStatusBar">false</item>
-        <item name="android:statusBarColor">?attr/colorSurface</item>
-        <item name="android:navigationBarColor">?attr/colorSurface</item>
         <item name="android:windowLightNavigationBar">false</item>
-        <item name="android:navigationBarDividerColor">?attr/colorControlHighlight</item>
+        <item name="android:navigationBarDividerColor">@color/transparent</item>
     </style>
+
+    <style name="Base.Theme.App" parent="Base.V27.Night.Theme.App"/>
 </resources>

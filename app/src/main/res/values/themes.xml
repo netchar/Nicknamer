@@ -15,16 +15,9 @@
   -->
 
 <resources xmlns:tools="http://schemas.android.com/tools">
+
     <!--Top level DayNight theme to be used in AndroidManifest.xml-->
-    <style name="Theme.App" parent="Base.Theme.App" />
-
-    <style name="Theme.App.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <!--Base custom theme which will be shared between both light and dark theme variants-->
-    <style name="Base.Theme.App" parent="Base.Theme">
+    <style name="Base.V23.Theme.App" parent="Theme.MaterialComponents.DayNight">
         <!--Material color attributes (light theme) -->
         <!--colorPrimary colors map to components and elements, such as app bars and buttons. -->
         <!--colorSecondary colors are most often used as accents on components, such as FABs and -->
@@ -63,23 +56,21 @@
         <item name="textAppearanceCaption">@style/TextAppearance.App.Caption</item>
         <item name="textAppearanceOverline">@style/TextAppearance.App.Overline</item>
 
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:navigationBarColor">@color/white</item>
+
         <item name="toolbarStyle">@style/Widget.App.Toolbar</item>
-        <item name="appBarLayoutStyle">@style/Widget.App.AppBarLayout</item>
-        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.AppTheme.BottomSheetDialog</item>
+        <item name="bottomSheetStyle">@style/Widget.App.BottomSheet</item>
+        <item name="navigationViewStyle">@style/Widget.App.NavigationView</item>
     </style>
 
-    <style name="Theme.App.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Light">
-        <item name="colorControlNormal">?colorOnSurface</item>
+    <style name="Base.Theme.App" parent="Base.V23.Theme.App"/>
+
+    <style name="Theme.App" parent="Base.Theme.App"/>
+
+    <style name="Theme.App.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
-    <!--Bottom Sheets-->
-    <style name="ThemeOverlay.AppTheme.BottomSheetDialog" parent="ThemeOverlay.BottomSheetDialog.Base">
-        <item name="android:navigationBarColor">@color/gray_500</item>
-    </style>
-
-    <style name="ThemeOverlay.BottomSheetDialog.Base" parent="ThemeOverlay.MaterialComponents.DayNight.BottomSheetDialog">
-        <item name="android:windowIsFloating">false</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:navigationBarDividerColor" tools:ignore="NewApi">@android:color/transparent</item>
-    </style>
 </resources>

@@ -28,13 +28,18 @@ import com.netchar.nicknamer.presentation.di.Modules
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SettingsFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChangeListener {
-    private val languageKey = getString(R.string.preference_option_key_language)
-    private val themeKey = getString(R.string.preference_option_key_theme)
-
     private lateinit var languagePref: ListPreference
     private lateinit var themePref: ListPreference
 
     private val viewModel: SettingsViewModel by viewModel()
+
+    private val languageKey by lazy {
+        getString(R.string.preference_option_key_language)
+    }
+
+    private val themeKey by lazy {
+        getString(R.string.preference_option_key_theme)
+    }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         preferenceManager.bindToAppWidePrefs()
