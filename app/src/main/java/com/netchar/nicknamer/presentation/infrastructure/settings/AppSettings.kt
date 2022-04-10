@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Eugene Glushankov
+ * Copyright (c) 2022 Eugene Glushankov
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-package com.netchar.nicknamer.presentation.infrastructure.localization
+package com.netchar.nicknamer.presentation.infrastructure.settings
 
 import android.app.Application
-import android.content.Context
-import java.util.*
+import com.netchar.nicknamer.presentation.infrastructure.ThemeHelper
+import com.netchar.nicknamer.presentation.infrastructure.localization.LocalizationHelper
 
-interface LocalizationHelper {
-    fun init(application: Application)
-    fun changeLocale(context: Context, newLocale: Locale)
-    fun getLanguage() : String
+interface AppSettings {
+    fun initialize(application: Application)
+
+    val theme: ThemeHelper
+    val localization: LocalizationHelper
 }

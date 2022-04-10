@@ -2,14 +2,14 @@
 <resources>
 
     <style name="ThemeOverlay.AppTheme.BottomSheetDialog" parent="ThemeOverlay.BottomSheetDialog.Base">
-        <item name="android:navigationBarColor">?colorSurface</item>
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
         <item name="android:windowLightNavigationBar">true</item>
     </style>
 
-    <style name="Base.Theme" parent="Theme.MaterialComponents.Light">
+    <style name="Base.Theme" parent="Theme.MaterialComponents.DayNight">
         <item name="android:statusBarColor">?attr/colorSurface</item>
         <item name="android:windowLightStatusBar">true</item>
-        <item name="android:navigationBarColor">?colorSurface</item>
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
         <item name="android:windowLightNavigationBar">true</item>
         <item name="android:navigationBarDividerColor">?attr/colorControlHighlight</item>
     </style>

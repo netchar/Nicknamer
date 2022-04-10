@@ -18,7 +18,7 @@ package com.netchar.nicknamer
 
 import android.app.Application
 import com.netchar.nicknamer.presentation.di.Modules
-import com.netchar.nicknamer.presentation.infrastructure.localization.LocalizationHelper
+import com.netchar.nicknamer.presentation.infrastructure.settings.AppSettings
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
@@ -27,7 +27,7 @@ import org.koin.core.context.startKoin
 import timber.log.Timber
 
 class App : Application() {
-    private val languageChanger: LocalizationHelper by inject()
+    private val appSettings: AppSettings by inject()
 
     override fun onCreate() {
         super.onCreate()
@@ -37,10 +37,8 @@ class App : Application() {
             modules(Modules.All)
         }
 
-        languageChanger.init(this)
-
         Timber.plant(get())
         Thread.setDefaultUncaughtExceptionHandler(get())
+        appSettings.initialize(this)
     }
 }
-

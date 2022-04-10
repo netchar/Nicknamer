@@ -19,6 +19,7 @@ package com.netchar.nicknamer.presentation.infrastructure.localization
 import android.app.Activity
 import android.app.Application
 import android.content.Context
+import androidx.core.os.ConfigurationCompat
 import com.yariksoffice.lingver.Lingver
 import java.util.*
 
@@ -35,5 +36,9 @@ class LocalizationHelperImpl : LocalizationHelper {
         if (context is Activity) {
             context.recreate()
         }
+    }
+
+    override fun getLanguage(): String {
+        return lingver.getLanguage()
     }
 }

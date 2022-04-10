@@ -68,11 +68,6 @@
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.AppTheme.BottomSheetDialog</item>
     </style>
 
-    <style name="Base.Theme" parent="Theme.MaterialComponents.Light">
-        <item name="android:statusBarColor">?attr/colorSurface</item>
-        <item name="android:windowLightStatusBar">true</item>
-    </style>
-
     <style name="Theme.App.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Light">
         <item name="colorControlNormal">?colorOnSurface</item>
     </style>

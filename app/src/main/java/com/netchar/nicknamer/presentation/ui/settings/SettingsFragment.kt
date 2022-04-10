@@ -16,48 +16,86 @@
 
 package com.netchar.nicknamer.presentation.ui.settings
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.preference.ListPreference
+import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
 import com.netchar.nicknamer.R
-import com.netchar.nicknamer.presentation.infrastructure.binding.adapters.toast
-import com.netchar.nicknamer.presentation.infrastructure.localization.LocalizationHelper
-import org.koin.android.ext.android.inject
-import timber.log.Timber
-import java.lang.Exception
-import java.util.*
+import com.netchar.nicknamer.presentation.di.Modules
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SettingsFragment : PreferenceFragmentCompat() {
-    private val localizationHelper: LocalizationHelper by inject()
+class SettingsFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChangeListener {
+    private val languageKey = getString(R.string.preference_option_key_language)
+    private val themeKey = getString(R.string.preference_option_key_theme)
+
+    private lateinit var languagePref: ListPreference
+    private lateinit var themePref: ListPreference
+
+    private val viewModel: SettingsViewModel by viewModel()
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        preferenceManager.bindToAppWidePrefs()
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupListeners()
+        languagePref = requireNotNull(findPreference(languageKey))
+        themePref = requireNotNull(findPreference(themeKey))
+        setCurrentValues()
+        observe()
     }
 
-    private fun setupListeners() {
-        findPreference<ListPreference>(LANGUAGE_PREF_KEY)?.setOnPreferenceChangeListener { _, language ->
-            applyNewLanguage(language)
+    private fun setCurrentValues() {
+        val currentLanguage = viewModel.getCurrentLanguage()
+        val currentTheme = viewModel.getCurrentTheme()
+
+        languagePref.value = currentLanguage
+        themePref.value = currentTheme.toString()
+    }
+
+    private fun observe() {
+        viewModel.newLanguageSet.observe(viewLifecycleOwner) {
+            requireActivity().recreate()
         }
     }
 
-    private fun applyNewLanguage(newLanguage: Any): Boolean {
-        try {
-            localizationHelper.changeLocale(requireContext(), Locale(newLanguage.toString()))
-        } catch (ex: Exception) {
-            toast(requireView(), "Unable to apply language. English set as default")
-            Timber.e(ex)
+    override fun onStart() {
+        super.onStart()
+        setupListeners()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        clearListeners()
+    }
+
+    private fun setupListeners() {
+        languagePref.onPreferenceChangeListener = this
+        themePref.onPreferenceChangeListener = this
+    }
+
+    private fun clearListeners() {
+        languagePref.onPreferenceChangeListener = null
+        themePref.onPreferenceChangeListener = null
+    }
+
+    override fun onPreferenceChange(preference: Preference, newValue: Any): Boolean {
+        when (preference.key) {
+            languageKey -> viewModel.applyNewLanguage(newValue)
+            themeKey -> viewModel.applyDayNight(newValue)
         }
 
         return true
     }
 
     companion object {
-        const val LANGUAGE_PREF_KEY = "preference_key_language"
+        private fun PreferenceManager.bindToAppWidePrefs() {
+            sharedPreferencesName = Modules.PREFERENCES_NAME
+            sharedPreferencesMode = Context.MODE_PRIVATE
+        }
     }
 }
