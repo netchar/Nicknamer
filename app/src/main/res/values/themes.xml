@@ -56,8 +56,8 @@
         <item name="textAppearanceCaption">@style/TextAppearance.App.Caption</item>
         <item name="textAppearanceOverline">@style/TextAppearance.App.Overline</item>
 
-        <item name="android:statusBarColor">@color/white</item>
-        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:statusBarColor">@color/gray_500</item>
+        <item name="android:navigationBarColor">@color/gray_500</item>
 
         <item name="toolbarStyle">@style/Widget.App.Toolbar</item>
         <item name="bottomSheetStyle">@style/Widget.App.BottomSheet</item>

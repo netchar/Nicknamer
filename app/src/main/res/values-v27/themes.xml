@@ -5,6 +5,8 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowLightNavigationBar">true</item>
         <item name="android:navigationBarDividerColor">@color/gray_50</item>
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:navigationBarColor">@color/transparent</item>
     </style>
 
     <style name="Base.Theme.App" parent="Base.V27.Theme.App"/>
