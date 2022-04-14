@@ -53,4 +53,13 @@
     <string name="main_action_settings">Настройки</string>
     <string name="settings_label_language">Язык</string>
     <string name="settings_label_group">Общие</string>
+
+    <string-array name="theme_entries">
+        <item>Светлая</item>
+        <item>Тёмная</item>
+        <item>Как в системе</item>
+    </string-array>
+
+    <string name="preference_option_title_dark_theme" translatable="false">Тема</string>
+    <string name="preference_option_theme_dialog_title">Выберите тему</string>
 </resources>

@@ -71,18 +71,20 @@
     <string-array name="language_entries">
         <item>English</item>
         <item>Русский</item>
+        <item>Беларуская мова</item>
     </string-array>
 
-    <string-array name="language_values">
+    <string-array name="language_values" translatable="false">
         <item>en</item>
         <item>ru</item>
+        <item>be</item>
     </string-array>
 
     <string name="preference_option_key_theme" translatable="false">preference_key_theme</string>
     <string name="preference_option_key_language" translatable="false">preference_key_language</string>
 
-    <string name="preference_option_title_dark_theme" translatable="false">Theme</string>
-    <string name="preference_option_theme_dialog_title" translatable="false">Choose theme</string>
+    <string name="preference_option_title_dark_theme">Theme</string>
+    <string name="preference_option_theme_dialog_title">Choose theme</string>
 
     <string-array name="theme_entries">
         <item>Light</item>

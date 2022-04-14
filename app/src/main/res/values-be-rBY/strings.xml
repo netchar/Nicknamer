@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2022 Eugene Glushankov
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<resources>
+    <string name="button_undo">Адмяніць</string>
+    <string name="button_ok">Прыняць</string>
+    <string name="about_label_connect_on_linked_id">LinkedIn</string>
+    <string name="about_label_send_email">Адправіць Email</string>
+    <string name="about_label_libraries">Бібліятэкі</string>
+    <string name="about_label_version">Версія: %1$ss</string>
+    <string name="about_label_app_description">Самы просты спосаб стварыць сабе ўнікальны псеўданім</string>
+    <string name="about_label_privacy_policy">Палітыка прыватнасці</string>
+    <string name="about_label_third_party_libraries">Іншыя бібліятэкі</string>
+    <string name="about_label_contacts">Кантакты</string>
+    <string name="about_label_developer_location">Мінск, Беларусь</string>
+    <string name="about_label_author">Аўтар</string>
+    <string name="main_button_gender_male">Мужчынскі</string>
+    <string name="main_button_gender_female">Жаночы</string>
+    <string name="main_button_generate">Згенераваць</string>
+    <string name="main_button_alphabet_cyrillic">Кірыліца</string>
+    <string name="main_button_alphabet_latin">Лацініца</string>
+    <string name="main_label_gender">Пол</string>
+    <string name="main_label_alphabet">Алфавіт</string>
+    <string name="main_label_length">Даўжыня</string>
+    <string name="main_label_copy">Націсніце, каб скапіяваць</string>
+    <string name="main_action_about">Апісанне</string>
+    <string name="favorites_label_empty_state_title">У абраным пакуль пуста</string>
+    <string name="favorites_label_empty_state_description">Націсніце іконку \'Выбранае\' на галоўнай старонцы, каб дадаць сюды новыя псеўданімы.</string>
+    <string name="descr_application_icon">Абразок прыкладання</string>
+    <string name="descr_contact_row_image">Абразок кантактаў</string>
+    <string name="descr_logo_image">Лагатып</string>
+    <string name="descr_favorites_empty_state_icon">Карціна на старонцы абранага, калі няма запісаў</string>
+    <string name="message_copied_to_clipboard">Скапіравана ў буфер абмену</string>
+    <string name="message_remove_back">Адмяніць выдаленне?</string>
+    <string name="message_confirm_back">Націсніце \'Назад\' яшчэ раз, каб закрыць прыкладанне</string>
+    <string name="action_home">Галоўная</string>
+    <string name="action_favorites">Выбранае</string>
+    <string name="button_history">Гісторыя</string>
+    <string name="main_action_settings">Наладкі</string>
+    <string name="settings_label_language">Мова</string>
+    <string name="settings_label_group">Агульныя</string>
+
+    <string-array name="theme_entries">
+        <item>Светлая</item>
+        <item>Цёмная</item>
+        <item>Як у сістэме</item>
+    </string-array>
+
+    <string name="preference_option_title_dark_theme">Тэма</string>
+    <string name="preference_option_theme_dialog_title">Выберыце тэму</string>
+</resources>
