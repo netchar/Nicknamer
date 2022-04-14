@@ -16,16 +16,16 @@
   -->
 
 <resources>
+    <style name="Widget.App.Toolbar" parent="Widget.MaterialComponents.Toolbar.Surface"/>
 
-    <style name="Widget.App.Toolbar" parent="Widget.MaterialComponents.Toolbar.Surface">
-        <item name="android:background">?attr/colorSurface</item>
-    </style>
-
-    <style name="Widget.App.AppBarLayout" parent="Widget.MaterialComponents.AppBarLayout.Surface">
-        <item name="materialThemeOverlay">@style/Theme.App.AppBarOverlay</item>
-    </style>
+    <style name="Widget.App.BottomSheet" parent="Widget.MaterialComponents.BottomSheet.Modal"/>
 
     <style name="Style.RadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
         <item name="android:minWidth">120dp</item>
+    </style>
+
+    <style name="Widget.App.NavigationView" parent="Widget.MaterialComponents.NavigationView">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="itemTextAppearance">?attr/textAppearanceBody2</item>
     </style>
 </resources>

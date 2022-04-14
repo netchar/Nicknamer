@@ -50,4 +50,7 @@
     <string name="action_home">Главная</string>
     <string name="action_favorites">Избранное</string>
     <string name="button_history">История</string>
+    <string name="main_action_settings">Настройки</string>
+    <string name="settings_label_language">Язык</string>
+    <string name="settings_label_group">Общие</string>
 </resources>

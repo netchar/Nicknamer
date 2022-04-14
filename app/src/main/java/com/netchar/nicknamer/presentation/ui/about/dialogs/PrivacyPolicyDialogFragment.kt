@@ -35,10 +35,9 @@ class PrivacyPolicyDialogFragment : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val builder = AlertDialog.Builder(requireContext()).apply {
-            setView(webView)
-            setPositiveButton(getString(R.string.button_ok), null)
-        }
-        return builder.create()
+        return AlertDialog.Builder(requireContext())
+            .setView(webView)
+            .setPositiveButton(getString(R.string.button_ok), null)
+            .create()
     }
 }

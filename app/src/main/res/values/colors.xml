@@ -38,6 +38,7 @@
     <color name="gray_300">#E0E0E0</color>
     <color name="gray_500" tools:ignore="UnusedResources">#9E9E9E</color>
     <color name="gray_700" tools:ignore="UnusedResources">#616161</color>
+    <color name="gray_dark" tools:ignore="UnusedResources">#272727</color>
     <color name="black_800">#121212</color>
     <color name="black" tools:ignore="UnusedResources">#000000</color>
 

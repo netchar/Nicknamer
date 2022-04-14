@@ -16,40 +16,50 @@
 
 package com.netchar.nicknamer.domen.models
 
+import java.lang.StringBuilder
 import java.util.*
 import kotlin.collections.HashMap
 import kotlin.collections.HashSet
 
 class NicknameModel(
         private val breakable: HashSet<String>,
-        private val endingContinuations: HashMap<String, ArrayList<CharContinuation>>
+        private val endings: HashMap<String, ArrayList<CharContinuation>>
 ) {
     companion object {
-        private const val MASK = "$$"
+        private const val ENDING_MASK = "$$"
         private val random: Random = Random()
     }
 
     fun generateNickname(length: Int): Nickname {
-        var word = MASK
+        val word = StringBuilder(ENDING_MASK)
 
         while (true) {
-            val endingStart: Int = word.length - MASK.length
-            val ending = word.substring(endingStart, word.length)
+            val endingStartIndex: Int = word.length - ENDING_MASK.length
+            val wordEnding = word.substring(endingStartIndex, word.length)
+            val possibleEndings = endings[wordEnding]
 
-            if (endingStart >= length && breakable.contains(ending)) {
+            if (endingStartIndex >= length && breakable.contains(wordEnding) || possibleEndings == null) {
                 break
             }
 
-            val continuations = endingContinuations[ending] ?: break
+            val nextEndingChar = getNextEndingChar(possibleEndings)
 
-            val chance: Double = random.nextDouble()
-            for (continuation in continuations) {
-                if (chance < continuation.probability) {
-                    word += continuation.char
-                    break
-                }
+            if (nextEndingChar != null) {
+                word.append(nextEndingChar)
             }
         }
-        return Nickname(word.replace("$", ""))
+
+        val result = word.toString().replace("$", "")
+
+        if (result.length == length) {
+            return Nickname(result)
+        }
+
+        return generateNickname(length)
+    }
+
+    private fun getNextEndingChar(endingContinuations: ArrayList<CharContinuation>): Char? {
+        val foundEnding = endingContinuations.find { it.probability > random.nextDouble() }
+        return foundEnding?.char
     }
 }

@@ -61,4 +61,39 @@
     <string name="action_home">Home</string>
     <string name="action_favorites">Favorites</string>
     <string name="button_history">History</string>
+
+    <string name="main_action_settings">Settings</string>
+
+    <!--    Preferences-->
+    <string name="settings_label_language">Language</string>
+    <string name="settings_label_group">General</string>
+
+    <string-array name="language_entries">
+        <item>English</item>
+        <item>Русский</item>
+    </string-array>
+
+    <string-array name="language_values">
+        <item>en</item>
+        <item>ru</item>
+    </string-array>
+
+    <string name="preference_option_key_theme" translatable="false">preference_key_theme</string>
+    <string name="preference_option_key_language" translatable="false">preference_key_language</string>
+
+    <string name="preference_option_title_dark_theme" translatable="false">Theme</string>
+    <string name="preference_option_theme_dialog_title" translatable="false">Choose theme</string>
+
+    <string-array name="theme_entries">
+        <item>Light</item>
+        <item>Dark</item>
+        <item>Auto</item>
+    </string-array>
+
+    <string-array name="theme_values">
+        <item>1</item>
+        <item>2</item>
+        <item>-1</item>
+    </string-array>
+
 </resources>

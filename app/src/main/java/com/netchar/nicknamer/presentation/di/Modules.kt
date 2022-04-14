@@ -36,6 +36,11 @@ import com.netchar.nicknamer.presentation.infrastructure.analytics.AnalyticsImpl
 import com.netchar.nicknamer.presentation.ui.about.AboutViewModel
 import com.netchar.nicknamer.presentation.ui.favorites.FavoritesViewModel
 import com.netchar.nicknamer.presentation.ui.main.MainViewModel
+import com.netchar.nicknamer.presentation.infrastructure.localization.LocalizationHelperImpl
+import com.netchar.nicknamer.presentation.infrastructure.localization.LocalizationHelper
+import com.netchar.nicknamer.presentation.infrastructure.settings.AppSettings
+import com.netchar.nicknamer.presentation.infrastructure.settings.AppSettingsImpl
+import com.netchar.nicknamer.presentation.ui.settings.SettingsViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -45,6 +50,8 @@ import timber.log.Timber
 import java.lang.Thread.*
 
 object Modules {
+    const val PREFERENCES_NAME = "prefs"
+
     private val appModule = module {
         fun provideTimber(): Timber.Tree {
             return if (BuildConfig.DEBUG) {
@@ -58,10 +65,14 @@ object Modules {
         single { FirebaseAnalytics.getInstance(androidContext()) }
         single { FirebaseCrashlytics.getInstance() }
 
-        single<SharedPreferences> { androidApplication().getSharedPreferences("prefs", Context.MODE_PRIVATE) }
+        single<SharedPreferences> { androidApplication().getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE) }
         single<BuildConfiguration> { BuildConfigurationImpl(get()) }
         single<UncaughtExceptionHandler> { AppUncaughtExceptionHandler(get(), get(), get()) }
         single<Analytics> { AnalyticsImpl(get()) }
+        single<LocalizationHelper> { LocalizationHelperImpl() }
+
+        single { ThemeHelper(androidApplication(), get()) }
+        single<AppSettings> { AppSettingsImpl(get(), get()) }
     }
 
     private val serviceModule = module {
@@ -84,6 +95,7 @@ object Modules {
         viewModel { MainViewModel(get(), get(), get()) }
         viewModel { AboutViewModel(get(), get()) }
         viewModel { FavoritesViewModel(get(), get(), get()) }
+        viewModel { SettingsViewModel(get(), androidApplication()) }
     }
 
     val All get() = viewModelModule + appModule + serviceModule

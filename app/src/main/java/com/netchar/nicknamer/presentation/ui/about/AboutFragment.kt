@@ -39,10 +39,6 @@ class AboutFragment : BaseFragment<AboutViewModel, FragmentAboutBinding>(R.layou
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.handler = this
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         binding.aboutRecyclerContacts.adapter = adapter
     }
 
