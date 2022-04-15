@@ -16,11 +16,19 @@
 
 buildscript {
     ext {
-        appVersionName = '1.3.1'
+        appVersionName = '1.3.2'
 
         extractVersionCode = { versionName ->
             def (major, minor, patch) = versionName.toLowerCase().tokenize('.')
             return (major.toInteger() * 10000) + (minor.toInteger() * 100) + patch.toInteger()
+        }
+
+        getArtifactName = { defaultConfig ->
+            return "${project.name.toLowerCase(Locale.getDefault())}-${defaultConfig.versionName}"
+        }
+
+        getApkName = { variant ->
+            return "nicknamer_${variant.name}_${variant.versionName}.apk"
         }
     }
 

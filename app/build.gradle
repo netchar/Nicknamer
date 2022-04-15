@@ -97,7 +97,7 @@ android {
 
         applicationVariants.all { variant ->
             variant.outputs.all {
-                outputFileName = "nicknamer_${variant.name}_${variant.versionName}.apk"
+                outputFileName = getApkName(variant)
             }
         }
     }
@@ -113,6 +113,13 @@ android {
         viewBinding true
         dataBinding true
     }
+    bundle {
+        language {
+            enableSplit = false
+        }
+    }
+
+    setProperty("archivesBaseName", getArtifactName(defaultConfig))
 }
 
 dependencies {

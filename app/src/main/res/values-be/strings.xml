@@ -20,7 +20,7 @@
     <string name="about_label_connect_on_linked_id">LinkedIn</string>
     <string name="about_label_send_email">Адправіць Email</string>
     <string name="about_label_libraries">Бібліятэкі</string>
-    <string name="about_label_version">Версія: %1$ss</string>
+    <string name="about_label_version">Версія: %1$s</string>
     <string name="about_label_app_description">Самы просты спосаб стварыць сабе ўнікальны псеўданім</string>
     <string name="about_label_privacy_policy">Палітыка прыватнасці</string>
     <string name="about_label_third_party_libraries">Іншыя бібліятэкі</string>
@@ -38,7 +38,7 @@
     <string name="main_label_copy">Націсніце, каб скапіяваць</string>
     <string name="main_action_about">Апісанне</string>
     <string name="favorites_label_empty_state_title">У абраным пакуль пуста</string>
-    <string name="favorites_label_empty_state_description">Націсніце іконку \'Выбранае\' на галоўнай старонцы, каб дадаць сюды новыя псеўданімы.</string>
+    <string name="favorites_label_empty_state_description">Націсніце іконку \'Абранае\' на галоўнай старонцы, каб дадаць сюды новыя псеўданімы.</string>
     <string name="descr_application_icon">Абразок прыкладання</string>
     <string name="descr_contact_row_image">Абразок кантактаў</string>
     <string name="descr_logo_image">Лагатып</string>
