@@ -60,6 +60,6 @@
         <item>Как в системе</item>
     </string-array>
 
-    <string name="preference_option_title_dark_theme" translatable="false">Тема</string>
+    <string name="preference_option_title_dark_theme">Тема</string>
     <string name="preference_option_theme_dialog_title">Выберите тему</string>
 </resources>

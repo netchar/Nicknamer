@@ -47,7 +47,7 @@
     <string name="message_remove_back">Адмяніць выдаленне?</string>
     <string name="message_confirm_back">Націсніце \'Назад\' яшчэ раз, каб закрыць прыкладанне</string>
     <string name="action_home">Галоўная</string>
-    <string name="action_favorites">Выбранае</string>
+    <string name="action_favorites">Абранае</string>
     <string name="button_history">Гісторыя</string>
     <string name="main_action_settings">Наладкі</string>
     <string name="settings_label_language">Мова</string>
