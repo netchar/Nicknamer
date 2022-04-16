@@ -20,7 +20,7 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
-import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.*
 import com.netchar.nicknamer.R
 
 class ThemeHelper(
@@ -33,14 +33,14 @@ class ThemeHelper(
         return uiMode == Configuration.UI_MODE_NIGHT_NO
     }
 
-    fun applyDayNightMode(@AppCompatDelegate.NightMode mode: Int) {
-        AppCompatDelegate.setDefaultNightMode(mode)
+    fun applyDayNightMode(@NightMode mode: Int) {
+        setDefaultNightMode(mode)
     }
 
-    @AppCompatDelegate.NightMode
+    @NightMode
     fun getSavedThemeMode(): Int {
         val themeKey = application.getString(R.string.preference_option_key_theme)
-        val theme = preferences.getString(themeKey, AppCompatDelegate.MODE_NIGHT_NO.toString())
+        val theme = preferences.getString(themeKey, MODE_NIGHT_NO.toString())
         return requireNotNull(theme).toInt()
     }
 }
