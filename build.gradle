@@ -16,7 +16,7 @@
 
 buildscript {
     ext {
-        appVersionName = '1.3.2'
+        appVersionName = '1.3.3'
 
         extractVersionCode = { versionName ->
             def (major, minor, patch) = versionName.toLowerCase().tokenize('.')
