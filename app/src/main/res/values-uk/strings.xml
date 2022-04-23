@@ -1,0 +1,60 @@
+<resources>
+
+    <string name="button_ok">добре</string>
+    <string name="button_undo">Скасувати</string>
+
+    <string name="about_label_connect_on_linked_id">Підключіться до LinkedIn</string>
+    <string name="about_label_send_email">Відправити Email</string>
+    <string name="about_label_libraries">Бібліотеки</string>
+    <string name="about_label_version">Версія: %1$s</string>
+    <string name="about_label_app_description">Простий спосіб створити власний псевдонім</string>
+    <string name="about_label_privacy_policy">Політика конфіденційності</string>
+    <string name="about_label_third_party_libraries">Сторонні бібліотеки</string>
+    <string name="about_label_contacts">Контакти</string>
+    <string name="about_label_developer_location">Мінськ, Білорусь</string>
+    <string name="about_label_author">Автор</string>
+
+    <string name="main_button_gender_male">Чоловічий</string>
+    <string name="main_button_gender_female">Жіночий</string>
+    <string name="main_button_generate">Згенерувати</string>
+    <string name="main_button_alphabet_cyrillic">кирилиця</string>
+    <string name="main_button_alphabet_latin">латинська</string>
+
+    <string name="main_label_gender">Стать</string>
+    <string name="main_label_alphabet">алфавіт</string>
+    <string name="main_label_length">Довжина</string>
+    <string name="main_label_copy">Натисніть, щоб скопіювати</string>
+
+    <string name="main_action_about">Опис</string>
+
+    <string name="favorites_label_empty_state_title">Вибраного ще немає</string>
+    <string name="favorites_label_empty_state_description">Торкніться значка «зірочка» на домашній сторінці, щоб додати вибране</string>
+
+    <string name="descr_application_icon">Значок програми</string>
+    <string name="descr_contact_row_image">Зображення контактного рядка</string>
+    <string name="descr_logo_image">Значок логотип</string>
+    <string name="descr_favorites_empty_state_icon">Значок пустого стану</string>
+
+    <string name="message_copied_to_clipboard">Скопійовано в буфер обміну</string>
+    <string name="message_remove_back">Видалити назад?</string>
+    <string name="message_confirm_back">Натисніть \'назад\' ще раз, щоб вийти.</string>
+    <string name="action_home">Додому</string>
+    <string name="action_favorites">Вибране</string>
+    <string name="button_history">Історія</string>
+
+    <string name="main_action_settings">Параметри</string>
+
+    <!--    Preferences-->
+    <string name="settings_label_language">Мова</string>
+    <string name="settings_label_group">Генеральний</string>
+
+    <string name="preference_option_title_dark_theme">Тема</string>
+    <string name="preference_option_theme_dialog_title">Виберіть тему</string>
+
+    <string-array name="theme_entries">
+        <item>Світло</item>
+        <item>Темний</item>
+        <item>Авто</item>
+    </string-array>
+
+</resources>
