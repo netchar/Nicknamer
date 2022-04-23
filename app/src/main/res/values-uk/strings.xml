@@ -36,9 +36,9 @@
     <string name="descr_favorites_empty_state_icon">Значок пустого стану</string>
 
     <string name="message_copied_to_clipboard">Скопійовано в буфер обміну</string>
-    <string name="message_remove_back">Видалити назад?</string>
+    <string name="message_remove_back">Відмінити видалення?</string>
     <string name="message_confirm_back">Натисніть \'назад\' ще раз, щоб вийти.</string>
-    <string name="action_home">Додому</string>
+    <string name="action_home">Головна</string>
     <string name="action_favorites">Вибране</string>
     <string name="button_history">Історія</string>
 
