@@ -13,7 +13,14 @@ interface NicknameGenerator {
         val gender: Gender = Gender.MALE,
         val alphabet: Alphabet = Alphabet.LATIN
     ) {
-        enum class Gender(val value: String) { MALE("male"), FEMALE("female") }
-        enum class Alphabet(val value: String) { LATIN("latin"), CYRILLIC("cyrillic") }
+        enum class Gender(val value: String) {
+            MALE("male"),
+            FEMALE("female")
+        }
+
+        enum class Alphabet(val value: String) {
+            LATIN("latin"),
+            CYRILLIC("cyrillic")
+        }
     }
 }
